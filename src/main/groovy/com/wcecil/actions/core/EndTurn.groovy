@@ -15,7 +15,7 @@ class EndTurn extends AbstractAction {
 	String audit = super.getAudit()
 
 	def doAction(GameState g) {
-		Player currentPlayer  =g.currentPlayer
+		Player currentPlayer  = g.currentPlayer
 
 		Player nextPlayer = null
 		int index = g.players.indexOf(currentPlayer)

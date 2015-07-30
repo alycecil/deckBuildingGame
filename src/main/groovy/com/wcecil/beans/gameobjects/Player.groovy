@@ -27,4 +27,10 @@ class Player {
 		played=[]
 		hand=[]
 	}
+	@Override
+	public String toString() {
+		return "Player [id=" + id + "\n\t, deck=" + deck + "\n\t, discard=" + discard + "\n\t, inplay=" + inplay + "\n\t, played=" + played + "\n\t, hand=" + hand + "\n\t, money=" + money + "]";
+	}
+	
+	
 }

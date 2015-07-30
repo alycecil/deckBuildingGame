@@ -49,4 +49,11 @@ class CardMovementHelper {
 			p.played.add(card)
 		}
 	}
+	
+	static void buyCard(GameState g, Player p, Card card) {
+		if(g.available.contains(card)){
+			g.available.remove(card)
+			p.discard.add(card)
+		}
+	}
 }

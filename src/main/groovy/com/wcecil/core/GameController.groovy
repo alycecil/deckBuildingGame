@@ -4,6 +4,7 @@ import groovy.transform.CompileStatic;
 
 import com.wcecil.actions.AbstractAction
 import com.wcecil.beans.GameState
+import com.wcecil.settings.Settings;
 
 @CompileStatic
 class GameController {
@@ -25,7 +26,9 @@ class GameController {
 	static void saveAudit(GameState g, AbstractAction a) {
 		def tic = g.ticCount.get()
 		if(a.audit){
-			g.audit.add("$tic:${a.audit}".toString())
+			def audit = "$tic:${a.audit}".toString()
+			if(Settings.debug) println audit
+			g.audit.add(audit)
 		}
 	}
 }

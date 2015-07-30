@@ -13,9 +13,7 @@ class ActualCard implements Card {
 	
 	@Override
 	public String toString() {
-		return "ActualCard [id=" + id + ", template=" + template
-				+ ", getClass()=" + getClass() + ", hashCode()=" + hashCode()
-				+ ", toString()=" + super.toString() + "]";
+		return "${template?.getName()} #($id)";
 	}
 
 	

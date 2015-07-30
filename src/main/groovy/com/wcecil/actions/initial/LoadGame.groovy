@@ -18,7 +18,7 @@ class LoadGame extends AbstractAction{
 		List<Card> cards = loadCards(g)
 		setupMainDeck(g,cards)
 		setupPlayers(g, cards)
-		Collections.shuffle(g.players)
+
 		drawHands(g)
 	}
 
@@ -53,7 +53,7 @@ class LoadGame extends AbstractAction{
 
 		if(Settings.debug) println "setup game state with a main deck of ${g.mainDeck.size()} and a static set of ${g.staticCards.size()}"
 		Collections.shuffle(g.mainDeck)
-		
+
 		(1..Settings.defaultAvailableSize).each {
 			GameController.doAction(g, new MakeCardAvailable(cause:this))
 		}
@@ -72,6 +72,10 @@ class LoadGame extends AbstractAction{
 			if(Settings.debug) println "Setting up player $it"
 			g.players << newPlayerSetup(g,cards)
 		}
+
+		Collections.shuffle(g.players)
+
+		g.currentPlayer = g.players.get(0)
 	}
 
 	Player newPlayerSetup(GameState g, List<Card> cards){

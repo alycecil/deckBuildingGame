@@ -29,7 +29,7 @@ class PlayCard extends AbstractAction {
 
 		CardMovementHelper.playCard(sourcePlayer, card)
 
-		audit = "Player ${targetPlayer.id} played the card '${card.name}'"
+		audit = "Player ${sourcePlayer.id} played the card '${card.name}'"
 	}
 
 

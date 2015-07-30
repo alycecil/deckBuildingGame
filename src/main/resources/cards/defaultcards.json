@@ -1,4 +1,5 @@
 [
+{"cost":-1, "money":0, "draw":0, "value":0, "name":"Begger's Boon", "description":"+1 Money, at time of purchase", "startingCount":0, "deckCount":3, "specialActionScript":null},
 {"cost":1, "money":1, "draw":0, "value":0, "name":"Pauper's Profit", "description":"+1 Money", "startingCount":0, "deckCount":7, "specialActionScript":null},
 {"cost":2, "money":0, "draw":1, "value":0, "name":"Forethought", "description":"+1 Card", "startingCount":0, "deckCount":5, "specialActionScript":null},
 {"cost":3, "money":3, "draw":0, "value":-3, "name":"Personal Thug", "description":"+3 Money\n-3 Victory Points", "startingCount":0, "deckCount":3, "specialActionScript":null},

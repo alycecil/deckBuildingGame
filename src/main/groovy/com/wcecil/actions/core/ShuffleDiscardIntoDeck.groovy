@@ -13,7 +13,7 @@ class ShuffleDiscardIntoDeck extends AbstractAction {
 	
 	def doAction(GameState g) {
 		if(CardMovementHelper.moveDiscardToDeckAndShuffle(targetPlayer,g,this)){
-			audit = 'Shuffled Discard Pile into Deck'
+			audit = "Player ${targetPlayer.id} Shuffled Discard Pile into Deck"
 		}else{
 			audit = null
 		}

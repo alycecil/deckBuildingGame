@@ -13,7 +13,9 @@ class Player {
 	List<Card> discard
 	List<Card> inplay
 	List<Card> played
-	List<Card> hand
+	List<Card> hand
+	
+	Integer money = 0l
 	public Player() {
 		super();
 

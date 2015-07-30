@@ -27,7 +27,7 @@ class LoadCards extends AbstractAction{
 		g.players==null||g.players.isEmpty()
 	}
 
-	String audit() {
+	String getAudit() {
 		"$loadedCardsCount Card(s) Loaded"
 	}
 

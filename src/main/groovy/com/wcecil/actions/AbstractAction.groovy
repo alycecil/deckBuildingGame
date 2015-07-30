@@ -18,6 +18,6 @@ abstract class AbstractAction {
 	abstract boolean isValid(GameState g)
 	
 	String getAudit(){
-		'An unknown action of ${this.getClass()} was performed'
+		"An unknown action of ${this.getClass()} was performed"
 	}
 }

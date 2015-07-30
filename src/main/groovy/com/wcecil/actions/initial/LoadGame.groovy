@@ -27,8 +27,8 @@ class LoadGame extends AbstractAction{
 		g.players==null||g.players.isEmpty()
 	}
 
-	String audit() {
-		"The game was loaded at {new Date()}"
+	String getAudit() {
+		"The game was loaded at ${new Date()}"
 	}
 
 	def setupMainDeck(GameState g, List<Card> cards){

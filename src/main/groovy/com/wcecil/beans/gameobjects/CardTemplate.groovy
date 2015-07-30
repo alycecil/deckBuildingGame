@@ -23,12 +23,12 @@ class CardTemplate implements Card {
 	Integer staticCount
 
 
-	def specialAction(GameState game){
+	def specialAction(GameState game, Player source, Player target){
 		def sharedData = new Binding()
 
 		sharedData.setProperty('card', this)
-		sharedData.setProperty('players', game.players)
-		sharedData.setProperty('currPlayer', game.currentPlayer)
+		sharedData.setProperty('source', source)
+		sharedData.setProperty('target', target)
 		sharedData.setProperty('game', game)
 
 		def shell = new GroovyShell(sharedData)

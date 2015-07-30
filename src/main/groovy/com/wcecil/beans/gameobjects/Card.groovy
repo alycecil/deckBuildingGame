@@ -9,7 +9,7 @@ import com.wcecil.beans.GameState;
 @CompileStatic
 public interface Card {
 
-	public abstract def specialAction(GameState game);
+	public abstract def specialAction(GameState game, Player source, Player target);
 
 	public abstract Integer getCost();
 

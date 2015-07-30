@@ -1,15 +1,14 @@
 package com.wcecil.actions.initial
 
-import com.fasterxml.jackson.databind.JavaType
 import com.fasterxml.jackson.databind.ObjectMapper
 import com.wcecil.actions.AbstractAction
-import com.wcecil.actions.core.DrawHand;
+import com.wcecil.actions.core.DrawHand
+import com.wcecil.actions.core.MakeCardAvailable
 import com.wcecil.beans.GameState
 import com.wcecil.beans.gameobjects.ActualCard
 import com.wcecil.beans.gameobjects.Card
-import com.wcecil.beans.gameobjects.CardTemplate;
 import com.wcecil.beans.gameobjects.Player
-import com.wcecil.core.GameController;
+import com.wcecil.core.GameController
 import com.wcecil.settings.Settings
 
 class LoadGame extends AbstractAction{
@@ -54,6 +53,10 @@ class LoadGame extends AbstractAction{
 
 		if(Settings.debug) println "setup game state with a main deck of ${g.mainDeck.size()} and a static set of ${g.staticCards.size()}"
 		Collections.shuffle(g.mainDeck)
+		
+		(1..Settings.defaultAvailableSize).each {
+			GameController.doAction(g, new MakeCardAvailable(cause:this))
+		}
 	}
 
 	def drawHands(GameState g){

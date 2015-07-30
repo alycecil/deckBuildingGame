@@ -8,6 +8,7 @@ import com.wcecil.beans.gameobjects.Card
 import com.wcecil.beans.gameobjects.Player
 import com.wcecil.common.CardMovementHelper;
 import com.wcecil.core.GameController
+import com.wcecil.settings.Settings;
 
 class EndTurn extends AbstractAction {
 
@@ -31,6 +32,10 @@ class EndTurn extends AbstractAction {
 
 		CardMovementHelper.moveFullZones(currentPlayer.hand, currentPlayer.discard, g, this)
 		GameController.doAction(g, new DrawHand(targetPlayer:currentPlayer))
+		
+		while(g.available.size()<Settings.defaultAvailableSize){
+			GameController.doAction(g, new MakeCardAvailable(cause:this))
+		}
 
 		audit = "Player ${currentPlayer.id} ended their turn, starting the turn of Player ${nextPlayer.id}"
 	}

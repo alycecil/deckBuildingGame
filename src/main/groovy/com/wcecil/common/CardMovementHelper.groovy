@@ -42,4 +42,11 @@ class CardMovementHelper {
 		}
 		false
 	}
+	
+	static void playCard(Player p, Card card) {
+		if(p.hand.contains(card)){
+			p.hand.remove(card)
+			p.played.add(card)
+		}
+	}
 }

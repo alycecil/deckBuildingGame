@@ -14,6 +14,11 @@ class CardMovementHelper {
 			def shuffle = new ShuffleDiscardIntoDeck(targetPlayer:p, cause:cause);
 			GameController.doAction(g, shuffle)
 		}
+		
+		if(p.deck){
+			result = p.deck.remove(0)
+			p.hand << result
+		}
 
 		result
 	}

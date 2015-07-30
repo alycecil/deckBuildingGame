@@ -24,6 +24,14 @@ class CardMovementHelper {
 	}
 
 
+	static boolean moveFullZones(List<Card> fromZone, List<Card> toZone, GameState g, AbstractAction cause) {
+		if(fromZone){
+			toZone.addAll(fromZone)
+			fromZone.clear()
+			return true
+		}
+		false
+	}
 
 	static boolean moveDiscardToDeckAndShuffle(Player p, GameState g, AbstractAction cause) {
 		if(p.discard){

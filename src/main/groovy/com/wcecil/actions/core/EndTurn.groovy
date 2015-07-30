@@ -6,6 +6,7 @@ import com.wcecil.actions.AbstractAction
 import com.wcecil.beans.GameState
 import com.wcecil.beans.gameobjects.Card
 import com.wcecil.beans.gameobjects.Player
+import com.wcecil.common.CardMovementHelper;
 import com.wcecil.core.GameController
 
 class EndTurn extends AbstractAction {
@@ -24,7 +25,13 @@ class EndTurn extends AbstractAction {
 		g.players.each {
 			Player p ->
 			
+			p.money = 0
+			
+			CardMovementHelper.moveFullZones(p.played, p.discard, g, this)
 		}
+		
+		CardMovementHelper.moveFullZones(currentPlayer.hand, currentPlayer.discard, g, this)
+		GameController.doAction(g, new DrawHand(targetPlayer:currentPlayer))
 		
 		audit = "Player ${currentPlayer.id} ended their turn, starting the turn of Player ${nextPlayer.id}"
 	}

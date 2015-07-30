@@ -15,7 +15,7 @@ class Player {
 	List<Card> played
 	List<Card> hand
 	
-	Integer money = 0l
+	Integer money = 0
 	public Player() {
 		super();
 

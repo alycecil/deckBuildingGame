@@ -1,0 +1,24 @@
+apply plugin: 'eclipse'
+apply plugin: 'groovy'
+
+repositories {
+	mavenCentral()
+}
+
+dependencies {
+	compile 'com.fasterxml.jackson.core:jackson-databind:2.5.4'
+	compile 'org.codehaus.groovy:groovy-all:2.4.1'
+}
+
+sourceCompatibility = 1.7
+version = '0.0.1'
+jar {
+    manifest {
+        attributes 'Implementation-Title': 'Deck Builder', 'Implementation-Version': version
+    }
+}
+
+test {
+    systemProperties 'property': 'value'
+}
+

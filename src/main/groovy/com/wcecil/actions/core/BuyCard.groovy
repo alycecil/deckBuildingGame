@@ -25,6 +25,6 @@ class BuyCard extends AbstractAction {
 
 
 	boolean isValid(GameState g) {
-		sourcePlayer.money>=card.cost
+		sourcePlayer.money>=card.cost && g.available.contains(card)
 	}
 }

@@ -1,3 +1,6 @@
 [
-{"cost":3, "money":2, "draw":0, "value":0, "name":"Bag of Money", "description":"+2 Wealth", "startingCount":0, "deckCount":0, "staticCount":20, "specialActionScript":null}
+{"cost":3, "money":2, "draw":0, "value":0, "name":"Bag of Money", "description":"+2 Wealth", "startingCount":0, "deckCount":0, "staticCount":20, "specialActionScript":null},
+{"cost":8, "money":0, "draw":0, "value":6, "name":"Endless Renown", "description":"6 Victory Points", "startingCount":0, "deckCount":0, "staticCount":6, "specialActionScript":null},
+{"cost":6, "money":0, "draw":0, "value":3, "name":"Classical Renown", "description":"3 Victory Points", "startingCount":0, "deckCount":0, "staticCount":10, "specialActionScript":null},
+{"cost":2, "money":0, "draw":0, "value":1, "name":"Renown", "description":"1 Victory Point", "startingCount":0, "deckCount":0, "staticCount":10, "specialActionScript":null}
 ]

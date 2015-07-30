@@ -19,8 +19,7 @@ class EndTurn extends AbstractAction {
 
 		Player nextPlayer = null
 		int index = g.players.indexOf(currentPlayer)
-		index++
-		index = index % g.players.size()
+		index = (index+1) % g.players.size()
 		nextPlayer = g.players.get(index)
 
 		g.players.each { Player p ->
@@ -36,6 +35,8 @@ class EndTurn extends AbstractAction {
 		while(g.available.size()<Settings.defaultAvailableSize){
 			GameController.doAction(g, new MakeCardAvailable(cause:this))
 		}
+		
+		g.currentPlayer = nextPlayer
 
 		audit = "Player ${currentPlayer.id} ended their turn, starting the turn of Player ${nextPlayer.id}"
 	}

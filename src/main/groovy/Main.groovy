@@ -50,3 +50,7 @@ buyAll(g)
 printState(g)
 
 g.audit.each{ println it }
+
+GameController.doAction(g, new EndTurn())
+
+printState(g)

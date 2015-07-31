@@ -1,11 +1,24 @@
 apply plugin: 'eclipse'
 apply plugin: 'groovy'
+apply plugin: 'spring-boot'
+
+buildscript {
+	repositories {
+		mavenCentral()
+	}
+	dependencies {
+		classpath 'org.springframework.boot:spring-boot-gradle-plugin:1.2.5.RELEASE'
+	}
+}
 
 repositories {
 	mavenCentral()
 }
 
 dependencies {
+	compile 'org.springframework.boot:spring-boot-starter-web:1.2.5.RELEASE'
+	compile 'org.springframework.boot:spring-boot-starter-actuator:1.2.5.RELEASE'
+	
 	compile 'com.fasterxml.jackson.core:jackson-databind:2.5.4'
 	compile 'org.codehaus.groovy:groovy-all:2.4.1'
 	testCompile 'junit:junit:4.4'

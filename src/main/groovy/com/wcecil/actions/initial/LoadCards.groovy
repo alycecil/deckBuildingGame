@@ -1,20 +1,16 @@
 package com.wcecil.actions.initial
 
-import groovy.transform.CompileStatic;
-
 import com.fasterxml.jackson.databind.JavaType
 import com.fasterxml.jackson.databind.ObjectMapper
-import com.wcecil.actions.AbstractAction
-import com.wcecil.actions.core.DrawHand;
+import com.wcecil.actions.Action
 import com.wcecil.beans.GameState
-import com.wcecil.beans.gameobjects.ActualCard
 import com.wcecil.beans.gameobjects.Card
-import com.wcecil.beans.gameobjects.CardTemplate;
+import com.wcecil.beans.gameobjects.CardTemplate
 import com.wcecil.beans.gameobjects.Player
-import com.wcecil.core.GameController;
+import com.wcecil.common.ScriptLoader
 import com.wcecil.settings.Settings
 
-class LoadCards extends AbstractAction{
+class LoadCards extends Action{
 	ObjectMapper mapper = new ObjectMapper()
 
 	def loadedCardsCount
@@ -63,20 +59,32 @@ class LoadCards extends AbstractAction{
 		if(f.isDirectory()){
 			readCardFile(f,cards)
 		}else if(f.isFile()){
-			def json = f.text
-			if(json){
-				JavaType type = mapper.getTypeFactory().constructCollectionType(List.class, CardTemplate.class)
-				try {
-					List<Card> myCards = mapper.readValue(json, type)
+			parseCards(f, cards)
+		}
+	}
 
-					if(myCards){
-						cards.addAll(myCards)
-					}
-				} catch (e) {
-					System.err.println("Error reading $f, $e; stack trace to follow")
-					e.printStackTrace()
+	def parseCards(File f, List cards) {
+		def json = f.text
+		if(json){
+			parseCardJSON(json, cards, f)
+		}
+	}
+
+	def parseCardJSON(String json, List cards, File f) {
+		JavaType type = mapper.getTypeFactory().constructCollectionType(List.class, CardTemplate.class)
+		try {
+			List<Card> myCards = mapper.readValue(json, type)
+			def scrLoader = new ScriptLoader()
+			if(myCards){
+				myCards.each{
+					Card c ->
+					c.specialActionScript=scrLoader.loadScript(c.specialActionScript);
 				}
+				cards.addAll(myCards)
 			}
+		} catch (e) {
+			System.err.println("Error reading $f, $e; stack trace to follow")
+			e.printStackTrace()
 		}
 	}
 }

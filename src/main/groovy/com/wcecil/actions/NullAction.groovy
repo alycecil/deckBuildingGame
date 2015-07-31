@@ -5,7 +5,7 @@ import groovy.transform.CompileStatic;
 import com.wcecil.beans.GameState;
 
 @CompileStatic
-class NullAction extends AbstractAction {
+class NullAction extends Action {
 
 	def doAction(GameState g) {
 		

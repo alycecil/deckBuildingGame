@@ -7,11 +7,11 @@ import com.wcecil.beans.gameobjects.Card
 import com.wcecil.beans.gameobjects.Player
 
 @CompileStatic
-abstract class AbstractAction {
+abstract class Action {
 	Card sourceCard
 	Player targetPlayer
 	Player sourcePlayer
-	AbstractAction cause
+	Action cause
 	
 	abstract def doAction(GameState g)
 	

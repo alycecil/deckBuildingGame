@@ -2,6 +2,6 @@ package com.wcecil.rules
 
 import com.wcecil.beans.GameState;
 
-abstract class AbstractRule {
+abstract class Rule {
 	abstract def doRule(GameState g);
 }

@@ -2,10 +2,10 @@ package com.wcecil.actions.core
 
 import java.util.concurrent.ThreadLocalRandom
 
-import com.wcecil.actions.AbstractAction
+import com.wcecil.actions.Action
 import com.wcecil.beans.GameState
 
-class DiscardCard extends AbstractAction {
+class DiscardCard extends Action {
 
 	def doAction(GameState g) {
 		if(targetPlayer.hand){

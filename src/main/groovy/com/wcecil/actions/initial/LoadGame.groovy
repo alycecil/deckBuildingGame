@@ -1,7 +1,7 @@
 package com.wcecil.actions.initial
 
 import com.fasterxml.jackson.databind.ObjectMapper
-import com.wcecil.actions.AbstractAction
+import com.wcecil.actions.Action
 import com.wcecil.actions.core.DrawHand
 import com.wcecil.actions.core.MakeCardAvailable
 import com.wcecil.beans.GameState
@@ -11,7 +11,7 @@ import com.wcecil.beans.gameobjects.Player
 import com.wcecil.core.GameController
 import com.wcecil.settings.Settings
 
-class LoadGame extends AbstractAction{
+class LoadGame extends Action{
 	ObjectMapper mapper = new ObjectMapper()
 
 	def doAction(GameState g) {

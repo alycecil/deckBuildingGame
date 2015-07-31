@@ -1,0 +1,5 @@
+println 'test script start'
+
+println "$trigger"
+
+println 'end of test script'

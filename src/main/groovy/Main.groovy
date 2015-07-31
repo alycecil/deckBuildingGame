@@ -49,8 +49,12 @@ buyAll(g)
 
 printState(g)
 
+(1..10).each{
+	GameController.doAction(g, new EndTurn())
+
+	printState(g)
+}
+
+
+
 g.audit.each{ println it }
-
-GameController.doAction(g, new EndTurn())
-
-printState(g)

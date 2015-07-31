@@ -8,6 +8,7 @@ repositories {
 dependencies {
 	compile 'com.fasterxml.jackson.core:jackson-databind:2.5.4'
 	compile 'org.codehaus.groovy:groovy-all:2.4.1'
+	testCompile 'junit:junit:4.4'
 }
 
 sourceCompatibility = 1.7
@@ -22,3 +23,10 @@ test {
     systemProperties 'property': 'value'
 }
 
+sourceSets {
+	main {
+		resources {
+			srcDir 'src/main/resources'
+		}
+	}
+}

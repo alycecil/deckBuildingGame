@@ -1,9 +1,9 @@
 package com.wcecil.actions.core
 
-import com.wcecil.actions.AbstractAction;
+import com.wcecil.actions.Action;
 import com.wcecil.beans.GameState;
 
-class MakeCardAvailable extends AbstractAction {
+class MakeCardAvailable extends Action {
 String audit
 	def doAction(GameState g) {
 		if(g.mainDeck){

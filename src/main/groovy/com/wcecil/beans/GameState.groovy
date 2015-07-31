@@ -1,13 +1,12 @@
 package com.wcecil.beans
 
-import groovy.transform.CompileStatic;
+import groovy.transform.CompileStatic
 
-import java.util.concurrent.atomic.AtomicLong;
+import java.util.concurrent.atomic.AtomicLong
 
 import com.wcecil.beans.gameobjects.Card
 import com.wcecil.beans.gameobjects.Player
-import com.wcecil.beans.rules.Action
-import com.wcecil.beans.rules.Step
+import com.wcecil.triggers.Trigger
 
 @CompileStatic
 class GameState {
@@ -20,8 +19,7 @@ class GameState {
 	List<Card> mainDeck = []
 	List<Set<Card>> staticCards = []
 	
-	Step currentStep
-	Action currentAction
-	
 	List<String> audit = []
+	
+	Set<Trigger> triggers = [] as Set
 }

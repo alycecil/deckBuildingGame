@@ -2,13 +2,13 @@ package com.wcecil.actions.core
 
 import groovy.transform.CompileStatic;
 
-import com.wcecil.actions.AbstractAction
+import com.wcecil.actions.Action
 import com.wcecil.beans.GameState
 import com.wcecil.common.CardMovementHelper;
 import com.wcecil.core.GameController
 
 @CompileStatic
-class DrawCard extends AbstractAction {
+class DrawCard extends Action {
 	String audit = 'Unknown Error'
 
 	def doAction(GameState g) {

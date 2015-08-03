@@ -3,7 +3,7 @@ package com.wcecil.beans.gameobjects
 import com.wcecil.settings.Settings
 
 class ActualCard implements Card {
-	Integer id = Settings.nextIdCard.getAndIncrement()
+	Long id = Settings.nextIdCard.getAndIncrement()
 
 	@Delegate Card template
 	public ActualCard(Card c) {

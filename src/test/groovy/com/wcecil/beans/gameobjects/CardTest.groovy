@@ -35,6 +35,8 @@ println 'Hello Cards From File'
 		def parent = new File(this.getClass().getClassLoader().getResource('').toURI())
 		def scriptFile = "scripts/test_${System.currentTimeMillis()}.script"
 		def scriptFile_File = new File(parent,scriptFile)
+		println scriptFile_File
+		scriptFile_File.getParentFile().mkdirs()
 		assertTrue scriptFile_File.createNewFile()
 		scriptFile_File.write(scriptRaw)
 		scriptFile_File.deleteOnExit()

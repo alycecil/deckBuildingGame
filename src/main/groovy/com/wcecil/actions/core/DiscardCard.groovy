@@ -3,6 +3,7 @@ package com.wcecil.actions.core
 import java.util.concurrent.ThreadLocalRandom
 
 import com.wcecil.actions.Action
+import com.wcecil.annotations.UserAction
 import com.wcecil.beans.GameState
 
 class DiscardCard extends Action {

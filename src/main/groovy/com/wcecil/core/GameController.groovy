@@ -1,21 +1,19 @@
 package com.wcecil.core
 
-import groovy.transform.CompileStatic
-
 import com.wcecil.actions.Action
+import com.wcecil.annotations.UserAction
 import com.wcecil.beans.GameState
 import com.wcecil.settings.Settings
 import com.wcecil.triggers.Trigger
 
-@CompileStatic
 class GameController {
 
 	static def doAction(GameState g, Action a){
 		def result = null
 		if(a.isValid(g)){
-			
+
 			doTriggers( g,  a)
-			
+
 			result = a.doAction(g);
 
 			def tic = g.ticCount.getAndIncrement()
@@ -26,14 +24,13 @@ class GameController {
 
 		result
 	}
-	
+
 	static void doTriggers(GameState g, Action a){
-		g.triggers.each {
-			Trigger t ->
+		g.triggers.each { Trigger t ->
 			if(t.isTriggered(a)){
 				t.doTrigger(g, a)
 			}
-		}	
+		}
 	}
 
 	static void saveAudit(GameState g, Action a) {
@@ -43,5 +40,19 @@ class GameController {
 			if(Settings.debug) println audit
 			g.audit.add(audit)
 		}
+	}
+
+	public static Action buildAction(GameState g, String action) {
+		Action a = null;
+		
+		a = new GameController().getClass().getClassLoader().loadClass("com.wcecil.actions.core.$action", true)?.newInstance()
+		
+		if(a==null){
+			throw new IllegalStateException("Cannot Parse Action '$action'")
+		}
+		
+		a.setSourcePlayer(g.getCurrentPlayer())
+		
+		return a;
 	}
 }

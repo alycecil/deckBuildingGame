@@ -1,6 +1,7 @@
 package com.wcecil.actions.core
 
 import com.wcecil.actions.Action;
+import com.wcecil.annotations.UserAction;
 import com.wcecil.beans.GameState;
 import com.wcecil.core.GameController;
 

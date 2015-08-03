@@ -3,22 +3,17 @@ apply plugin: 'groovy'
 apply plugin: 'spring-boot'
 
 buildscript {
-	repositories {
-		mavenCentral()
-	}
-	dependencies {
-		classpath 'org.springframework.boot:spring-boot-gradle-plugin:1.2.5.RELEASE'
-	}
+	repositories { mavenCentral() }
+	dependencies { classpath 'org.springframework.boot:spring-boot-gradle-plugin:1.2.5.RELEASE' }
 }
 
-repositories {
-	mavenCentral()
-}
+repositories { mavenCentral() }
 
 dependencies {
 	compile 'org.springframework.boot:spring-boot-starter-web:1.2.5.RELEASE'
 	compile 'org.springframework.boot:spring-boot-starter-actuator:1.2.5.RELEASE'
-	
+
+	//compile 'org.reflections:reflections-maven:0.9.9-RC2'
 	compile 'com.fasterxml.jackson.core:jackson-databind:2.5.4'
 	compile 'org.codehaus.groovy:groovy-all:2.4.1'
 	testCompile 'junit:junit:4.4'
@@ -27,19 +22,17 @@ dependencies {
 sourceCompatibility = 1.7
 version = '0.0.1'
 jar {
-    manifest {
-        attributes 'Implementation-Title': 'Deck Builder', 'Implementation-Version': version
-    }
+	manifest {
+		attributes 'Implementation-Title': 'Deck Builder', 'Implementation-Version': version
+	}
 }
 
-test {
-    systemProperties 'property': 'value'
-}
+test { systemProperties 'property': 'value' }
+
+bootRun { addResources = false }
 
 sourceSets {
 	main {
-		resources {
-			srcDir 'src/main/resources'
-		}
+		resources { srcDir 'src/main/resources' }
 	}
 }

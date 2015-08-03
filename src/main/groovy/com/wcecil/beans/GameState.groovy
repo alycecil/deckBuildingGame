@@ -12,18 +12,30 @@ import com.wcecil.triggers.Trigger
 //TODO port to jpa/mongo/or some similar nonsense
 @CompileStatic
 class GameState {
-	Long id = Settings.nextIdGame.getAndIncrement();
+	Long id;
 
 	AtomicLong ticCount = new AtomicLong(0l);
-	
+
 	List<Player> players = []
 	Player currentPlayer
-	
+
 	List<Card> available = []
 	List<Card> mainDeck = []
 	List<Set<Card>> staticCards = []
-	
+
 	List<String> audit = []
-	
-	Set<Trigger> triggers = [] as Set
+
+	Set<Trigger> triggers = [] as Set
+
+	public GameState() {
+		this(true);
+	}
+
+	public GameState(boolean updateId) {
+		if(updateId){
+			id = Settings.nextIdGame.getAndIncrement();
+		}
+	}
+
+
 }

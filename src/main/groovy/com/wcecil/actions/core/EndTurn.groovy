@@ -3,6 +3,7 @@ package com.wcecil.actions.core
 import groovy.transform.CompileStatic
 
 import com.wcecil.actions.Action
+import com.wcecil.annotations.UserAction;
 import com.wcecil.beans.GameState
 import com.wcecil.beans.gameobjects.Card
 import com.wcecil.beans.gameobjects.Player
@@ -10,6 +11,7 @@ import com.wcecil.common.CardMovementHelper;
 import com.wcecil.core.GameController
 import com.wcecil.settings.Settings;
 
+@UserAction
 class EndTurn extends Action {
 
 	String audit = super.getAudit()

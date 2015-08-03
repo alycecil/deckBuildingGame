@@ -28,7 +28,7 @@ class LoadCards extends Action{
 	}
 
 	def loadCards(GameState g){
-		URL cardsDir = this.getClass().getClassLoader().getResource('cards')
+		URL cardsDir = this.getClass().getClassLoader().getResource('static/cards')
 		if(!cardsDir){
 			throw new IllegalStateException('Unable to load cards')
 		}

@@ -7,7 +7,7 @@ class ScriptLoader {
 	String loadScript(String script){
 		String finalScript = null
 		
-		if(script.trim().startsWith(FILE_PREFIX)){
+		if(script!=null&&script.trim().startsWith(FILE_PREFIX)){
 			script = script.substring(FILE_PREFIX.length()+script.indexOf(FILE_PREFIX)).trim()
 			
 			println "loading file $script"

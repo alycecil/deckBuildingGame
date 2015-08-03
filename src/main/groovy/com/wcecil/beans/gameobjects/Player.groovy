@@ -8,7 +8,7 @@ import com.wcecil.settings.Settings
 @CompileStatic
 @Canonical
 class Player {
-	Integer id
+	Long id
 	List<Card> deck
 	List<Card> discard
 	List<Card> inplay

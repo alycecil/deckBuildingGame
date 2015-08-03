@@ -1,6 +1,7 @@
 package com.wcecil.settings
 
 import java.util.concurrent.atomic.AtomicInteger;
+import java.util.concurrent.atomic.AtomicLong;
 
 import groovy.transform.CompileStatic;
 
@@ -12,8 +13,8 @@ class Settings {
 	public static Integer defaultHandSize = 5;
 	public static Integer defaultAvailableSize = 5;
 	
-	public static AtomicInteger nextIdPlayer = new AtomicInteger(1);
-	public static AtomicInteger nextIdCard = new AtomicInteger(1);
-	public static AtomicInteger nextIdGame = new AtomicInteger(1);
+	public static AtomicLong nextIdPlayer = new AtomicLong(1l);
+	public static AtomicLong nextIdCard = new AtomicLong(1l);
+	public static AtomicLong nextIdGame = new AtomicLong(1l);
 	
 }

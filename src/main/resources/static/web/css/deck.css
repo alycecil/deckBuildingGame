@@ -3,9 +3,29 @@
 }
 
 .card {
-	width: 100px;
     background-color: lightgrey;
     border-color: black;
     border-width: 1px;
     border-style: solid;
+}
+.card:nth-child(even) {
+    background-color: #DDD;
+}
+
+.buyCard {
+    margin: 3px;
+}
+
+.playCard {
+    margin: 3px;
+}
+
+.endTurn {
+    margin: 3px;
+}
+
+
+
+.row.audit:nth-child(even) {
+    background-color: #DDD;
 }

@@ -9,6 +9,7 @@ import com.wcecil.beans.gameobjects.Player
 @CompileStatic
 abstract class Action {
 	Card sourceCard
+	Card targetCard
 	Player targetPlayer
 	Player sourcePlayer
 	Action cause

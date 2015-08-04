@@ -33,9 +33,24 @@ function newGame() {
     });
 }
 
-function newGame() {
+function getGame() {
     $.ajax({
         url: '/game/get?id='+gameId,
         success: renderGame
     });
 }
+
+function getGameById(gameId) {
+    $.ajax({
+        url: '/game/get?id='+gameId,
+        success: renderGame
+    });
+}
+
+function buyCard() {
+    $.ajax({
+        url: '/game/get?id='+gameId,
+        success: renderGame
+    });
+}
+

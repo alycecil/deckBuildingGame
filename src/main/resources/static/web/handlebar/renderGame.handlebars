@@ -1,4 +1,8 @@
 <div class="row">
+	Current Player {{currentPlayer.id}} <i class="fa fa-user"></i>, {{currentPlayer.money}} <i class="fa fa-money"></i>
+</div>
+
+<div class="row">
 	<h1>Available</h1>
 </div>
 {{#each available}}
@@ -17,29 +21,31 @@
 </div>
 
 {{#each players}}
-<div class="player {{#eq id currentPlayer.id}}current{{/eq}}" id="player-{{id}}">
-	Player {{id}} <i class="fa fa-user"></i>
-	<div class="hand">
+<div class="player {{#eq id ../currentPlayer.id}}current{{/eq}}" id="player-{{id}}">
+	Player {{id}} <i class="fa fa-user"></i>, {{money}} <i class="fa fa-money"></i>
+	<div class="hand row">
 	{{#each hand}}
-		<div class="row card available" id="card-{{id}}">
+		<div class="col-md-4 card available" id="card-{{id}}">
 			<div class="col-md-8"><strong>{{name}}</strong></div>
-			<div class="col-md-4">{{cost}}<i class="fa fa-money"></i></div>
+			<div class="col-md-4">{{cost}} <i class="fa fa-money"></i></div>
 			<div class="col-md-8">{{description}}</div>
-			<div class="col-md-4">{{value}}<i class="fa fa-heart"></i></div>
-			{{#eq id currentPlayer.id}}<div class="col-md-12">
+			<div class="col-md-4">{{value}} <i class="fa fa-heart"></i></div>
+			{{#eq ../id ../../currentPlayer.id}}<div class="col-md-12">
 				<button type="button" class="btn btn-success playCard" card="{{id}}">Play Card</button>
 			</div>{{/eq}}
 		</div>
 	{{/each}}
 	</div>
-	{{#eq id currentPlayer.id}}<button type="button" class="btn btn-success endTurn" player="{{id}}">End Turn</button>{{/eq}}
+	<div class="centered">
+		{{#eq id ../currentPlayer.id}}<button type="button" class="btn btn-danger endTurn" player="{{id}}">End Turn</button>{{/eq}}
+	</div>
 </div>
 {{else}}
 	No players
 {{/each}}
 
 
-<h1>Audit</h1>
+<h3>Audit</h3>
 {{#each audit}}
 	<div class="row audit">
 		{{this}}

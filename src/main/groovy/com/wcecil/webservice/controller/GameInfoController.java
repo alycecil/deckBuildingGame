@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.wcecil.actions.Action;
 import com.wcecil.actions.initial.LoadGame;
+import com.wcecil.beans.GamePlayerState;
 import com.wcecil.beans.GameState;
 import com.wcecil.beans.gameobjects.ActualCard;
 import com.wcecil.beans.gameobjects.Card;
@@ -23,8 +24,20 @@ import com.wcecil.core.GameController;
 @RequestMapping("/game")
 public class GameInfoController {
 
+	//TODO pin to real data
 	Map<Long, GameState> games = new Hashtable<>();
 
+	@RequestMapping(value = "/list", method = { RequestMethod.GET })
+	public GamePlayerState listGames() {
+		//TODO pin to real data
+		GamePlayerState state = new GamePlayerState();
+		
+		state.setGames(new ArrayList<>(games.values()));
+		state.setPlayerName("YOU");
+		state.setId(1l);
+		
+		return state;
+	}
 	@RequestMapping(value = "/get", method = { RequestMethod.GET })
 	public GameState getGame(@RequestParam(value = "id") Long id) {
 
@@ -80,6 +93,8 @@ public class GameInfoController {
 		p2.setDiscard(p.getDiscard());
 		p2.setInplay(p.getInplay());
 		p2.setPlayed(p.getPlayed());
+		
+		//TODO MASK HAND OF NOT YOU
 		p2.setHand(p.getHand());
 
 		return p2;

@@ -13,9 +13,9 @@ dependencies {
 	compile 'org.springframework.boot:spring-boot-starter-web:1.2.5.RELEASE'
 	compile 'org.springframework.boot:spring-boot-starter-actuator:1.2.5.RELEASE'
 
-	//compile 'org.reflections:reflections-maven:0.9.9-RC2'
 	compile 'com.fasterxml.jackson.core:jackson-databind:2.5.4'
 	compile 'org.codehaus.groovy:groovy-all:2.4.1'
+	
 	testCompile 'junit:junit:4.4'
 }
 

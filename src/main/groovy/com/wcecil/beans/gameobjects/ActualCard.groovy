@@ -1,13 +1,15 @@
 package com.wcecil.beans.gameobjects
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.wcecil.settings.Settings
 
-class ActualCard implements Card {
+class ActualCard extends CardTemplate {
 	Long id = Settings.nextIdCard.getAndIncrement()
 
+	@JsonIgnore
 	@Delegate Card template
+	
 	public ActualCard(Card c) {
-		super();
 		template = c
 	}
 	

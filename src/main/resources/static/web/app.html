@@ -1,0 +1,54 @@
+<html>
+<head>
+<title>Blank Page</title>
+<link href="css/bootstrap.min.css" rel="stylesheet">
+<link rel="stylesheet" href="css/font-awesome.min.css">
+<link rel="stylesheet" href="css/deck.css">
+
+<script type="text/javascript" src="js/jquery-2.1.4.min.js"></script>
+<script src="js/bootstrap.min.js"></script>
+<script type="text/javascript" src="js/handlebars-v3.0.3.js"></script>
+<script type="text/javascript" src="js/handlebar-loader.js"></script>
+<script type="text/javascript" src="js/handlebarhelpers.js"></script>
+
+
+<script type="text/javascript" src="js/game.js"></script>
+</head>
+<body onLoad='loadGames();'>
+
+	<nav class="navbar navbar-default">
+		<div class="navbar-header">
+			<button type="button" class="navbar-toggle collapsed"
+				data-toggle="collapse" data-target="#bs-example-navbar-collapse-1"
+				aria-expanded="false">
+				<span class="sr-only">Toggle navigation</span> <span
+					class="icon-bar"></span> <span class="icon-bar"></span> <span
+					class="icon-bar"></span>
+			</button>
+			<a class="navbar-brand" href="#">Deck Game</a>
+		</div>
+
+		<div class="collapse navbar-collapse"
+			id="bs-example-navbar-collapse-1">
+			<ul class="nav navbar-nav">
+				<li class="active"><a href="#">Home <span class="sr-only">(current)</span></a></li>
+			</ul>
+		</div>
+	</nav>
+
+	<div class="container-fluid" id='bodyFluid'>
+		<div class="row">
+			<div class="panel-body" id='gamesList'>
+				<div class="centered">
+					<h3>
+						<i class="fa fa-spin fa-spinner"></i>Loading
+					</h3>
+				</div>
+			</div>
+		</div>
+	</div>
+
+
+
+</body>
+</html>

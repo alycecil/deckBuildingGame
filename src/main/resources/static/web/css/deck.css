@@ -1,0 +1,11 @@
+.centered {
+    text-align: center;
+}
+
+.card {
+	width: 100px;
+    background-color: lightgrey;
+    border-color: black;
+    border-width: 1px;
+    border-style: solid;
+}

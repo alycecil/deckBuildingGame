@@ -1,0 +1,15 @@
+<div class="centered">
+	{{#each game}}
+	<div class="row">
+	    <button type="button" class="btn btn-default">Game : {{name}}</button>
+	</div>
+	{{else}}
+	<div class="row">
+	    No Pending Games
+	</div>
+	{{/each}}
+	
+	<div class="row">
+		<button type="button" class="btn btn-primary">New Game</button>    
+	</div>
+</div>

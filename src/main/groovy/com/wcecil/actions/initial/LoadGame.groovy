@@ -19,6 +19,7 @@ class LoadGame extends Action{
 		setupMainDeck(g,cards)
 		setupPlayers(g, cards)
 
+		println "Added ${g.allCards.size()}"
 		drawHands(g)
 	}
 
@@ -36,6 +37,7 @@ class LoadGame extends Action{
 				(1..c.deckCount).each {
 					def real = new ActualCard(c)
 					g.mainDeck << real
+					if(Settings.debug) println "Added ${real.id}"
 					g.allCards << real
 				}
 			}
@@ -46,6 +48,7 @@ class LoadGame extends Action{
 				(1..c.staticCount).each {
 					def real = new ActualCard(c)
 					staticSet << real
+					if(Settings.debug) println "Added ${real.id}"
 					g.allCards << real
 				}
 
@@ -88,6 +91,7 @@ class LoadGame extends Action{
 				(1..c.startingCount).each{
 					def real = new ActualCard(c)
 					result.discard << real
+					if(Settings.debug) println "Added ${real.id}"
 					g.allCards << real
 				}
 			}

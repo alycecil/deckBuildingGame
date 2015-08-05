@@ -131,6 +131,10 @@ public class GameInfoController {
 					break;
 				}
 			}
+			
+			if(a.getTargetPlayer()==null){
+				throw new IllegalStateException("Unable to find target player");
+			}
 		}
 
 		if (sourceCard != null) {
@@ -143,6 +147,10 @@ public class GameInfoController {
 					}
 				}
 			}
+			
+			if(a.getSourceCard()==null){
+				throw new IllegalStateException("Unable to find source card");
+			}
 		}
 		
 		if(targetCard!=null){
@@ -154,6 +162,10 @@ public class GameInfoController {
 						break;
 					}
 				}
+			}
+			
+			if(a.getTargetCard()==null){
+				throw new IllegalStateException("Unable to find target card");
 			}
 		}
 		

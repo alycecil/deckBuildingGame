@@ -14,7 +14,7 @@
 					<div class="col-md-4">{{cost}} <i class="fa fa-money"></i></div>
 					<div class="col-md-8">{{description}}</div>
 					<div class="col-md-4">{{value}} <i class="fa fa-heart"></i></div>
-					<div class="col-md-12"><button type="button" class="btn btn-success buyCard" id="buy-card-{{id}}" card="{{id}}" onclick="buyCard();">Buy Card</button></div>
+					<div class="col-md-12"><button type="button" class="btn btn-success buyCard" id="buy-card-{{id}}" card="{{id}}">Buy Card</button></div>
 				</div>
 				<!-- x-id="card-{{id}}" -->
 				{{else}}
@@ -39,7 +39,7 @@
 					<div class="col-md-4">{{value}} <i class="fa fa-heart"></i></div>
 					{{#eq ../id ../../currentPlayer.id}}
 					<div class="col-md-12">
-						<button type="button" class="btn btn-success playCard" card="{{id}}" onclick="playCard();">Play Card</button>
+						<button type="button" class="btn btn-success playCard" card="{{id}}">Play Card</button>
 					</div>
 					{{/eq}}
 				</div>
@@ -47,7 +47,7 @@
 				{{/each}}
 				{{#eq id ../currentPlayer.id}}
 				<div class="centered">
-					<button type="button" class="btn btn-danger endTurn" player="{{id}}" onclick="endTurn();">End Turn</button>
+					<button type="button" class="btn btn-danger endTurn" player="{{id}}">End Turn</button>
 				</div>
 				{{/eq}}
 			</div>

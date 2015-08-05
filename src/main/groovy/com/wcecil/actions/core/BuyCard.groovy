@@ -14,14 +14,14 @@ class BuyCard extends Action {
 
 	def doAction(GameState g) {
 		if(sourcePlayer.money < targetCard.cost){
-			throw new IllegalStateException("Need at least ${sourcePlayer.money} is less than ${card.cost}");
+			throw new IllegalStateException("Need at least ${sourcePlayer.money} is less than ${targetCard.cost}");
 		}
 		
 		sourcePlayer.money -= targetCard.cost
 		
 		CardMovementHelper.buyCard(g, sourcePlayer, targetCard)
 
-		audit = "Player ${sourcePlayer.id} bought the card '${card.name}' from the available cards"
+		audit = "Player ${sourcePlayer.id} bought the card '${targetCard.name}' from the available cards"
 	}
 
 

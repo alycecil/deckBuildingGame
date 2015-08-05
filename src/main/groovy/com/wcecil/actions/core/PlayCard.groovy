@@ -13,31 +13,30 @@ import com.wcecil.core.GameController
 @UserAction
 class PlayCard extends Action {
 
-	Card card
 	String audit = 'Unable to play card'
 
 	def doAction(GameState g) {
-		if(card.money){
-			addMoney(sourcePlayer, card.money)
+		if(sourceCard.money){
+			addMoney(sourcePlayer, sourceCard.money)
 		}
 
-		if(card.draw){
-			drawCards(sourcePlayer, card.money)
+		if(sourceCard.draw){
+			drawCards(sourcePlayer, sourceCard.money)
 		}
 
-		if(card.specialActionScript){
-			card.specialAction(g, sourcePlayer, targetPlayer)
+		if(sourceCard.specialActionScript){
+			sourceCard.specialAction(g, sourcePlayer, targetPlayer)
 		}
 
-		CardMovementHelper.playCard(sourcePlayer, card)
+		CardMovementHelper.playCard(sourcePlayer, sourceCard)
 
-		audit = "Player ${sourcePlayer.id} played the card '${card.name}'"
+		audit = "Player ${sourcePlayer.id} played the card '${sourceCard.name}'"
 	}
 
 
 
 	boolean isValid(GameState g) {
-		card!=null
+		sourceCard!=null
 	}
 
 	def addMoney(Player player, Integer money){

@@ -18,6 +18,9 @@ function renderGame(context){
     getTemplateAjax('handlebar/renderGame.handlebars', function(template) {
         var html = template(context);
         $("#gamesList").html(html);
+        $('.endTurn').click(endTurn)
+        $('.playCard').click(playCard)
+        $('.buyCard').click(buyCard)
     });
 }
 
@@ -44,14 +47,14 @@ function getGameById(gameId) {
 
 function buyCard() {
     $.ajax({
-        url: '/game/get?id='+gameId,
+        url: '/game/move?id='+gameId+'&action=BuyCard&targetCard='+$(this).attr('card'),
         success: renderGame
     });
 }
 
 function playCard() {
     $.ajax({
-        url: '/game/get?id='+gameId,
+        url: '/game/move?id='+gameId+'&action=PlayCard&sourceCard='+$(this).attr('card'),
         success: renderGame
     });
 }

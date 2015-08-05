@@ -26,7 +26,7 @@ class GameState {
 	List<String> audit = []
 
 	Set<Trigger> triggers = [] as Set
-	Set<Card> allCards = [] as Set
+	List<Card> allCards = []
 
 	public GameState() {
 		this(true);
@@ -36,6 +36,8 @@ class GameState {
 		if(updateId){
 			id = Settings.nextIdGame.getAndIncrement();
 		}
+		
+		println "Created Game $id"
 	}
 
 

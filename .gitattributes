@@ -1,3 +1,3 @@
-src/main/resources/js/lib/* linguist-vendored
-src/main/resources/css/lib/* linguist-vendored
-src/main/resources/css/font/* linguist-vendored
+src/main/resources/static/web/js/lib/* linguist-vendored
+src/main/resources/static/web/css/lib/* linguist-vendored
+src/main/resources/static/web/css/font/* linguist-vendored

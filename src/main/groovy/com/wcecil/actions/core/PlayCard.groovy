@@ -21,7 +21,7 @@ class PlayCard extends Action {
 		}
 
 		if(sourceCard.draw){
-			drawCards(sourcePlayer, sourceCard.money)
+			drawCards(g, sourcePlayer, sourceCard.money)
 		}
 
 		if(sourceCard.specialActionScript){
@@ -43,8 +43,10 @@ class PlayCard extends Action {
 		player.money+=money;
 	}
 
-	def drawCards(Player player, Integer cards){
-		def drawCard = new DrawCard(targetPlayer:targetPlayer, cause:this)
-		GameController.doAction(g, drawCard)
+	def drawCards(GameState g, Player player, Integer cards){
+		(1..cards).each{
+			def drawCard = new DrawCard(targetPlayer:sourcePlayer, cause:this)
+			GameController.doAction(g, drawCard)
+		}
 	}
 }

@@ -1,7 +1,7 @@
 <div class="centered">
 	{{#each games}}
 		<div class="row">
-		    <button type="button" class="btn btn-default" onclick="getGameById({{id}})">Game : {{name}}</button>
+		    <button type="button" class="btn btn-default gameButton" onclick="getGameById({{id}})">Game : {{name}}({{id}})</button>
 		</div>
 	{{else}}
 		<div class="row">
@@ -10,6 +10,6 @@
 	{{/each}}
 	
 	<div class="row">
-		<button type="button" class="btn btn-primary" onclick="newGame()">New Game</button>    
+		<button type="button" class="btn btn-primary gameButton" onclick="newGame()">New Game</button>    
 	</div>
 </div>

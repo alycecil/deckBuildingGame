@@ -1,55 +1,76 @@
-<div class="row">
-	Current Player {{currentPlayer.id}} <i class="fa fa-user"></i>, {{currentPlayer.money}} <i class="fa fa-money"></i>
-</div>
-
-<div class="row">
-	<h1>Available</h1>
-</div>
-{{#each available}}
-<div class="row card available" id="card-{{id}}">
-	<div class="col-md-8"><strong>{{name}}</strong></div>
-	<div class="col-md-4">{{cost}}<i class="fa fa-money"></i></div>
-	<div class="col-md-8">{{description}}</div>
-	<div class="col-md-4">{{value}}<i class="fa fa-heart"></i></div>
-	<div class="col-md-12"><button type="button" class="btn btn-success buyCard" id="buy-card-{{id}}" card="{{id}}">Buy Card</button></div>
-</div>
-{{else}}
-<div class="row">
-	No Cards Available
-</div>
-{{/each}}
-</div>
-
-{{#each players}}
-<div class="player {{#eq id ../currentPlayer.id}}current{{/eq}}" id="player-{{id}}">
-	Player {{id}} <i class="fa fa-user"></i>, {{money}} <i class="fa fa-money"></i>
-	<div class="hand row">
-	{{#each hand}}
-		<div class="col-md-4 card available" id="card-{{id}}">
-			<div class="col-md-8"><strong>{{name}}</strong></div>
-			<div class="col-md-4">{{cost}} <i class="fa fa-money"></i></div>
-			<div class="col-md-8">{{description}}</div>
-			<div class="col-md-4">{{value}} <i class="fa fa-heart"></i></div>
-			{{#eq ../id ../../currentPlayer.id}}<div class="col-md-12">
-				<button type="button" class="btn btn-success playCard" card="{{id}}">Play Card</button>
-			</div>{{/eq}}
+<div class="panel panel-success">
+	<div class="panel-heading">
+		Current Player {{currentPlayer.id}} <i class="fa fa-user"></i>, {{currentPlayer.money}} <i class="fa fa-money"></i>	
+	</div>
+	<div class="panel-body">
+		<div class="panel panel-info availableCards">
+			<div class="panel-heading">
+				Available Cards
+			</div>
+			<div class="panel-body">
+				{{#each available}}
+				<div class="col-md-4 card available" id="card-{{id}}">
+					<div class="col-md-8"><strong>{{name}}</strong></div>
+					<div class="col-md-4">{{cost}} <i class="fa fa-money"></i></div>
+					<div class="col-md-8">{{description}}</div>
+					<div class="col-md-4">{{value}} <i class="fa fa-heart"></i></div>
+					<div class="col-md-12"><button type="button" class="btn btn-success buyCard" id="buy-card-{{id}}" card="{{id}}" onclick="buyCard();">Buy Card</button></div>
+				</div>
+				<!-- x-id="card-{{id}}" -->
+				{{else}}
+				<div class="row">
+					No Cards Available
+				</div>
+				{{/each}}
+			</div>
 		</div>
-	{{/each}}
-	</div>
-	<div class="centered">
-		{{#eq id ../currentPlayer.id}}<button type="button" class="btn btn-danger endTurn" player="{{id}}">End Turn</button>{{/eq}}
+		<!--x-availableCards-->
+		{{#each players}}
+		<div class="panel panel-info player {{#eq id ../currentPlayer.id}}current{{/eq}}" id="player-{{id}}">
+			<div class="panel-heading">
+				Player {{id}} <i class="fa fa-user"></i>, {{money}} <i class="fa fa-money"></i>
+			</div>
+			<div class="panel-body hand">
+				{{#each hand}}
+				<div class="col-md-4 card available" id="card-{{id}}">
+					<div class="col-md-8"><strong>{{name}}</strong></div>
+					<div class="col-md-4">{{cost}} <i class="fa fa-money"></i></div>
+					<div class="col-md-8">{{description}}</div>
+					<div class="col-md-4">{{value}} <i class="fa fa-heart"></i></div>
+					{{#eq ../id ../../currentPlayer.id}}
+					<div class="col-md-12">
+						<button type="button" class="btn btn-success playCard" card="{{id}}" onclick="playCard();">Play Card</button>
+					</div>
+					{{/eq}}
+				</div>
+				<!-- x-id="card-{{id}}" -->
+				{{/each}}
+				{{#eq id ../currentPlayer.id}}
+				<div class="centered">
+					<button type="button" class="btn btn-danger endTurn" player="{{id}}" onclick="endTurn();">End Turn</button>
+				</div>
+				{{/eq}}
+			</div>
+		</div>
+		<!--x-id="player-{{id}}"-->
+		{{else}}
+		<h1>No players</h1>
+		{{/each}}
+		<button class="btn btn-primary showHistory" type="button" data-toggle="collapse" data-target="#collapseAudit" aria-expanded="false" aria-controls="collapseAudit">
+		History <span class="badge">{{audit.length}}</span>
+		</button>
+		<div class="collapse" id="collapseAudit">
+			<div class="well">
+				{{#each audit}}
+				<div class="row audit">
+					{{this}}
+				</div>
+				{{else}}
+				<div class="row audit">
+					No Audit
+				</div>
+				{{/each}}
+			</div>
+		</div>
 	</div>
 </div>
-{{else}}
-	No players
-{{/each}}
-
-
-<h3>Audit</h3>
-{{#each audit}}
-	<div class="row audit">
-		{{this}}
-	</div>
-{{else}}
-	No Audit
-{{/each}}

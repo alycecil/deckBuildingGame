@@ -26,6 +26,7 @@ class GameState {
 	List<String> audit = []
 
 	Set<Trigger> triggers = [] as Set
+	Set<Card> allCards = [] as Set
 
 	public GameState() {
 		this(true);

@@ -36,6 +36,7 @@ class LoadGame extends Action{
 				(1..c.deckCount).each {
 					def real = new ActualCard(c)
 					g.mainDeck << real
+					g.allCards << real
 				}
 			}
 
@@ -45,6 +46,7 @@ class LoadGame extends Action{
 				(1..c.staticCount).each {
 					def real = new ActualCard(c)
 					staticSet << real
+					g.allCards << real
 				}
 
 				g.staticCards << staticSet
@@ -86,6 +88,7 @@ class LoadGame extends Action{
 				(1..c.startingCount).each{
 					def real = new ActualCard(c)
 					result.discard << real
+					g.allCards << real
 				}
 			}
 		}

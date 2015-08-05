@@ -5,12 +5,7 @@ function loadGames() {
     $.ajax({
         url: '/game/list',
         success: function(context) {
-            console.log(context);
             getTemplateAjax('handlebar/existingGameLink.handlebars', function(template) {
-                var context = {
-                    title: "My New Post",
-                    body: "This is my first post!"
-                };
                 var html = template(context);
                 $("#gamesList").html(html);
             });
@@ -54,3 +49,16 @@ function buyCard() {
     });
 }
 
+function playCard() {
+    $.ajax({
+        url: '/game/get?id='+gameId,
+        success: renderGame
+    });
+}
+
+function endTurn() {
+    $.ajax({
+        url: '/game/move?id='+gameId+'&action=EndTurn',
+        success: renderGame
+    });
+}

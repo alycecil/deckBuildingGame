@@ -116,30 +116,47 @@ public class GameInfoController {
 			RequestMethod.POST })
 	public GameState move(@RequestParam(value = "id") Long id,
 			@RequestParam(value = "action") String action,
-			@RequestParam(value = "card", required = false) Long card,
-			@RequestParam(value = "target", required = false) Long target) {
+			@RequestParam(value = "sourceCard", required = false) Long sourceCard,
+			@RequestParam(value = "targetCard", required = false) Long targetCard,
+			@RequestParam(value = "targetPlayer", required = false) Long targetPlayer) {
 
 		GameState g = games.get(id);
 
 		Action a = GameController.buildAction(g, action);
-		if (target != null) {
+		
+		if (targetPlayer != null) {
 			for (Player p : g.getPlayers()) {
-				if (p.getId().equals(target)) {
+				if (p.getId().equals(targetPlayer)) {
 					a.setTargetPlayer(p);
+					break;
 				}
 			}
 		}
 
-		if (card != null) {
+		if (sourceCard != null) {
 			for (Card c : a.getSourcePlayer().getHand()) {
 				if (c instanceof ActualCard) {
 					ActualCard c2 = (ActualCard) c;
-					if (card.equals(c2.getId())) {
+					if (sourceCard.equals(c2.getId())) {
 						a.setSourceCard(c2);
+						break;
 					}
 				}
 			}
 		}
+		
+		if(targetCard!=null){
+			for (Card c : g.getAllCards()) {
+				if (c instanceof ActualCard) {
+					ActualCard c2 = (ActualCard) c;
+					if (targetCard.equals(c2.getId())) {
+						a.setTargetCard(c2);
+						break;
+					}
+				}
+			}
+		}
+		
 
 		GameController.doAction(g, a);
 

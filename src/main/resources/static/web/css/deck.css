@@ -1,31 +1,49 @@
 .centered {
-    text-align: center;
+	text-align: center;
 }
 
 .card {
-    background-color: lightgrey;
-    border-color: black;
-    border-width: 1px;
-    border-style: solid;
+	background-color: lightgrey;
+	border-color: black;
+	border-width: 1px;
+	border-style: solid;
+	margin: 5px;
 }
+
 .card:nth-child(even) {
-    background-color: #DDD;
+	background-color: #DDD;
 }
 
 .buyCard {
-    margin: 3px;
+	margin: 3px;
+	min-width: 90%;
 }
 
 .playCard {
-    margin: 3px;
+	margin: 3px;
+	min-width: 90%;
 }
 
 .endTurn {
-    margin: 3px;
+	margin: 3px;
+	min-width: 80%;
+	margin-bottom: 10px;
 }
 
+.gameButton {
+	margin: 3px;
+	min-width: 40%;
+}
 
+.showHistory {
+	width: 100%
+}
 
 .row.audit:nth-child(even) {
-    background-color: #DDD;
+	background-color: #DDD;
+}
+
+.current {
+	border: solid 1px aliceblue;
+	background-color: #5cb85c;
 }

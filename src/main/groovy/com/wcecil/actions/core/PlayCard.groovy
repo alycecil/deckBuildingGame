@@ -25,8 +25,6 @@ class PlayCard extends Action {
 		}
 
 		if(sourceCard.specialActionScript){
-			println 'Running Script'
-			println sourceCard.specialActionScript
 			sourceCard.specialAction(g, sourcePlayer, targetPlayer)
 		}
 

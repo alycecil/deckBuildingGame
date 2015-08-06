@@ -8,7 +8,7 @@ import groovy.transform.CompileStatic;
 //TODO port to db settings
 @CompileStatic
 class Settings {
-	public static boolean debug = true;
+	public static boolean debug = false;
 	public static Integer numPlayers = 2;
 	public static Integer defaultHandSize = 5;
 	public static Integer defaultAvailableSize = 5;

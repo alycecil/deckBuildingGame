@@ -6,27 +6,30 @@ import com.wcecil.beans.GameState
 import com.wcecil.beans.gameobjects.Card
 import com.wcecil.beans.gameobjects.Player
 import com.wcecil.common.CardMovementHelper
+import com.wcecil.enums.AnnouncementType;
 
 @UserAction
 class BuyCard extends Action {
-	
+
 	String audit = 'Unable to buy card'
 
 	def doAction(GameState g) {
 		if(sourcePlayer.money < targetCard.cost){
-			throw new IllegalStateException("Need at least ${sourcePlayer.money} is less than ${targetCard.cost}");
-		}
-		
-		sourcePlayer.money -= targetCard.cost
-		
-		CardMovementHelper.buyCard(g, sourcePlayer, targetCard)
+			audit = "Current money is only ${sourcePlayer.money} which is less than the required ${targetCard.cost}";
 
-		audit = "Player ${sourcePlayer.id} bought the card '${targetCard.name}' from the available cards"
+			g.announcement= audit
+
+			g.announcementType = AnnouncementType.danger
+		}else{
+			sourcePlayer.money -= targetCard.cost
+
+			CardMovementHelper.buyCard(g, sourcePlayer, targetCard)
+
+			audit = "Player ${sourcePlayer.id} bought the card '${targetCard.name}' from the available cards"
+		}
 	}
 
-
-
 	boolean isValid(GameState g) {
-		sourcePlayer.money>=targetCard.cost && g.available.contains(targetCard)
+		g.available.contains(targetCard)
 	}
 }

@@ -1,8 +1,8 @@
 package com.wcecil.core
 
 import com.wcecil.actions.Action
-import com.wcecil.annotations.UserAction
 import com.wcecil.beans.GameState
+import com.wcecil.rules.Rule
 import com.wcecil.settings.Settings
 import com.wcecil.triggers.Trigger
 
@@ -12,12 +12,16 @@ class GameController {
 		def result = null
 		if(a.isValid(g)){
 
-			doTriggers( g,  a)
+			doTriggers( g,  a )
 
 			result = a.doAction(g);
 
 			def tic = g.ticCount.getAndIncrement()
 			saveAudit(g, a)
+
+			g.getRules().each{ Rule r ->
+				r.doRule(g)
+			}
 		}else{
 			throw new IllegalStateException("Game in illegal state for attempting $a on $g");
 		}
@@ -44,15 +48,15 @@ class GameController {
 
 	public static Action buildAction(GameState g, String action) {
 		Action a = null;
-		
+
 		a = new GameController().getClass().getClassLoader().loadClass("com.wcecil.actions.core.$action", true)?.newInstance()
-		
+
 		if(a==null){
 			throw new IllegalStateException("Cannot Parse Action '$action'")
 		}
-		
+
 		a.setSourcePlayer(g.getCurrentPlayer())
-		
+
 		return a;
 	}
 }

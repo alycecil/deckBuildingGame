@@ -9,6 +9,7 @@ import com.wcecil.beans.gameobjects.ActualCard
 import com.wcecil.beans.gameobjects.Card
 import com.wcecil.beans.gameobjects.Player
 import com.wcecil.core.GameController
+import com.wcecil.rules.EndGameRule
 import com.wcecil.settings.Settings
 
 class LoadGame extends Action{
@@ -21,6 +22,12 @@ class LoadGame extends Action{
 
 		println "Added ${g.allCards.size()}"
 		drawHands(g)
+
+		addRules(g)
+	}
+
+	def addRules(GameState g) {
+		g.rules << new EndGameRule()
 	}
 
 	boolean isValid(GameState g) {

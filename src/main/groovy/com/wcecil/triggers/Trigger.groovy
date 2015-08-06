@@ -2,6 +2,7 @@ package com.wcecil.triggers
 
 import com.wcecil.actions.Action
 import com.wcecil.beans.GameState
+import com.wcecil.enums.Persistence;
 
 class Trigger {
 	Persistence frequency

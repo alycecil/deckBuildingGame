@@ -7,7 +7,7 @@ import org.junit.Test
 import com.wcecil.actions.Action
 import com.wcecil.actions.NullAction
 import com.wcecil.beans.GameState
-import com.wcecil.triggers.Persistence
+import com.wcecil.enums.Persistence;
 import com.wcecil.triggers.Trigger
 
 

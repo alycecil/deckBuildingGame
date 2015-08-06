@@ -4,8 +4,10 @@ import groovy.transform.CompileStatic
 
 import java.util.concurrent.atomic.AtomicLong
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.wcecil.beans.gameobjects.Card
 import com.wcecil.beans.gameobjects.Player
+import com.wcecil.rules.Rule
 import com.wcecil.settings.Settings;
 import com.wcecil.triggers.Trigger
 
@@ -25,8 +27,16 @@ class GameState {
 
 	List<String> audit = []
 
+	@JsonIgnore
 	Set<Trigger> triggers = [] as Set
+	@JsonIgnore
 	List<Card> allCards = []
+	
+	@JsonIgnore
+	List<Rule> rules = []
+	
+	String announcement
+	def announcementType
 
 	public GameState() {
 		this(true);
@@ -39,6 +49,4 @@ class GameState {
 		
 		println "Created Game $id"
 	}
-
-
 }

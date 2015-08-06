@@ -1,4 +1,4 @@
-package com.wcecil.triggers
+package com.wcecil.enums
 
 enum Persistence {
 	ONCE, EVERY

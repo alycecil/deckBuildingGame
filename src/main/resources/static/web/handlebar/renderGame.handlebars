@@ -3,6 +3,12 @@
 		Current Player {{currentPlayer.id}} <i class="fa fa-user"></i>, {{currentPlayer.money}} <i class="fa fa-money"></i>	
 	</div>
 	<div class="panel-body">
+		{{#if announcement}}
+		<div class="alert {{#if announcementType}}alert-{{announcementType}}{{else}}alert-success{{/if}}">
+		  <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+		  {{announcement}}
+		</div>
+		{{/if}}
 		<div class="panel panel-info availableCards">
 			<div class="panel-heading">
 				Available Cards
@@ -18,9 +24,22 @@
 				</div>
 				<!-- x-id="card-{{id}}" -->
 				{{else}}
-				<div class="row">
+				<div class="col-md-4 card">
 					No Cards Available
 				</div>
+				{{/each}}
+				
+				{{#each staticCards}}
+					{{#each this}}
+						<div class="col-md-4 card available" id="card-{{id}}">
+							<div class="col-md-8"><strong>{{name}}</strong></div>
+							<div class="col-md-4">{{cost}} <i class="fa fa-money"></i></div>
+							<div class="col-md-8">{{description}}</div>
+							<div class="col-md-4">{{value}} <i class="fa fa-heart"></i></div>
+							<div class="col-md-12"><button type="button" class="btn btn-success buyCard" id="buy-card-{{id}}" card="{{id}}">Buy Card</button></div>
+						</div>
+						<!-- x-id="card-{{id}}" -->
+					{{/each}}		
 				{{/each}}
 			</div>
 		</div>

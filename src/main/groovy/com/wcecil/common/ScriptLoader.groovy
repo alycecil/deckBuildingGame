@@ -12,7 +12,16 @@ class ScriptLoader {
 			
 			println "loading file $script"
 			
-			def f = new File(this.getClass().getClassLoader().getResource(script).toURI())
+			def scriptURL = this.getClass().getClassLoader().getResource(script)
+			
+			if(scriptURL==null){
+				scriptURL = this.getClass().getClassLoader().getResource("static/$script")
+			}
+			if(scriptURL==null){
+				scriptURL = this.getClass().getClassLoader().getResource("static/scripts/$script")
+			}
+			
+			def f = new File(scriptURL.toURI())
 			
 			finalScript = f.text
 		}else{

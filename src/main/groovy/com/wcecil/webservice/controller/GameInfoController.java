@@ -24,20 +24,21 @@ import com.wcecil.core.GameController;
 @RequestMapping("/game")
 public class GameInfoController {
 
-	//TODO pin to real data
+	// TODO pin to real data
 	Map<Long, GameState> games = new Hashtable<>();
 
 	@RequestMapping(value = "/list", method = { RequestMethod.GET })
 	public GamePlayerState listGames() {
-		//TODO pin to real data
+		// TODO pin to real data
 		GamePlayerState state = new GamePlayerState();
-		
+
 		state.setGames(new ArrayList<>(games.values()));
 		state.setPlayerName("YOU");
 		state.setId(1l);
-		
+
 		return state;
 	}
+
 	@RequestMapping(value = "/get", method = { RequestMethod.GET })
 	public GameState getGame(@RequestParam(value = "id") Long id) {
 
@@ -86,17 +87,18 @@ public class GameInfoController {
 	private Player maskPlayerDetails(Player p) {
 		Player p2 = new Player();
 
-		p2.setId(p.getId());
-		p2.setMoney(p.getMoney());
+		if (p != null) {
+			p2.setId(p.getId());
+			p2.setMoney(p.getMoney());
 
-		p2.setDeck(maskCards(p.getDeck()));
-		p2.setDiscard(p.getDiscard());
-		p2.setInplay(p.getInplay());
-		p2.setPlayed(p.getPlayed());
-		
-		//TODO MASK HAND OF NOT YOU
-		p2.setHand(p.getHand());
+			p2.setDeck(maskCards(p.getDeck()));
+			p2.setDiscard(p.getDiscard());
+			p2.setInplay(p.getInplay());
+			p2.setPlayed(p.getPlayed());
 
+			// TODO MASK HAND OF NOT YOU
+			p2.setHand(p.getHand());
+		}
 		return p2;
 	}
 
@@ -114,7 +116,8 @@ public class GameInfoController {
 
 	@RequestMapping(value = "/move", method = { RequestMethod.GET,
 			RequestMethod.POST })
-	public GameState move(@RequestParam(value = "id") Long id,
+	public GameState move(
+			@RequestParam(value = "id") Long id,
 			@RequestParam(value = "action") String action,
 			@RequestParam(value = "sourceCard", required = false) Long sourceCard,
 			@RequestParam(value = "targetCard", required = false) Long targetCard,
@@ -123,7 +126,7 @@ public class GameInfoController {
 		GameState g = games.get(id);
 
 		Action a = GameController.buildAction(g, action);
-		
+
 		if (targetPlayer != null) {
 			for (Player p : g.getPlayers()) {
 				if (p.getId().equals(targetPlayer)) {
@@ -131,8 +134,8 @@ public class GameInfoController {
 					break;
 				}
 			}
-			
-			if(a.getTargetPlayer()==null){
+
+			if (a.getTargetPlayer() == null) {
 				throw new IllegalStateException("Unable to find target player");
 			}
 		}
@@ -147,13 +150,13 @@ public class GameInfoController {
 					}
 				}
 			}
-			
-			if(a.getSourceCard()==null){
+
+			if (a.getSourceCard() == null) {
 				throw new IllegalStateException("Unable to find source card");
 			}
 		}
-		
-		if(targetCard!=null){
+
+		if (targetCard != null) {
 			for (Card c : g.getAllCards()) {
 				if (c instanceof ActualCard) {
 					ActualCard c2 = (ActualCard) c;
@@ -163,12 +166,11 @@ public class GameInfoController {
 					}
 				}
 			}
-			
-			if(a.getTargetCard()==null){
+
+			if (a.getTargetCard() == null) {
 				throw new IllegalStateException("Unable to find target card");
 			}
 		}
-		
 
 		GameController.doAction(g, a);
 

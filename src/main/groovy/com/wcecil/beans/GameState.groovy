@@ -45,8 +45,8 @@ class GameState {
 	public GameState(boolean updateId) {
 		if(updateId){
 			id = Settings.nextIdGame.getAndIncrement();
+			
+			if(Settings.debug) println "Created Game $id"
 		}
-		
-		println "Created Game $id"
 	}
 }

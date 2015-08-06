@@ -46,15 +46,17 @@ public class GameInfoController {
 
 		GameState retVal = new GameState(false);
 
-		retVal.setId(id);
-		retVal.setAudit(g.getAudit());
-		retVal.setCurrentPlayer(maskPlayerDetails(g.getCurrentPlayer()));
-		retVal.setPlayers(maskPlayersDetails(g));
-		retVal.setTicCount(g.getTicCount());
-		retVal.setMainDeck(maskCards(g));
-		retVal.setStaticCards(g.getStaticCards());
-		retVal.setTriggers(g.getTriggers());
-		retVal.setAvailable(g.getAvailable());
+		if (g != null) {
+			retVal.setId(id);
+			retVal.setAudit(g.getAudit());
+			retVal.setCurrentPlayer(maskPlayerDetails(g.getCurrentPlayer()));
+			retVal.setPlayers(maskPlayersDetails(g));
+			retVal.setTicCount(g.getTicCount());
+			retVal.setMainDeck(maskCards(g));
+			retVal.setStaticCards(g.getStaticCards());
+			retVal.setTriggers(g.getTriggers());
+			retVal.setAvailable(g.getAvailable());
+		}
 
 		return g;
 	}

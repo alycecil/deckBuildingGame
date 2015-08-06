@@ -1,5 +1,5 @@
 println 'test script start'
 
-println "$trigger"
+println "$card"
 
 println 'end of test script'

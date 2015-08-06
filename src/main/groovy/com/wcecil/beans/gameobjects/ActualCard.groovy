@@ -42,4 +42,9 @@ class ActualCard extends CardTemplate {
 			return false;
 		return true;
 	}
+	
+	@JsonIgnore
+	public String getSpecialActionScript(){
+		template?.specialActionScript
+	}
 }

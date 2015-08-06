@@ -17,7 +17,6 @@ class CardTemplate implements Card {
 	String name
 	String description
 
-	@JsonIgnore
 	String specialActionScript
 	
 	Integer startingCount

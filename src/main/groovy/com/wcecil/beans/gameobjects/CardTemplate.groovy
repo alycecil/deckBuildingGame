@@ -3,6 +3,7 @@ package com.wcecil.beans.gameobjects
 import groovy.transform.Canonical;
 import groovy.transform.CompileStatic;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.wcecil.beans.GameState
 
 @CompileStatic
@@ -16,6 +17,7 @@ class CardTemplate implements Card {
 	String name
 	String description
 
+	@JsonIgnore
 	String specialActionScript
 	
 	Integer startingCount

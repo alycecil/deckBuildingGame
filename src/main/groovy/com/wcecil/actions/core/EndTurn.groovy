@@ -41,6 +41,8 @@ class EndTurn extends Action {
 		g.currentPlayer = nextPlayer
 
 		audit = "Player ${currentPlayer.id} ended their turn, starting the turn of Player ${nextPlayer.id}"
+		
+		cleanAnnouncment(g);
 	}
 
 	boolean isValid(GameState g) {

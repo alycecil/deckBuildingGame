@@ -4,11 +4,13 @@ import groovy.transform.CompileStatic;
 
 import java.util.List;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.wcecil.beans.GameState;
 
 @CompileStatic
 public interface Card {
 
+	@JsonIgnore
 	public abstract def specialAction(GameState game, Player source, Player target);
 
 	public abstract Integer getCost();

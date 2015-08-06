@@ -24,13 +24,13 @@ Available : ${g.available}
 		while(!g.currentPlayer.hand.isEmpty()) {
 			Card c = g.currentPlayer.hand.get(0)
 
-			GameController.doAction(g, new PlayCard(card:c, sourcePlayer:g.currentPlayer))
+			GameController.doAction(g, new PlayCard(sourceCard:c, sourcePlayer:g.currentPlayer))
 		}
 	}
 	void buyAll(GameState g) {
 		while(!g.available.isEmpty()){
 			Card c = g.available.get(0);
-			GameController.doAction(g, new BuyCard(card:c, sourcePlayer:g.currentPlayer))
+			GameController.doAction(g, new BuyCard(targetCard:c, sourcePlayer:g.currentPlayer))
 		}
 	}
 

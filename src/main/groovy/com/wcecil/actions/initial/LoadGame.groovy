@@ -50,7 +50,7 @@ class LoadGame extends Action{
 			}
 
 			if(c.staticCount){
-				Set<Card> staticSet = [] as Set
+				List<Card> staticSet = []
 
 				(1..c.staticCount).each {
 					def real = new ActualCard(c)

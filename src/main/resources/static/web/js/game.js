@@ -13,14 +13,24 @@ function loadGames() {
     });
 }
 
+function scrollToAnnouncement() {
+    if ($('.announcement').size()) {
+        $('html, body').animate({
+            scrollTop: $(".announcement").offset().top
+        }, 2000);
+    }
+}
 function renderGame(context){
     console.log(context);
     getTemplateAjax('handlebar/renderGame.handlebars', function(template) {
         var html = template(context);
         $("#gamesList").html(html);
-        $('.endTurn').click(endTurn)
-        $('.playCard').click(playCard)
-        $('.buyCard').click(buyCard)
+        $('.endTurn').click(endTurn);
+        $('.playCard').click(playCard);
+        $('.buyCard').click(buyCard);
+        $('.playAll').click(playAll);
+        
+        scrollToAnnouncement();
     });
 }
 
@@ -41,6 +51,13 @@ function getGame() {
 function getGameById(gameId) {
     $.ajax({
         url: '/game/get?id='+gameId,
+        success: renderGame
+    });
+}
+
+function playAll() {
+    $.ajax({
+        url: '/game/move?id='+gameId+'&action=PlayHand',
         success: renderGame
     });
 }

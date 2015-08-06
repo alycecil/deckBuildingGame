@@ -1,14 +1,14 @@
+{{#if announcement}}
+<div class="alert {{#if announcementType}}alert-{{announcementType}}{{else}}alert-success{{/if}} announcement">
+  <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+  {{{announcement}}}
+</div>
+{{/if}}
 <div class="panel panel-success">
 	<div class="panel-heading">
 		Current Player {{currentPlayer.id}} <i class="fa fa-user"></i>, {{currentPlayer.money}} <i class="fa fa-money"></i>	
 	</div>
 	<div class="panel-body">
-		{{#if announcement}}
-		<div class="alert {{#if announcementType}}alert-{{announcementType}}{{else}}alert-success{{/if}}">
-		  <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
-		  {{announcement}}
-		</div>
-		{{/if}}
 		<div class="panel panel-info availableCards">
 			<div class="panel-heading">
 				Available Cards
@@ -28,22 +28,33 @@
 					No Cards Available
 				</div>
 				{{/each}}
-				
-				{{#each staticCards}}
-					{{#each this}}
-						<div class="col-md-4 card available" id="card-{{id}}">
-							<div class="col-md-8"><strong>{{name}}</strong></div>
-							<div class="col-md-4">{{cost}} <i class="fa fa-money"></i></div>
-							<div class="col-md-8">{{description}}</div>
-							<div class="col-md-4">{{value}} <i class="fa fa-heart"></i></div>
-							<div class="col-md-12"><button type="button" class="btn btn-success buyCard" id="buy-card-{{id}}" card="{{id}}">Buy Card</button></div>
-						</div>
-						<!-- x-id="card-{{id}}" -->
-					{{/each}}		
-				{{/each}}
 			</div>
 		</div>
 		<!--x-availableCards-->
+		
+		<div class="panel panel-info staticCards">
+			<div class="panel-heading">
+				Static Cards
+			</div>
+			<div class="panel-body">
+			{{#each staticCards}}
+				{{#each this}}
+					{{#if @first}}
+					<div class="col-md-4 card available" id="card-{{id}}">
+						<div class="col-md-8"><strong>{{name}}</strong> <span class="badge">{{../../this.length}}</span></div>
+						<div class="col-md-4">{{cost}} <i class="fa fa-money"></i></div>
+						<div class="col-md-8">{{description}}</div>
+						<div class="col-md-4">{{value}} <i class="fa fa-heart"></i></div>
+						<div class="col-md-12"><button type="button" class="btn btn-success buyCard" id="buy-card-{{id}}" card="{{id}}">Buy Card</button></div>
+					</div>
+					<!-- x-id="card-{{id}}" -->
+					{{else}}
+						<!--skipped card-{{id}} {{name}}-->
+					{{/if}}
+				{{/each}}		
+			{{/each}}
+			</div>
+		</div>
 		{{#each players}}
 		<div class="panel panel-info player {{#eq id ../currentPlayer.id}}current{{/eq}}" id="player-{{id}}">
 			<div class="panel-heading">
@@ -66,6 +77,9 @@
 				{{/each}}
 				{{#eq id ../currentPlayer.id}}
 				<div class="centered">
+					<button type="button" class="btn btn-info playAll" player="{{id}}">Play All</button>
+				</div>
+				<div class="centered">
 					<button type="button" class="btn btn-danger endTurn" player="{{id}}">End Turn</button>
 				</div>
 				{{/eq}}
@@ -82,7 +96,7 @@
 			<div class="well">
 				{{#each audit}}
 				<div class="row audit">
-					{{this}}
+					{{{this}}}
 				</div>
 				{{else}}
 				<div class="row audit">

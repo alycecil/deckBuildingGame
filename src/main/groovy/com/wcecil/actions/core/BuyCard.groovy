@@ -15,21 +15,34 @@ class BuyCard extends Action {
 
 	def doAction(GameState g) {
 		if(sourcePlayer.money < targetCard.cost){
-			audit = "Current money is only ${sourcePlayer.money} which is less than the required ${targetCard.cost}";
+			audit = "Current money is only ${sourcePlayer.money} <i class='fa fa-money'></i> which is less than the required ${targetCard.cost} <i class='fa fa-money'></i>";
 
 			g.announcement= audit
 
 			g.announcementType = AnnouncementType.danger
 		}else{
-			sourcePlayer.money -= targetCard.cost
+			if(CardMovementHelper.buyCard(g, sourcePlayer, targetCard)){
+				sourcePlayer.money -= targetCard.cost
 
-			CardMovementHelper.buyCard(g, sourcePlayer, targetCard)
+				audit = "Player ${sourcePlayer.id} bought the card '${targetCard.name}' from the available cards"
 
-			audit = "Player ${sourcePlayer.id} bought the card '${targetCard.name}' from the available cards"
+				cleanAnnouncment(g);
+			}else{
+				audit = "Unable to find ${targetCard.name} in a buyable zone";
+
+				g.announcement= audit
+
+				g.announcementType = AnnouncementType.danger
+			}
 		}
 	}
 
 	boolean isValid(GameState g) {
-		g.available.contains(targetCard)
+		boolean inStatic = false
+		g.staticCards.each {
+			inStatic = inStatic||it.contains(targetCard)
+		}
+
+		g.available.contains(targetCard) || inStatic
 	}
 }

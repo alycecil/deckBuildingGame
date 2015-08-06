@@ -23,7 +23,7 @@ class GameState {
 
 	List<Card> available = []
 	List<Card> mainDeck = []
-	List<Set<Card>> staticCards = []
+	List<List<Card>> staticCards = []
 
 	List<String> audit = []
 

@@ -21,4 +21,9 @@ abstract class Action {
 	String getAudit(){
 		"An unknown action of ${this.getClass()} was performed"
 	}
+	
+	def cleanAnnouncment(GameState g) {
+		g.announcement = null;
+		g.announcementType = null
+	}
 }

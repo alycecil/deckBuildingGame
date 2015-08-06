@@ -14,7 +14,7 @@ class CardMovementHelper {
 			def shuffle = new ShuffleDiscardIntoDeck(targetPlayer:p, cause:cause);
 			GameController.doAction(g, shuffle)
 		}
-		
+
 		if(p.deck){
 			result = p.deck.remove(0)
 			p.hand << result
@@ -42,18 +42,30 @@ class CardMovementHelper {
 		}
 		false
 	}
-	
+
 	static void playCard(Player p, Card card) {
 		if(p.hand.contains(card)){
 			p.hand.remove(card)
 			p.played.add(card)
 		}
 	}
-	
-	static void buyCard(GameState g, Player p, Card card) {
+
+	static boolean buyCard(GameState g, Player p, Card card) {
+		boolean bought = false
 		if(g.available.contains(card)){
 			g.available.remove(card)
 			p.discard.add(card)
+			bought = true
 		}
+
+		g.staticCards.each {
+			if(it.contains(card)){
+				it.remove(card)
+				p.discard.add(card)
+				bought = true
+			}
+		}
+
+		bought
 	}
 }

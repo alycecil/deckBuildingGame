@@ -47,3 +47,9 @@
 	border: solid 1px aliceblue;
 	background-color: #5cb85c;
 }
+
+.playAll {
+    margin: 3px;
+    min-width: 80%;
+    margin-bottom: 10px;
+}

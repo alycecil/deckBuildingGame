@@ -21,7 +21,7 @@ class PlayCard extends Action {
 		}
 
 		if(sourceCard.draw){
-			drawCards(g, sourcePlayer, sourceCard.money)
+			drawCards(g, sourcePlayer, sourceCard.draw)
 		}
 
 		if(sourceCard.specialActionScript){

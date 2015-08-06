@@ -1,4 +1,4 @@
 [
-{"cost":0, "money":1, "draw":0, "value":0, "name":"Coinage", "description":"+1 Money", "startingCount":7, "deckCount":0,"specialActionScript":"file:static/scripts/testScript.script"},
+{"cost":0, "money":1, "draw":0, "value":0, "name":"Coinage", "description":"+1 Money", "startingCount":7, "deckCount":0,"specialActionScript":null},
 {"cost":0, "money":0, "draw":0, "value":1, "name":"Land Grant", "description":"+1 Victory Point", "startingCount":3, "deckCount":0, "specialActionScript":null}
 ]

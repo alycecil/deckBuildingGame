@@ -6,7 +6,7 @@
 {{/if}}
 <div class="panel panel-success">
 	<div class="panel-heading">
-		<h4>Current Player {{currentPlayer.id}} <i class="fa fa-user"></i>, {{currentPlayer.money}} <i class="fa fa-money"></i></h4>	
+		<h4>Current Player {{currentPlayer.id}} <i class="fa fa-user"></i>, {{currentPlayer.money}} <i class="fa fa-money"></i>, <span data-toggle="tooltip" title="Cards in Hand">{{currentPlayer.hand.length}} <i class="fa fa-clone"></i></span></h4>	
 		<div class="centered">
 			<button type="button" class="btn btn-info playAll" player="{{currentPlayer.id}}">Play All</button>
 		</div>
@@ -21,7 +21,7 @@
 			</div>
 			<div class="panel-body">
 				{{#each available}}
-				<div class="col-md-3 card available" id="card-{{id}}">
+				<div class="col-sm-3 card available" id="card-{{id}}">
 					<div class="col-md-8"><strong>{{name}}</strong></div>
 					<div class="col-md-4">{{cost}} <i class="fa fa-money"></i></div>
 					<div class="col-md-8">{{description}}</div>
@@ -30,7 +30,7 @@
 				</div>
 				<!-- x-id="card-{{id}}" -->
 				{{else}}
-				<div class="col-md-3 card">
+				<div class="col-sm-3 card">
 					No Cards Available
 				</div>
 				{{/each}}
@@ -46,7 +46,7 @@
 			{{#each staticCards}}
 				{{#each this}}
 					{{#if @first}}
-					<div class="col-md-3 card available" id="card-{{id}}">
+					<div class="col-sm-3 card available" id="card-{{id}}">
 						<div class="col-md-8"><strong>{{name}}</strong> <span class="badge">{{../../this.length}}</span></div>
 						<div class="col-md-4">{{cost}} <i class="fa fa-money"></i></div>
 						<div class="col-md-8">{{description}}</div>
@@ -64,15 +64,41 @@
 		{{#each players}}
 		<div class="panel panel-info player {{#eq id ../currentPlayer.id}}current{{/eq}}" id="player-{{id}}">
 			<div class="panel-heading">
-				Player {{id}} <i class="fa fa-user"></i>, {{money}} <i class="fa fa-money"></i>
+				<h5>Player {{id}} <i class="fa fa-user"></i>, {{money}} <i class="fa fa-money"></i></h5>
+				<h6>
+					<span class="zone-details zone-details-hand" data-toggle="tooltip" title="Cards in Hand">
+						{{hand.length}} <i class="fa fa-clone"></i>
+					</span>
+					
+					<span class="zone-details zone-details-played" data-toggle="tooltip" title="Played this turn">
+						{{played.length}} <span class="fa-stack">
+						  <i class="fa fa-square-o fa-stack-2x"></i>
+						  <i class="fa fa-clone fa-stack-1x"></i>
+						</span>
+					</span>
+					
+					<span class="zone-details zone-details-deck" data-toggle="tooltip" title="Remaining in Deck">
+						{{deck.length}} <span class="fa-stack">
+						  <i class="fa fa-square-o fa-stack-2x"></i>
+						  <i class="fa fa-clone fa-stack-1x"></i>
+						</span>
+					</span>
+					
+					<span class="zone-details zone-details-discard" data-toggle="tooltip" title="Discard Pile Count">
+						{{discard.length}} <span class="fa-stack">
+						  <i class="fa fa-square-o fa-stack-2x"></i>
+						  <i class="fa fa-trash fa-stack-1x"></i>
+						</span>
+					</span>
+				</h6>
 			</div>
 			<div class="panel-body hand">
 				{{#each hand}}
-				<div class="col-md-3 card available" id="card-{{id}}">
-					<div class="col-md-8"><strong>{{name}}</strong></div>
-					<div class="col-md-4">{{cost}} <i class="fa fa-money"></i></div>
-					<div class="col-md-8">{{description}}</div>
-					<div class="col-md-4">{{value}} <i class="fa fa-heart"></i></div>
+				<div class="col-sm-3 card available" id="card-{{id}}">
+					<div class="col-sm-8"><strong>{{name}}</strong></div>
+					<div class="col-sm-4">{{cost}} <i class="fa fa-money"></i></div>
+					<div class="col-sm-8">{{description}}</div>
+					<div class="col-sm-4">{{value}} <i class="fa fa-heart"></i></div>
 					{{#eq ../id ../../currentPlayer.id}}
 					<div class="col-md-12">
 						<button type="button" class="btn btn-success playCard" card="{{id}}">Play Card</button>

@@ -30,6 +30,8 @@ function renderGame(context){
         $('.buyCard').click(buyCard);
         $('.playAll').click(playAll);
         
+		$('[data-toggle="tooltip"]').tooltip()
+
         scrollToAnnouncement();
     });
 }

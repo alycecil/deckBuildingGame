@@ -1,9 +1,9 @@
 package com.wcecil.beans.gameobjects
 
-import groovy.transform.Canonical;
-import groovy.transform.CompileStatic;
+import groovy.transform.Canonical
+import groovy.transform.CompileStatic
 
-import com.wcecil.settings.Settings
+import com.wcecil.common.settings.Settings
 
 @CompileStatic
 @Canonical

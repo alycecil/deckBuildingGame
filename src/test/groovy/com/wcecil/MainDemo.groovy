@@ -3,13 +3,13 @@ package com.wcecil
 
 import org.junit.Test
 
-import com.wcecil.actions.core.BuyCard
-import com.wcecil.actions.core.EndTurn
-import com.wcecil.actions.core.PlayCard
-import com.wcecil.actions.initial.LoadGame
 import com.wcecil.beans.GameState
 import com.wcecil.beans.gameobjects.Card
-import com.wcecil.core.GameController
+import com.wcecil.game.actions.core.BuyCard
+import com.wcecil.game.actions.core.EndTurn
+import com.wcecil.game.actions.core.PlayCard
+import com.wcecil.game.actions.initial.LoadGame
+import com.wcecil.game.core.GameController
 
 public class MainDemo {
 

@@ -10,15 +10,15 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.wcecil.actions.Action;
-import com.wcecil.actions.initial.LoadGame;
 import com.wcecil.beans.GamePlayerState;
 import com.wcecil.beans.GameState;
 import com.wcecil.beans.gameobjects.ActualCard;
 import com.wcecil.beans.gameobjects.Card;
 import com.wcecil.beans.gameobjects.CardTemplate;
 import com.wcecil.beans.gameobjects.Player;
-import com.wcecil.core.GameController;
+import com.wcecil.game.actions.Action;
+import com.wcecil.game.actions.initial.LoadGame;
+import com.wcecil.game.core.GameController;
 
 @RestController
 @RequestMapping("/game")

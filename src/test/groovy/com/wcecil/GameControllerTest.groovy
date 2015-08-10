@@ -4,9 +4,9 @@ import static org.junit.Assert.*
 
 import org.junit.Test
 
-import com.wcecil.actions.core.EndTurn;
-import com.wcecil.beans.GameState;
-import com.wcecil.core.GameController;
+import com.wcecil.beans.GameState
+import com.wcecil.game.actions.core.EndTurn
+import com.wcecil.game.core.GameController
 
 class GameControllerTest {
 

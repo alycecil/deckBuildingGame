@@ -4,12 +4,12 @@ import groovy.transform.CompileStatic
 
 import java.util.concurrent.atomic.AtomicLong
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonIgnore
 import com.wcecil.beans.gameobjects.Card
 import com.wcecil.beans.gameobjects.Player
-import com.wcecil.rules.Rule
-import com.wcecil.settings.Settings;
-import com.wcecil.triggers.Trigger
+import com.wcecil.common.settings.Settings
+import com.wcecil.game.rules.Rule
+import com.wcecil.game.triggers.Trigger
 
 //TODO port to jpa/mongo/or some similar nonsense
 @CompileStatic

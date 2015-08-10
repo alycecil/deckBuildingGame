@@ -4,7 +4,7 @@ import static org.junit.Assert.*
 
 import org.junit.Test
 
-import com.wcecil.actions.initial.LoadCards
+import com.wcecil.game.actions.initial.LoadCards
 import com.wcecil.beans.GameState
 
 

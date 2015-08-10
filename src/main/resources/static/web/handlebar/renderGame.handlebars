@@ -21,7 +21,7 @@
 			</div>
 			<div class="panel-body">
 				{{#each available}}
-				<div class="col-md-4 card available" id="card-{{id}}">
+				<div class="col-md-3 card available" id="card-{{id}}">
 					<div class="col-md-8"><strong>{{name}}</strong></div>
 					<div class="col-md-4">{{cost}} <i class="fa fa-money"></i></div>
 					<div class="col-md-8">{{description}}</div>
@@ -30,7 +30,7 @@
 				</div>
 				<!-- x-id="card-{{id}}" -->
 				{{else}}
-				<div class="col-md-4 card">
+				<div class="col-md-3 card">
 					No Cards Available
 				</div>
 				{{/each}}
@@ -46,7 +46,7 @@
 			{{#each staticCards}}
 				{{#each this}}
 					{{#if @first}}
-					<div class="col-md-4 card available" id="card-{{id}}">
+					<div class="col-md-3 card available" id="card-{{id}}">
 						<div class="col-md-8"><strong>{{name}}</strong> <span class="badge">{{../../this.length}}</span></div>
 						<div class="col-md-4">{{cost}} <i class="fa fa-money"></i></div>
 						<div class="col-md-8">{{description}}</div>
@@ -68,7 +68,7 @@
 			</div>
 			<div class="panel-body hand">
 				{{#each hand}}
-				<div class="col-md-4 card available" id="card-{{id}}">
+				<div class="col-md-3 card available" id="card-{{id}}">
 					<div class="col-md-8"><strong>{{name}}</strong></div>
 					<div class="col-md-4">{{cost}} <i class="fa fa-money"></i></div>
 					<div class="col-md-8">{{description}}</div>

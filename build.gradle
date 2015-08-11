@@ -2,6 +2,14 @@ apply plugin: 'eclipse'
 apply plugin: 'groovy'
 apply plugin: 'spring-boot'
 
+def __env = 'local'
+
+if(System.getProperty('env')){
+	__env = System.getProperty('env')
+}
+
+println "Building $name for enviroment $__env"
+
 buildscript {
 	repositories { mavenCentral() }
 	dependencies { classpath 'org.springframework.boot:spring-boot-gradle-plugin:1.2.5.RELEASE' }
@@ -13,6 +21,9 @@ dependencies {
 	compile 'org.springframework.boot:spring-boot-starter-web:1.2.5.RELEASE'
 	compile 'org.springframework.boot:spring-boot-starter-actuator:1.2.5.RELEASE'
 
+	compile 'org.springframework.data:spring-data-jpa:1.8.2.RELEASE'
+	compile 'org.springframework.data:spring-data-mongodb:1.7.2.RELEASE'
+	
 	compile 'com.fasterxml.jackson.core:jackson-databind:2.5.4'
 	compile 'org.codehaus.groovy:groovy-all:2.4.1'
 	
@@ -33,6 +44,7 @@ bootRun { addResources = false }
 
 sourceSets {
 	main {
-		resources { srcDir 'src/main/resources' }
+		resources { 
+			srcDirs = ['src/main/resources', "src/env/resources/$__env"]}
 	}
 }

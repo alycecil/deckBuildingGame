@@ -8,7 +8,13 @@ if(System.getProperty('env')){
 	__env = System.getProperty('env')
 }
 
-println "Building $name for enviroment $__env"
+def __set = 'default'
+
+if(System.getProperty('set')){
+	__set = System.getProperty('set')
+}
+
+println "Building $name for enviroment $__env, using card set $__set"
 
 buildscript {
 	repositories { mavenCentral() }
@@ -45,6 +51,6 @@ bootRun { addResources = false }
 sourceSets {
 	main {
 		resources { 
-			srcDirs = ['src/main/resources', "src/env/resources/$__env"]}
+			srcDirs = ['src/main/resources', "src/env/resources/$__env", "src/cards/set/$__set", "src/web/resources"]}
 	}
 }

@@ -1,4 +1,4 @@
-package com.wcecil.beans
+package com.wcecil.data.objects
 
 import javax.validation.constraints.NotNull;
 
@@ -7,7 +7,7 @@ import org.springframework.data.mongodb.core.index.Indexed
 import org.springframework.data.mongodb.core.mapping.Document
 
 @Document
-class Player {
+class User {
 	
 	@Id
 	String id

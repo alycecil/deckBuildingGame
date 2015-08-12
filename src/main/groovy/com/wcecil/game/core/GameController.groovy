@@ -1,13 +1,18 @@
 package com.wcecil.game.core
 
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service
+
 import com.wcecil.beans.GameState
 import com.wcecil.common.settings.Settings
+import com.wcecil.data.objects.GameAudit
+import com.wcecil.data.repositiories.AuditRepository;
 import com.wcecil.game.actions.Action
 import com.wcecil.game.rules.Rule
 import com.wcecil.game.triggers.Trigger
 
 class GameController {
-
+	
 	static def doAction(GameState g, Action a){
 		def result = null
 		if(a.isValid(g)){
@@ -40,9 +45,10 @@ class GameController {
 	static void saveAudit(GameState g, Action a) {
 		def tic = g.ticCount.get()
 		if(a.audit){
-			def audit = "$tic:${a.audit}".toString()
-			if(Settings.debug) println audit
-			g.audit.add(audit)
+			if(Settings.debug) println "$tic:${a.audit}"
+			
+			GameAudit ga = new GameAudit(gameId: g.getId(), playerId : a.getSourcePlayer()?.getUserId(), order: tic, message:a.audit )
+			g.audit << ga
 		}
 	}
 

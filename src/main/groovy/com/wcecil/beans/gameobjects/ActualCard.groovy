@@ -9,6 +9,9 @@ class ActualCard extends CardTemplate {
 	@JsonIgnore
 	@Delegate Card template
 	
+	public ActualCard(){
+	}
+	
 	public ActualCard(Card c) {
 		template = c
 		id = Settings.nextIdCard.getAndIncrement()

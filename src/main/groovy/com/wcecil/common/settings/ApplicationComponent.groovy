@@ -22,4 +22,8 @@ class ApplicationComponent {
 	
 	@Value('${mongo.dbname}')
 	String mongoDB
+	
+	
+	@Value('${allow.debug}')
+	Boolean allowDebug
 }

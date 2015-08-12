@@ -4,49 +4,67 @@ import groovy.transform.CompileStatic
 
 import java.util.concurrent.atomic.AtomicLong
 
+import org.springframework.data.annotation.Id
+import org.springframework.data.annotation.Transient
+import org.springframework.data.mongodb.core.mapping.Document
+
 import com.fasterxml.jackson.annotation.JsonIgnore
 import com.wcecil.beans.gameobjects.Card
 import com.wcecil.beans.gameobjects.Player
-import com.wcecil.common.settings.Settings
+import com.wcecil.data.objects.GameAudit;
 import com.wcecil.game.rules.Rule
 import com.wcecil.game.triggers.Trigger
 
-//TODO port to jpa/mongo/or some similar nonsense
 @CompileStatic
+@Document
 class GameState {
-	Long id;
+	@Id
+	String id
 
 	AtomicLong ticCount = new AtomicLong(0l);
 
 	List<Player> players = []
-	Player currentPlayer
+
+	@JsonIgnore
+	private Long currentPlayerId;
+
+	@Transient
+	Player currentPlayer;
 
 	List<Card> available = []
 	List<Card> mainDeck = []
 	List<List<Card>> staticCards = []
 
-	List<String> audit = []
+	@Transient
+	List<GameAudit> audit = []
 
 	@JsonIgnore
 	Set<Trigger> triggers = [] as Set
 	@JsonIgnore
 	List<Card> allCards = []
-	
+
 	@JsonIgnore
 	List<Rule> rules = []
-	
+
 	String announcement
 	def announcementType
 
-	public GameState() {
-		this(true);
-	}
-
-	public GameState(boolean updateId) {
-		if(updateId){
-			id = Settings.nextIdGame.getAndIncrement();
-			
-			if(Settings.debug) println "Created Game $id"
+	@Transient
+	public Player getCurrentPlayer() {
+		if(!currentPlayer){
+			for(Player p : players){
+				if(p&&p.id&&p.id.equals(currentPlayerId)){
+					currentPlayer = p;
+					break;
+				}
+			}
 		}
+		return currentPlayer;
+	}
+	
+	@Transient
+	public void setCurrentPlayer(Player currentPlayer) {
+		this.currentPlayer = currentPlayer;
+		this.currentPlayerId = currentPlayer.getId();
 	}
 }

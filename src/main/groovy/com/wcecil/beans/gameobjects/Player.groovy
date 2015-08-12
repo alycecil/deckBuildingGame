@@ -8,6 +8,8 @@ import com.wcecil.common.settings.Settings
 @CompileStatic
 @Canonical
 class Player {
+	String userId
+	
 	Long id
 	List<Card> deck
 	List<Card> discard

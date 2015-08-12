@@ -1,10 +1,6 @@
 package com.wcecil.webservice.controller;
 
-import java.util.ArrayList;
-import java.util.Hashtable;
-import java.util.List;
-import java.util.Map;
-
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -14,45 +10,50 @@ import com.wcecil.beans.GamePlayerState;
 import com.wcecil.beans.GameState;
 import com.wcecil.beans.gameobjects.ActualCard;
 import com.wcecil.beans.gameobjects.Card;
-import com.wcecil.beans.gameobjects.CardTemplate;
 import com.wcecil.beans.gameobjects.Player;
+import com.wcecil.data.repositiories.GameRepository;
 import com.wcecil.game.actions.Action;
 import com.wcecil.game.actions.initial.LoadGame;
 import com.wcecil.game.core.GameController;
+import com.wcecil.webservice.service.AuthenticationService;
+import com.wcecil.webservice.util.MaskingHelper;
 
 @RestController
 @RequestMapping("/game")
 public class GameInfoController {
+	@Autowired
+	GameRepository gamesRepo;
+	
+	@Autowired
+	AuthenticationService authService;
 
-	// TODO pin to real data
-	Map<Long, GameState> games = new Hashtable<>();
-
+	public GameInfoController() {
+		System.out.print("Creating "+this);
+	}
+	
 	@RequestMapping(value = "/list", method = { RequestMethod.GET })
-	public GamePlayerState listGames() {
-		// TODO pin to real data
-		GamePlayerState state = new GamePlayerState();
-
-		state.setGames(new ArrayList<>(games.values()));
-		state.setPlayerName("YOU");
-		state.setId(1l);
+	public GamePlayerState listGames(@RequestParam(value = "token") String token) {
+		String userId = authService.getUserFromToken(token);
+		GamePlayerState state = gamesRepo.loadGamesForUser(userId);
 
 		return state;
 	}
 
 	@RequestMapping(value = "/get", method = { RequestMethod.GET })
-	public GameState getGame(@RequestParam(value = "id") Long id) {
+	public GameState getGame(@RequestParam(value = "id") String gameId, @RequestParam(value = "token") String token) {
+		String userId = authService.getUserFromToken(token);
+		
+		GameState g = gamesRepo.getGame(gameId, true);
 
-		GameState g = games.get(id);
-
-		GameState retVal = new GameState(false);
+		GameState retVal = new GameState();
 
 		if (g != null) {
-			retVal.setId(id);
-			retVal.setAudit(g.getAudit());
-			retVal.setCurrentPlayer(maskPlayerDetails(g.getCurrentPlayer()));
-			retVal.setPlayers(maskPlayersDetails(g));
+			retVal.setId(gameId);
+			//retVal.setAudit(g.getAudit());
+			retVal.setCurrentPlayer(MaskingHelper.maskPlayerDetails(g.getCurrentPlayer(),userId));
+			retVal.setPlayers(MaskingHelper.maskPlayersDetails(g,userId));
 			retVal.setTicCount(g.getTicCount());
-			retVal.setMainDeck(maskCards(g));
+			retVal.setMainDeck(MaskingHelper.maskCards(g));
 			retVal.setStaticCards(g.getStaticCards());
 			retVal.setTriggers(g.getTriggers());
 			retVal.setAvailable(g.getAvailable());
@@ -61,71 +62,33 @@ public class GameInfoController {
 		return g;
 	}
 
-	private List<Card> maskCards(GameState g) {
-		List<Card> mainDeck = g.getMainDeck();
-		return maskCards(mainDeck);
-	}
-
-	private List<Card> maskCards(List<Card> mainDeck) {
-		List<Card> deck = new ArrayList<>();
-
-		for (@SuppressWarnings("unused")
-		Card ignored : mainDeck) {
-			deck.add(new CardTemplate());
-		}
-		return deck;
-	}
-
-	private List<Player> maskPlayersDetails(GameState g) {
-		List<Player> players = new ArrayList<>();
-
-		for (Player player : g.getPlayers()) {
-			players.add(maskPlayerDetails(player));
-		}
-
-		return players;
-	}
-
-	private Player maskPlayerDetails(Player p) {
-		Player p2 = new Player();
-
-		if (p != null) {
-			p2.setId(p.getId());
-			p2.setMoney(p.getMoney());
-
-			p2.setDeck(maskCards(p.getDeck()));
-			p2.setDiscard(p.getDiscard());
-			p2.setInplay(p.getInplay());
-			p2.setPlayed(p.getPlayed());
-
-			// TODO MASK HAND OF NOT YOU
-			p2.setHand(p.getHand());
-		}
-		return p2;
-	}
+	
 
 	@RequestMapping(value = "/new", method = { RequestMethod.GET,
 			RequestMethod.POST })
-	public GameState newGame() {
-
+	public GameState newGame(@RequestParam(value = "token") String token) {
+		authService.getUserFromToken(token);
+		
 		GameState g = new GameState();
 		GameController.doAction(g, new LoadGame());
 
-		games.put(g.getId(), g);
+		gamesRepo.save(g);
 
-		return getGame(g.getId());
+		return getGame(g.getId(), token);
 	}
 
 	@RequestMapping(value = "/move", method = { RequestMethod.GET,
 			RequestMethod.POST })
 	public GameState move(
-			@RequestParam(value = "id") Long id,
+			@RequestParam(value = "id") String gameId,
 			@RequestParam(value = "action") String action,
 			@RequestParam(value = "sourceCard", required = false) Long sourceCard,
 			@RequestParam(value = "targetCard", required = false) Long targetCard,
-			@RequestParam(value = "targetPlayer", required = false) Long targetPlayer) {
+			@RequestParam(value = "targetPlayer", required = false) Long targetPlayer,
+			@RequestParam(value = "token") String token) {
+		String userId = authService.getUserFromToken(token);
 
-		GameState g = games.get(id);
+		GameState g = gamesRepo.getGame(gameId, true);
 
 		Action a = GameController.buildAction(g, action);
 
@@ -175,7 +138,9 @@ public class GameInfoController {
 		}
 
 		GameController.doAction(g, a);
+		
+		gamesRepo.save(g);
 
-		return getGame(id);
+		return getGame(gameId, token);
 	}
 }

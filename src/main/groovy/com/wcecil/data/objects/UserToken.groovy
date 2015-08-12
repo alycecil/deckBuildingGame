@@ -1,22 +1,16 @@
-package com.wcecil.data.objects
-
-import javax.validation.constraints.NotNull;
+package com.wcecil.data.objects;
 
 import org.springframework.data.annotation.Id
 import org.springframework.data.mongodb.core.index.Indexed
 import org.springframework.data.mongodb.core.mapping.Document
 
 @Document
-class UserGameRef {
-	
+public class UserToken {
 	@Id
-	String id
-	
+	String token
 	
 	@Indexed
 	String userId
 	
-	@Indexed
-	String gameId
-	
+	//TODO Date experation
 }

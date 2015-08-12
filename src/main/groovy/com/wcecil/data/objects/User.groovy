@@ -1,6 +1,6 @@
 package com.wcecil.data.objects
 
-import javax.validation.constraints.NotNull;
+import javax.validation.constraints.NotNull
 
 import org.springframework.data.annotation.Id
 import org.springframework.data.mongodb.core.index.Indexed
@@ -13,11 +13,13 @@ class User {
 	String id
 	
 	@NotNull
-	@Indexed(unique=true)
+	@Indexed
 	String password
 	
-	@Indexed
+	@Indexed(unique=true)
 	String login
 	
 	String name
+	
+	List<String> games;
 }

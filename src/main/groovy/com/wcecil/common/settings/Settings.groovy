@@ -15,6 +15,5 @@ class Settings {
 	
 	public static AtomicLong nextIdPlayer = new AtomicLong(1l);
 	public static AtomicLong nextIdCard = new AtomicLong(1l);
-	public static AtomicLong nextIdGame = new AtomicLong(1l);
 	
 }

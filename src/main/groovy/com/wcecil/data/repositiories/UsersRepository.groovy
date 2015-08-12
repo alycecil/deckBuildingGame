@@ -14,7 +14,7 @@ import com.wcecil.data.objects.UserToken
 public class UsersRepository {
 	private final static String USERS_REPO = "deck.users.repo";
 	private final static String TOKENS_REPO = "deck.users.tokens";
-	
+
 	@Autowired
 	MongoTemplate mongoTemplate;
 
@@ -37,7 +37,7 @@ public class UsersRepository {
 			user.login=null
 			user.password=null
 		}
-		
+
 		user
 	}
 
@@ -46,7 +46,7 @@ public class UsersRepository {
 		if(sameUserName){
 			throw new IllegalStateException("User with username '$userName' already exists");
 		}
-		
+
 		if (name == null) {
 			name = userName;
 		}
@@ -88,19 +88,23 @@ public class UsersRepository {
 		User user = mongoTemplate.findById(userId, User.class, USERS_REPO)
 		return user
 	}
-	
+
 	public User getUser(String userId) {
 		return mask(getUserById(userId))
 	}
-	
+
 	public UserToken createTokenForUserId(String userId){
-		UserToken token = new UserToken(userId:userId)
-		
-		mongoTemplate.save(token, TOKENS_REPO)
-		
+		UserToken token = mongoTemplate.findOne(query(where('userId').is(userId)), UserToken.class, TOKENS_REPO)
+
+		if(!token){
+			token = new UserToken(userId:userId)
+
+			mongoTemplate.save(token, TOKENS_REPO)
+		}
+
 		return token
 	}
-	
+
 	public UserToken getUserTokenForTokenId(String token){
 		UserToken myToken = mongoTemplate.findById(token, UserToken.class, TOKENS_REPO)
 		return myToken

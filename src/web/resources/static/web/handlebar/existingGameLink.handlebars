@@ -1,7 +1,7 @@
 <div class="centered">
 	{{#each games}}
 		<div class="row">
-		    <button type="button" class="btn btn-default gameButton" onclick="getGameById({{id}})">Game : {{name}}({{id}})</button>
+		    <button type="button" class="btn btn-default gameButton" onclick="getGameById('{{id}}')">Game : {{name}}({{id}})</button>
 		</div>
 	{{else}}
 		<div class="row">

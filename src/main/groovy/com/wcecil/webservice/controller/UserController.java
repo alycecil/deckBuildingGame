@@ -21,32 +21,31 @@ public class UserController {
 
 	@Autowired
 	ApplicationComponent context;
-	
+
 	@Autowired
 	AuthenticationService authService;
-	
+
 	@RequestMapping("/players/all")
 	public List<User> listAll() {
-		if(context.getAllowDebug()){
+		if (!context.getAllowDebug())
+			throw new IllegalStateException("Debug Method");
 		return usersRepo.listAll();
-		}
-		throw new IllegalStateException("Debug Method");
 	}
-	
+
 	@RequestMapping("/players/auth")
 	public User auth(@RequestParam("username") String userName,
 			@RequestParam("password") String password) {
 		return usersRepo.auth(userName, password);
 	}
-	
+
 	@RequestMapping("/players/token")
 	public UserToken authToken(@RequestParam("username") String userName,
 			@RequestParam("password") String password) {
 		User user = usersRepo.auth(userName, password);
-		
+
 		return usersRepo.createTokenForUserId(user.getId());
 	}
-	
+
 	@RequestMapping("/players/me")
 	public User authToken(@RequestParam("token") String token) {
 		String userId = authService.getUserFromToken(token);
@@ -60,11 +59,12 @@ public class UserController {
 			@RequestParam(value = "name", required = false) String name) {
 		return usersRepo.createNew(userName, password, name);
 	}
-	
+
 	@RequestMapping("/players/add/game")
 	public User createNew(@RequestParam("userId") String userId,
-			@RequestParam("gameId") String gameId
-			) {
+			@RequestParam("gameId") String gameId) {
+		if (!context.getAllowDebug())
+			throw new IllegalStateException("Debug Method");
 		return usersRepo.addGameToUser(userId, gameId);
 	}
 

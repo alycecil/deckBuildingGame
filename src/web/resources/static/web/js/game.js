@@ -14,37 +14,69 @@ function _showLogin(context){
 	});
 }
 
-function createUser(){
+function getPassword(){
+	var psw = $('#pwd').val().trim();
+	
+	if(psw==null||psw==""){
+		var context = {"error":"Password may not be blank"}
+	    _showLogin(context);
+	    pwd = null;
+	}else{
+		var hash = CryptoJS.SHA1(psw);
+		psw = hash.toString();
+	}
+	
+	return psw;
+}
 
+function createUser(){
+	var usr = $('#usr').val().trim();
+	var psw = getPassword();
+	
+	if(psw!=null&&pwd!=''){
+		var url = '/players/new?username='+usr+'&password='+psw
+		
+		try {  
+		 	$.ajax({
+		        url: url,
+		        success: function(context) {
+		             login();
+		        },
+		        error: function(){
+		        	var context = {"error":"Unable to create user, try a different username"}
+		        	_showLogin(context);
+		        }
+		    });
+	    } catch (e) {
+		   throw new Error(e.message);
+		}
+	}
+	
 	return false;
 }
 
 function login() {
 	var usr = $('#usr').val().trim();
-	var psw = $('#pwd').val().trim();
+	var psw = getPassword();
 	
-	if(psw==null||psw==""){
-		alert("Password may not be null");
-	}
-	var hash = CryptoJS.SHA1(psw);
-	psw = hash.toString()
-	
-	var url = '/players/token?username='+usr+'&password='+psw
-	
-	try {  
-	 	$.ajax({
-	        url: url,
-	        success: function(context) {
-	            token = context.token
-	            loadGames();
-	        },
-	        error: function(){
-	        	var context = {"error":"Unknown User"}
-	        	_showLogin(context);
-	        }
-	    });
-    } catch (e) {
-	   throw new Error(e.message);
+	if(psw!=null&&pwd!=''){
+		var url = '/players/token?username='+usr+'&password='+psw
+		
+		try {  
+		 	$.ajax({
+		        url: url,
+		        success: function(context) {
+		            token = context.token
+		            loadGames();
+		        },
+		        error: function(){
+		        	var context = {"error":"Unknown User"}
+		        	_showLogin(context);
+		        }
+		    });
+	    } catch (e) {
+		   throw new Error(e.message);
+		}
 	}
 	return false;
 }

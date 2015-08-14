@@ -1,5 +1,7 @@
 package com.wcecil.webservice.controller;
 
+import javax.servlet.http.HttpServletResponse;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -36,8 +38,9 @@ public class GameInfoController {
 	}
 
 	@RequestMapping(value = "/list", method = { RequestMethod.GET })
-	public GamePlayerState listGames(@RequestParam(value = "token") String token) {
-		String userId = authService.getUserFromToken(token);
+	public GamePlayerState listGames(@RequestParam(value = "token") String token,
+			HttpServletResponse response) {
+		String userId = authService.getUserFromToken(token,response);
 		GamePlayerState state = gamesRepo.loadGamesForUser(userId);
 
 		return state;
@@ -45,8 +48,9 @@ public class GameInfoController {
 
 	@RequestMapping(value = "/get", method = { RequestMethod.GET })
 	public GameState getGame(@RequestParam(value = "id") String gameId,
-			@RequestParam(value = "token") String token) {
-		String userId = authService.getUserFromToken(token);
+			@RequestParam(value = "token") String token,
+			HttpServletResponse response) {
+		String userId = authService.getUserFromToken(token,response);
 
 		GameState g = gamesRepo.getGame(gameId, true);
 
@@ -70,8 +74,9 @@ public class GameInfoController {
 
 	@RequestMapping(value = "/new", method = { RequestMethod.GET,
 			RequestMethod.POST })
-	public GameState newGame(@RequestParam(value = "token") String token) {
-		String userId = authService.getUserFromToken(token);
+	public GameState newGame(@RequestParam(value = "token") String token,
+			HttpServletResponse response) {
+		String userId = authService.getUserFromToken(token,response);
 
 		GameState g = new GameState();
 		GameController.doAction(g, new LoadGame());
@@ -80,7 +85,7 @@ public class GameInfoController {
 
 		usersRepo.addGameToUser(userId, g.getId());
 
-		return getGame(g.getId(), token);
+		return getGame(g.getId(), token, response);
 	}
 
 	@RequestMapping(value = "/move", method = { RequestMethod.GET,
@@ -91,9 +96,10 @@ public class GameInfoController {
 			@RequestParam(value = "sourceCard", required = false) Long sourceCard,
 			@RequestParam(value = "targetCard", required = false) Long targetCard,
 			@RequestParam(value = "targetPlayer", required = false) Long targetPlayer,
-			@RequestParam(value = "token") String token) {
+			@RequestParam(value = "token") String token,
+			HttpServletResponse response) {
 		// TODO String userId =
-		authService.getUserFromToken(token);
+		authService.getUserFromToken(token,response);
 
 		GameState g = gamesRepo.getGame(gameId, true);
 
@@ -148,6 +154,6 @@ public class GameInfoController {
 
 		gamesRepo.save(g);
 
-		return getGame(gameId, token);
+		return getGame(gameId, token, response);
 	}
 }

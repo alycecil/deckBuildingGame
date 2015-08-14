@@ -1,6 +1,9 @@
 package com.wcecil.webservice.controller;
 
+import java.io.IOException;
 import java.util.List;
+
+import javax.servlet.http.HttpServletResponse;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -26,23 +29,38 @@ public class UserController {
 	AuthenticationService authService;
 
 	@RequestMapping("/players/all")
-	public List<User> listAll() {
-		if (!context.getAllowDebug())
-			throw new IllegalStateException("Debug Method");
+	public List<User> listAll(HttpServletResponse response) throws IOException {
+		if (!context.getAllowDebug()) {
+			response.sendError(HttpServletResponse.SC_UNAUTHORIZED,
+					"Not Authorized");
+			return null;
+		}
 		return usersRepo.listAll();
 	}
 
 	@RequestMapping("/players/auth")
 	public User auth(@RequestParam("username") String userName,
-			@RequestParam("password") String password) {
-		return usersRepo.auth(userName, password);
+			@RequestParam("password") String password,
+			HttpServletResponse response) throws IOException {
+		User user = usersRepo.auth(userName, password);
+
+		if (user == null) {
+			response.sendError(HttpServletResponse.SC_UNAUTHORIZED,
+					"Not Authorized");
+		}
+
+		return user;
 	}
 
 	@RequestMapping("/players/token")
 	public UserToken authToken(@RequestParam("username") String userName,
-			@RequestParam("password") String password) {
+			@RequestParam("password") String password,
+			HttpServletResponse response) throws IOException {
 		User user = usersRepo.auth(userName, password);
-
+		if (user == null) {
+			response.sendError(HttpServletResponse.SC_UNAUTHORIZED,
+					"Not Authorized");
+		}
 		return usersRepo.createTokenForUserId(user.getId());
 	}
 
@@ -62,9 +80,13 @@ public class UserController {
 
 	@RequestMapping("/players/add/game")
 	public User createNew(@RequestParam("userId") String userId,
-			@RequestParam("gameId") String gameId) {
-		if (!context.getAllowDebug())
-			throw new IllegalStateException("Debug Method");
+			@RequestParam("gameId") String gameId, HttpServletResponse response)
+			throws IOException {
+		if (!context.getAllowDebug()) {
+			response.sendError(HttpServletResponse.SC_UNAUTHORIZED,
+					"Not Authorized");
+			return null;
+		}
 		return usersRepo.addGameToUser(userId, gameId);
 	}
 

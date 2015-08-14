@@ -33,6 +33,9 @@ public class UsersRepository {
 	}
 
 	private def mask(User user){
+		if(user==null){
+			return null
+		}
 		if(mask){
 			user.login=null
 			user.password=null
@@ -61,8 +64,13 @@ public class UsersRepository {
 	}
 
 	public User auth(String userName, String password) {
-		return mask(mongoTemplate.findOne(query(where("login").is(userName)
-				.and("password").is(password)), User.class, USERS_REPO));
+		def mongoTemplateFindOne = mongoTemplate.findOne(query(where("login").is(userName)
+				.and("password").is(password)), User.class, USERS_REPO)
+		
+		if(mongoTemplateFindOne)
+			return mask(mongoTemplateFindOne);
+		else
+			return null;
 	}
 
 	public void saveUser(User u){

@@ -32,14 +32,6 @@
 		{{#each hand}}
 			{{> playerHandCard playerId=../id currentPlayerId=../currentPlayerId }}
 		{{/each}}
-		{{#eq id currentPlayerId}}
-			<div class="centered">
-				<button type="button" class="btn btn-info playAll" player="{{id}}">Play All</button>
-			</div>
-			<div class="centered">
-				<button type="button" class="btn btn-danger endTurn" player="{{id}}">End Turn</button>
-			</div>
-		{{/eq}}
 	</div>
 </div>
 <!--x-id="player-{{id}}"-->

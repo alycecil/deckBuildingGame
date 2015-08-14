@@ -4,10 +4,9 @@
 
 .card {
 	background-color: lightgrey;
-	border-color: black;
+	border-color: white;
 	border-width: 1px;
 	border-style: solid;
-	margin: 5px;
 	min-width: 150px;
 }
 
@@ -49,6 +48,10 @@
 	background-color: #5cb85c;
 }
 
+.current .card {
+	border-color: #5cb85c;
+}
+
 .playAll {
     margin: 3px;
     min-width: 80%;
@@ -57,4 +60,27 @@
 
 .zone-details {
     padding-right: 10px;
+}
+
+.name {
+	min-width : 100px;
+}
+
+.availableCards .panel-body, .staticCards .panel-body {
+    padding-left: 2px;
+    padding-right: 2px;
+    padding-top: 2px;
+}
+
+.availableCards .card, .staticCards .card {
+    padding:0px;
+    min-height:200px
+}
+
+.player .panel-heading {
+    color: black;
+}
+
+#player-2 .panel-heading {
+    font-style: italic;
 }

@@ -15,6 +15,13 @@
 		</div>
 	</div>
 	<div class="panel-body">
+		<div class = "col-md-12">
+			{{#each players}}
+				{{#eq id ../currentPlayer.id}}
+					{{> player currentPlayerId=../../currentPlayer.id}}
+				{{/eq}}
+			{{/each}}
+		</div>
 		<div class = "col-md-6">
 			<div class="panel panel-info availableCards">
 				<div class="panel-heading">
@@ -47,7 +54,11 @@
 		</div>
 		<div class = "col-md-12">
 			{{#each players}}
-				{{> player currentPlayerId=../currentPlayer.id}}
+				{{#eq id ../currentPlayer.id}}
+					<!-- ignore {{id}} -->
+				{{else}}
+					{{> player currentPlayerId=../../currentPlayer.id}}
+				{{/eq}}
 			{{else}}
 				<h1>No players</h1>
 			{{/each}}

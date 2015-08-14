@@ -1,0 +1,46 @@
+<div class="panel panel-info player {{#eq id currentPlayerId}}current{{/eq}}" id="player-{{id}}">
+	<div class="panel-heading">
+		<h5>Player {{id}} <i class="fa fa-user"></i>, {{money}} <i class="fa fa-money"></i></h5>
+		<h6>
+			<span class="zone-details zone-details-hand" data-toggle="tooltip" title="Cards in Hand">
+				{{hand.length}} <i class="fa fa-clone"></i>
+			</span>
+			
+			<span class="zone-details zone-details-played" data-toggle="tooltip" title="Played this turn">
+				{{played.length}} <span class="fa-stack">
+				  <i class="fa fa-square-o fa-stack-2x"></i>
+				  <i class="fa fa-clone fa-stack-1x"></i>
+				</span>
+			</span>
+			
+			<span class="zone-details zone-details-deck" data-toggle="tooltip" title="Remaining in Deck">
+				{{deck.length}} <span class="fa-stack">
+				  <i class="fa fa-square-o fa-stack-2x"></i>
+				  <i class="fa fa-clone fa-stack-1x"></i>
+				</span>
+			</span>
+			
+			<span class="zone-details zone-details-discard" data-toggle="tooltip" title="Discard Pile Count">
+				{{discard.length}} <span class="fa-stack">
+				  <i class="fa fa-square-o fa-stack-2x"></i>
+				  <i class="fa fa-trash fa-stack-1x"></i>
+				</span>
+			</span>
+		</h6>
+	</div>
+	<div class="panel-body hand">
+		{{#each hand}}
+			{{> playerHandCard playerId=../id currentPlayerId}}
+		{{/each}}
+		{{#eq id currentPlayerId}}
+			<div class="centered">
+				<button type="button" class="btn btn-info playAll" player="{{id}}">Play All</button>
+			</div>
+			<div class="centered">
+				<button type="button" class="btn btn-danger endTurn" player="{{id}}">End Turn</button>
+			</div>
+		{{/eq}}
+	</div>
+</div>
+<!--x-id="player-{{id}}"-->
+

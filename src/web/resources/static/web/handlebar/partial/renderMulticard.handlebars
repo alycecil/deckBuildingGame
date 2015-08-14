@@ -1,0 +1,14 @@
+{{#each this}}
+	{{#if @first}}
+	<div class="col-md-3 card available" id="card-{{id}}">
+		<div class="col-md-8 name"><strong>{{name}}</strong><span class="zone-details zone-details-hand" data-toggle="tooltip" title="Available"><span class="badge">{{../../this.length}}</span></span></div>
+		<div class="col-md-4">{{cost}} <i class="fa fa-money"></i></div>
+		<div class="col-md-8 description">{{description}}</div>
+		<div class="col-md-4">{{value}} <i class="fa fa-heart"></i></div>
+		<div class="col-md-12"><button type="button" class="btn btn-success buyCard" id="buy-card-{{id}}" card="{{id}}">Buy Card</button></div>
+	</div>
+	<!-- x-id="card-{{id}}" -->
+	{{else}}
+		<!--skipped card-{{id}} {{name}}-->
+	{{/if}}
+{{/each}}	

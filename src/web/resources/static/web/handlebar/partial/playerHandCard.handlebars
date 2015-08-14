@@ -1,0 +1,13 @@
+<div class="col-md-3 card available" id="card-{{id}}">
+	<div class="col-sm-8 name"><strong>{{name}}</strong></div>
+	<div class="col-sm-4">{{cost}} <i class="fa fa-money"></i></div>
+	<div class="col-sm-8">{{description}}</div>
+	<div class="col-sm-4">{{value}} <i class="fa fa-heart"></i></div>
+	{{#eq playerId currentPlayerId}}
+	<div class="col-md-12">
+		<button type="button" class="btn btn-success playCard" card="{{id}}">Play Card</button>
+	</div>
+	{{/eq}}
+</div>
+<!-- x-id="card-{{id}}" -->
+		

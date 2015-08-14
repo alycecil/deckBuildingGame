@@ -30,7 +30,7 @@
 	</div>
 	<div class="panel-body hand">
 		{{#each hand}}
-			{{> playerHandCard playerId=../id currentPlayerId}}
+			{{> playerHandCard playerId=../id currentPlayerId=../currentPlayerId }}
 		{{/each}}
 		{{#eq id currentPlayerId}}
 			<div class="centered">

@@ -1,0 +1,17 @@
+#!/bin/bash
+
+set -x
+
+
+cd $OPENSHIFT_REPO_DIR
+
+mkdir ./src/enc/resources/openshift/
+
+echo "#AUTOGEN FILE" > ./src/enc/resources/openshift/application.properties
+echo "mongo.host=$OPENSHIFT_MONGODB_DB_HOST" >> ./src/enc/resources/openshift/application.properties
+echo "mongo.port=$OPENSHIFT_MONGODB_DB_PORT" >> ./src/enc/resources/openshift/application.properties
+echo "mongo.account=$OPENSHIFT_MONGODB_DB_USERNAME" >> ./src/enc/resources/openshift/application.properties
+echo "mongo.password=$OPENSHIFT_MONGODB_DB_PASSWORD" >> ./src/enc/resources/openshift/application.properties
+echo "mongo.dbname=deckbuilder" >> ./src/enc/resources/openshift/application.properties
+echo "" >> ./src/enc/resources/openshift/application.properties
+echo "allow.debug=false" >> ./src/enc/resources/openshift/application.properties

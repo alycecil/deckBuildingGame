@@ -14,6 +14,9 @@ echo "mongo.password=$OPENSHIFT_MONGODB_DB_PASSWORD" >> $OPENSHIFT_REPO_DIR/src/
 echo "mongo.dbname=deckbuilder" >> $OPENSHIFT_REPO_DIR/src/env/resources/openshift/application.properties
 echo "" >> $OPENSHIFT_REPO_DIR/src/env/resources/openshift/application.properties
 echo "allow.debug=false" >> $OPENSHIFT_REPO_DIR/src/env/resources/openshift/application.properties
+echo "" >> $OPENSHIFT_REPO_DIR/src/env/resources/openshift/application.properties
+echo "server.port=$OPENSHIFT_DIY_PORT" >> $OPENSHIFT_REPO_DIR/src/env/resources/openshift/application.properties
+echo "server.address=$OPENSHIFT_DIY_IP" >> $OPENSHIFT_REPO_DIR/src/env/resources/openshift/application.properties
 
 echo "org.gradle.parallel=false" > $OPENSHIFT_REPO_DIR/gradle.properties
 echo "org.gradle.daemon=false" >> $OPENSHIFT_REPO_DIR/gradle.properties

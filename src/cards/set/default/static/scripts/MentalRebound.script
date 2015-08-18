@@ -1,5 +1,5 @@
-import com.wcecil.actions.core.DiscardCard
-import com.wcecil.core.GameController;
+import com.wcecil.game.actions.core.DiscardCard
+import com.wcecil.game.core.GameController;
 
 def discard = new DiscardCard(targetPlayer:game.currentPlayer, cause:null, sourcePlayer:source);
 

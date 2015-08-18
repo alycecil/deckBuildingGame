@@ -6,6 +6,11 @@ set -x
 
 export JAVA_HOME=$OPENSHIFT_DATA_DIR/jdk1.8.0_20
 export PATH=$JAVA_HOME/bin:$PATH
+export GRADLE_USER_HOME=$OPENSHIFT_DATA_DIR/gradle
+export GRADLE_HOME=$OPENSHIFT_DATA_DIR/gradle-2.6
+export GRADLE_OPTS="-Xms384m -Xmx412m"
+export JAVA_HOME=$OPENSHIFT_DATA_DIR/jdk1.8.0_20
+export PATH=$JAVA_HOME/bin:$GRADLE_HOME/bin:$PATH
 
 cd $OPENSHIFT_REPO_DIR
 nohup gradle bootRun &

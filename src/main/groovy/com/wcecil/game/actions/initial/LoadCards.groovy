@@ -32,9 +32,15 @@ class LoadCards extends Action{
 			throw new IllegalStateException('Unable to load cards')
 		}
 
-		File f = new File(cardsDir.toURI())
+		def uri = cardsDir.toURI()
+		File f = null;
+		try{
+			f = new File(uri)
+		}catch(e){
+			throw new IllegalStateException("Unable to loadfile : ${uri.toString()}", e)
+		}
 
-		if(!f.exists()){
+		if(!f?.exists()){
 			throw new IllegalStateException('Unable to load cards')
 		}
 

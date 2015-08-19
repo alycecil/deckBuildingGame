@@ -9,5 +9,5 @@ export PATH=$JAVA_HOME/bin:$GRADLE_HOME/bin:$PATH
 
 cd $OPENSHIFT_REPO_DIR
 
-nohup java -Xms384m -Xmx412m -jar build/libs/*.jar --server.port=${OPENSHIFT_DIY_PORT} --server.address=${OPENSHIFT_DIY_IP} > $OPENSHIFT_DIY_DIR/logs/server.log 2>&1 &
+nohup java -Xms384m -Xmx412m -jar build/libs/*.jar --server.port=${OPENSHIFT_DIY_PORT} --server.address=${OPENSHIFT_DIY_IP} > $OPENSHIFT_LOG_DIR/server.log 2>&1 &
 

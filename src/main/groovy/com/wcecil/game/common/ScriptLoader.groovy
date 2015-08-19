@@ -1,5 +1,7 @@
 package com.wcecil.game.common
 
+import com.wcecil.common.util.StreamUtils;
+
 class ScriptLoader {
 
 	static final String FILE_PREFIX = 'file:'
@@ -12,18 +14,16 @@ class ScriptLoader {
 			
 			println "loading file $script"
 			
-			def scriptURL = this.getClass().getClassLoader().getResource(script)
+			def scriptURL = this.getClass().getClassLoader().getResourceAsStream(script)
 			
 			if(scriptURL==null){
-				scriptURL = this.getClass().getClassLoader().getResource("static/$script")
+				scriptURL = this.getClass().getClassLoader().getResourceAsStream("static/$script")
 			}
 			if(scriptURL==null){
-				scriptURL = this.getClass().getClassLoader().getResource("static/scripts/$script")
+				scriptURL = this.getClass().getClassLoader().getResourceAsStream("static/scripts/$script")
 			}
 			
-			def f = new File(scriptURL.toURI())
-			
-			finalScript = f.text
+			finalScript = StreamUtils.convertStreamToString(scriptURL);
 		}else{
 			finalScript = script?.replaceAll('\\\\n', '\n')
 		}

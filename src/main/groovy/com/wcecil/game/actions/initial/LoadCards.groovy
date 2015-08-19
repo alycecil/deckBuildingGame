@@ -6,10 +6,12 @@ import com.wcecil.beans.GameState
 import com.wcecil.beans.gameobjects.Card
 import com.wcecil.beans.gameobjects.CardTemplate
 import com.wcecil.common.settings.Settings
+import com.wcecil.common.util.StreamUtils
 import com.wcecil.game.actions.Action
 import com.wcecil.game.common.ScriptLoader
 
 class LoadCards extends Action{
+	static final String BASEDIR = 'static/cards/'
 	ObjectMapper mapper = new ObjectMapper()
 
 	def loadedCardsCount
@@ -26,26 +28,15 @@ class LoadCards extends Action{
 		"$loadedCardsCount Card(s) Loaded"
 	}
 
+	
+	
 	def loadCards(GameState g){
-		URL cardsDir = this.getClass().getClassLoader().getResource('static/cards')
-		if(!cardsDir){
-			throw new IllegalStateException('Unable to load cards')
-		}
-
-		def uri = cardsDir.toURI()
-		File f = null;
-		try{
-			f = new File(uri)
-		}catch(e){
-			throw new IllegalStateException("Unable to loadfile : ${uri.toString()}", e)
-		}
-
-		if(!f?.exists()){
-			throw new IllegalStateException('Unable to load cards')
-		}
+		InputStream result = this.getClass().getClassLoader().getResourceAsStream("${BASEDIR}set.json")
+		List<String> setDefn = parseSetJSON(StreamUtils.convertStreamToString(result))
+		try{result.close()}catch(ignored){}
 
 		List<Card> cards = []
-		f.listFiles().each{ readCardFile(it, cards) }
+		setDefn.each{ println "loading $it";parseCards(it, cards) }
 
 		debugDisplayLoadResults(cards)
 
@@ -59,23 +50,26 @@ class LoadCards extends Action{
 		cards.each { println it }
 	}
 
-	def readCardFile(File f, List<Card> cards){
-
-		if(f.isDirectory()){
-			readCardFile(f,cards)
-		}else if(f.isFile()){
-			parseCards(f, cards)
-		}
-	}
-
-	def parseCards(File f, List cards) {
-		def json = f.text
+	def parseCards(String f, List cards) {
+		InputStream result = this.getClass().getClassLoader().getResourceAsStream("${BASEDIR}$f")
+		def json = StreamUtils.convertStreamToString(result)
+		try{result.close()}catch(ignored){}
+		
 		if(json){
 			parseCardJSON(json, cards, f)
 		}
 	}
 
-	def parseCardJSON(String json, List cards, File f) {
+	List<String> parseSetJSON(String json) {
+		JavaType type = mapper.getTypeFactory().constructCollectionType(List.class, String.class)
+		try {
+			return mapper.readValue(json, type)
+		} catch (e) {
+			System.err.println("Error parsing $json, $e; stack trace to follow")
+			e.printStackTrace()
+		}
+	}
+	def parseCardJSON(String json, List cards, String f) {
 		JavaType type = mapper.getTypeFactory().constructCollectionType(List.class, CardTemplate.class)
 		try {
 			List<Card> myCards = mapper.readValue(json, type)

@@ -1,18 +1,21 @@
-package com.wcecil.data.objects;
+package com.wcecil.data.objects
 
-import groovy.transform.CompileStatic
+import groovy.transform.CompileStatic;
+
+import javax.validation.constraints.NotNull
+
 import org.springframework.data.annotation.Id
 import org.springframework.data.mongodb.core.index.Indexed
 import org.springframework.data.mongodb.core.mapping.Document
 
 @Document
 @CompileStatic
-public class UserToken {
+class GameSearch {
+	
 	@Id
-	String token
+	String id
 	
-	@Indexed
+	@NotNull
+	@Indexed(unique=true)
 	String userId
-	
-	//TODO Date experation
 }

@@ -1,5 +1,7 @@
 package com.wcecil.game.common
 
+import groovy.transform.CompileStatic;
+
 import com.wcecil.game.actions.core.ShuffleDiscardIntoDeck
 import com.wcecil.beans.GameState;
 import com.wcecil.beans.gameobjects.Card
@@ -7,6 +9,7 @@ import com.wcecil.beans.gameobjects.Player
 import com.wcecil.game.core.GameController
 import com.wcecil.game.actions.Action;
 
+@CompileStatic
 class CardMovementHelper {
 	static Card drawCard(Player p, GameState g, Action cause){
 		Card result = null

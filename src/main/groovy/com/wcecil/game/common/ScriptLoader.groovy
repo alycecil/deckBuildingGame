@@ -1,7 +1,10 @@
 package com.wcecil.game.common
 
+import groovy.transform.CompileStatic;
+
 import com.wcecil.common.util.StreamUtils;
 
+@CompileStatic
 class ScriptLoader {
 
 	static final String FILE_PREFIX = 'file:'

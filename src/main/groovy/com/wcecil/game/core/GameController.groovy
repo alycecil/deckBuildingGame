@@ -1,5 +1,7 @@
 package com.wcecil.game.core
 
+import groovy.transform.CompileStatic;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service
 

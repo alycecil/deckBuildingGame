@@ -1,10 +1,13 @@
 package com.wcecil.data.objects;
 
+import groovy.transform.CompileStatic;
+
 import org.springframework.data.annotation.Id
 import org.springframework.data.mongodb.core.index.Indexed;
 import org.springframework.data.mongodb.core.mapping.Document
 
 @Document
+@CompileStatic
 public class GameAudit implements Comparable<GameAudit>{
 	@Id
 	String id

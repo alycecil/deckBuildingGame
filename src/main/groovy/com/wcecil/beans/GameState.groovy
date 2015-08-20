@@ -37,6 +37,9 @@ class GameState {
 
 	@Transient
 	List<GameAudit> audit = []
+	
+	@Transient
+	Long auditCount
 
 	@JsonIgnore
 	Set<Trigger> triggers = [] as Set

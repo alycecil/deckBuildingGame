@@ -1,9 +1,12 @@
 package com.wcecil.game.triggers
 
+import groovy.transform.CompileStatic;
+
 import com.wcecil.beans.GameState
 import com.wcecil.common.enums.Persistence
 import com.wcecil.game.actions.Action
 
+@CompileStatic
 class Trigger {
 	Persistence frequency
 	Class<? extends Action> actionType

@@ -1,5 +1,7 @@
 package com.wcecil.webservice.controller;
 
+import java.util.List;
+
 import javax.servlet.http.HttpServletResponse;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -13,6 +15,8 @@ import com.wcecil.beans.GameState;
 import com.wcecil.beans.gameobjects.ActualCard;
 import com.wcecil.beans.gameobjects.Card;
 import com.wcecil.beans.gameobjects.Player;
+import com.wcecil.data.objects.GameAudit;
+import com.wcecil.data.repositiories.AuditRepository;
 import com.wcecil.data.repositiories.GameRepository;
 import com.wcecil.data.repositiories.UsersRepository;
 import com.wcecil.game.actions.Action;
@@ -26,6 +30,9 @@ import com.wcecil.webservice.util.MaskingHelper;
 public class GameInfoController {
 	@Autowired
 	GameRepository gamesRepo;
+	
+	@Autowired
+	AuditRepository auditRepo;
 
 	@Autowired
 	AuthenticationService authService;
@@ -67,9 +74,18 @@ public class GameInfoController {
 			retVal.setStaticCards(g.getStaticCards());
 			retVal.setTriggers(g.getTriggers());
 			retVal.setAvailable(g.getAvailable());
+			retVal.setAuditCount(auditRepo.getCount(gameId, userId));
 		}
 
-		return g;
+		return retVal;
+	}
+	
+	@RequestMapping(value = "/audit", method = { RequestMethod.GET })
+	public List<GameAudit> getGameAudits(@RequestParam(value = "id") String gameId,
+			@RequestParam(value = "token") String token,
+			HttpServletResponse response) {
+		authService.getUserFromToken(token,response);
+		return auditRepo.getAuditsForGame(gameId);
 	}
 
 	@RequestMapping(value = "/new", method = { RequestMethod.GET,

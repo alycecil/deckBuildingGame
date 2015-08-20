@@ -1,9 +1,12 @@
 package com.wcecil.common.settings
 
+import groovy.transform.CompileStatic;
+
 import org.springframework.stereotype.Component
 import org.springframework.beans.factory.annotation.*
 
 @Component
+@CompileStatic
 class ApplicationComponent {
 
 	@Value('${mongo.host}')

@@ -65,19 +65,11 @@
 		</div>
 		
 		<button class="btn btn-primary showHistory" type="button" data-toggle="collapse" data-target="#collapseAudit" aria-expanded="false" aria-controls="collapseAudit">
-		History <span class="badge">{{audit.length}}</span>
+		History <span class="badge">{{auditCount}}</span>
 		</button>
 		<div class="collapse" id="collapseAudit">
-			<div class="well">
-				{{#each audit}}
-				<div class="row audit">
-					{{{this}}}
-				</div>
-				{{else}}
-				<div class="row audit">
-					No Audit
-				</div>
-				{{/each}}
+			<div class="well audit">
+				Loading . . . 
 			</div>
 		</div>
 	</div>

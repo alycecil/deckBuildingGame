@@ -3,6 +3,7 @@ package com.wcecil.beans.gameobjects
 import com.fasterxml.jackson.annotation.JsonIgnore
 import com.wcecil.common.settings.Settings
 
+
 class ActualCard extends CardTemplate {
 	Long id
 

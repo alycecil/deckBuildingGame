@@ -2,6 +2,7 @@ package com.wcecil.data.repositiories;
 
 import static org.springframework.data.mongodb.core.query.Criteria.*
 import static org.springframework.data.mongodb.core.query.Query.*
+import groovy.transform.CompileStatic;
 
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.data.mongodb.core.MongoTemplate
@@ -11,6 +12,7 @@ import com.wcecil.data.objects.User
 import com.wcecil.data.objects.UserToken
 
 @Service
+@CompileStatic
 public class UsersRepository {
 	private final static String USERS_REPO = "deck.users.repo";
 	private final static String TOKENS_REPO = "deck.users.tokens";
@@ -28,11 +30,13 @@ public class UsersRepository {
 		result
 	}
 
-	private def mask(List<User> users){
+	public List<User> mask(List<User> users){
 		users.each{mask it}
+		
+		users
 	}
 
-	private def mask(User user){
+	public User mask(User user){
 		if(user==null){
 			return null
 		}
@@ -60,7 +64,7 @@ public class UsersRepository {
 
 		mongoTemplate.save(p, USERS_REPO);
 
-		mask p
+		mask(p)
 	}
 
 	public User auth(String userName, String password) {

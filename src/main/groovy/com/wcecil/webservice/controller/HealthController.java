@@ -15,9 +15,9 @@ import com.wcecil.common.settings.ApplicationComponent;
 public class HealthController {
 	@Autowired ApplicationComponent context;
 	
-    @RequestMapping("/greeting")
-    public String greeting(@RequestParam(value="name", required=false, defaultValue="World") String name) {
-        return "Hello, "+name;
+    @RequestMapping("/echo")
+    public String greeting(@RequestParam(value="name", required=false, defaultValue="Echo") String name) {
+        return "Echo, "+name;
     }
     
     @RequestMapping("/mongo/server")

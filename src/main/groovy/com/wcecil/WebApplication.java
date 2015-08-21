@@ -10,10 +10,11 @@ import org.springframework.web.servlet.config.annotation.WebMvcConfigurerAdapter
 
 import com.wcecil.common.settings.ApplicationComponent;
 import com.wcecil.configuration.MongoConfiguration;
+import com.wcecil.configuration.SchedulerConfig;
 
 @SpringBootApplication
 @EnableMongoRepositories
-@Import(MongoConfiguration.class)
+@Import({MongoConfiguration.class, SchedulerConfig.class})
 public class WebApplication extends WebMvcConfigurerAdapter {
 
 	@Autowired

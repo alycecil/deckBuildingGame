@@ -28,14 +28,8 @@ configurations {
 }
 
 dependencies {
-	compile ('org.springframework.boot:spring-boot-starter-web:1.2.5.RELEASE'){ 
-		exclude module: 'org.springframework.boot:spring-boot-starter-logging' 
-	}
-	compile ('org.springframework.boot:spring-boot-starter-actuator:1.2.5.RELEASE'){ 
-		exclude module: 'org.springframework.boot:spring-boot-starter-logging' 
-	}
-	compile 'org.springframework.boot:spring-boot-starter-log4j:1.2.5.RELEASE'
-
+	compile ('org.springframework.boot:spring-boot-starter-web:1.2.5.RELEASE')
+	compile ('org.springframework.boot:spring-boot-starter-actuator:1.2.5.RELEASE')
 
 	compile 'org.springframework.data:spring-data-jpa:1.8.2.RELEASE'
 	compile 'org.springframework.data:spring-data-mongodb:1.7.2.RELEASE'

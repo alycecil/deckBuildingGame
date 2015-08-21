@@ -1,5 +1,6 @@
 package com.wcecil.webservice.controller;
 
+import java.io.IOException;
 import java.util.List;
 
 import javax.servlet.http.HttpServletResponse;
@@ -15,9 +16,11 @@ import com.wcecil.beans.GameState;
 import com.wcecil.beans.gameobjects.ActualCard;
 import com.wcecil.beans.gameobjects.Card;
 import com.wcecil.beans.gameobjects.Player;
+import com.wcecil.common.settings.ApplicationComponent;
 import com.wcecil.data.objects.GameAudit;
 import com.wcecil.data.repositiories.AuditRepository;
 import com.wcecil.data.repositiories.GameRepository;
+import com.wcecil.data.repositiories.GameSearchRepository;
 import com.wcecil.data.repositiories.UsersRepository;
 import com.wcecil.game.actions.Action;
 import com.wcecil.game.actions.initial.LoadGame;
@@ -28,26 +31,27 @@ import com.wcecil.webservice.util.MaskingHelper;
 @RestController
 @RequestMapping("/game")
 public class GameInfoController {
-	@Autowired
-	GameRepository gamesRepo;
-	
-	@Autowired
-	AuditRepository auditRepo;
+	private @Autowired GameRepository gamesRepo;
 
-	@Autowired
-	AuthenticationService authService;
+	private @Autowired AuditRepository auditRepo;
 
-	@Autowired
-	UsersRepository usersRepo;
+	private @Autowired AuthenticationService authService;
+
+	private @Autowired UsersRepository usersRepo;
+
+	private @Autowired GameSearchRepository gameSearchRepo;
+
+	private @Autowired ApplicationComponent context;
 
 	public GameInfoController() {
 		System.out.print("Creating " + this);
 	}
 
 	@RequestMapping(value = "/list", method = { RequestMethod.GET })
-	public GamePlayerState listGames(@RequestParam(value = "token") String token,
+	public GamePlayerState listGames(
+			@RequestParam(value = "token") String token,
 			HttpServletResponse response) {
-		String userId = authService.getUserFromToken(token,response);
+		String userId = authService.getUserFromToken(token, response);
 		GamePlayerState state = gamesRepo.loadGamesForUser(userId);
 
 		return state;
@@ -57,7 +61,7 @@ public class GameInfoController {
 	public GameState getGame(@RequestParam(value = "id") String gameId,
 			@RequestParam(value = "token") String token,
 			HttpServletResponse response) {
-		String userId = authService.getUserFromToken(token,response);
+		String userId = authService.getUserFromToken(token, response);
 
 		GameState g = gamesRepo.getGame(gameId, true);
 
@@ -79,20 +83,50 @@ public class GameInfoController {
 
 		return retVal;
 	}
-	
+
 	@RequestMapping(value = "/audit", method = { RequestMethod.GET })
-	public List<GameAudit> getGameAudits(@RequestParam(value = "id") String gameId,
+	public List<GameAudit> getGameAudits(
+			@RequestParam(value = "id") String gameId,
 			@RequestParam(value = "token") String token,
 			HttpServletResponse response) {
-		authService.getUserFromToken(token,response);
+		authService.getUserFromToken(token, response);
 		return auditRepo.getAuditsForGame(gameId);
+	}
+
+	@RequestMapping(value = "/queue", method = { RequestMethod.GET,
+			RequestMethod.POST })
+	public Boolean queueGame(@RequestParam(value = "token") String token,
+			HttpServletResponse response) {
+		String userId = authService.getUserFromToken(token, response);
+
+		gameSearchRepo.enterSearch(userId);
+
+		return true;
+	}
+
+	@RequestMapping(value = "/queueDebug", method = { RequestMethod.GET,
+			RequestMethod.POST })
+	public Boolean queueDebugGame(@RequestParam(value = "token") String token,
+			@RequestParam(value = "userId") String _userId,
+			HttpServletResponse response) throws IOException {
+		if (!context.getAllowDebug()) {
+			response.sendError(HttpServletResponse.SC_UNAUTHORIZED,
+					"Not Authorized");
+			return null;
+		}
+		String userId = authService.getUserFromToken(token, response);
+		
+		gameSearchRepo.enterSearch(userId);		
+		gameSearchRepo.enterSearch(_userId);
+
+		return true;
 	}
 
 	@RequestMapping(value = "/new", method = { RequestMethod.GET,
 			RequestMethod.POST })
 	public GameState newGame(@RequestParam(value = "token") String token,
 			HttpServletResponse response) {
-		String userId = authService.getUserFromToken(token,response);
+		String userId = authService.getUserFromToken(token, response);
 
 		GameState g = new GameState();
 		GameController.doAction(g, new LoadGame());
@@ -115,7 +149,7 @@ public class GameInfoController {
 			@RequestParam(value = "token") String token,
 			HttpServletResponse response) {
 		// TODO String userId =
-		authService.getUserFromToken(token,response);
+		authService.getUserFromToken(token, response);
 
 		GameState g = gamesRepo.getGame(gameId, true);
 

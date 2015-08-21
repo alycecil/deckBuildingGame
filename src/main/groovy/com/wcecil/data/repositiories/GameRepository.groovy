@@ -51,7 +51,7 @@ public class GameRepository {
 		state.id = user.id
 		state.games = []
 
-		user.games.each{
+		user.games?.each{
 			state.games << getGame(it, false)
 		}
 		

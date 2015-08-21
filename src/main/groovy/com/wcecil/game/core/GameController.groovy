@@ -92,10 +92,12 @@ class GameController {
 		GameState game = gamesRepo.getGame(gameId, false);
 
 		boolean matched = false
+		Player match = null;
 		for(Player p : game.players){
 			//if is available assign
 			if(p.getUserId()==null){
 				p.setUserId(userId)
+				match = p
 				matched = true
 				break;
 			}
@@ -105,9 +107,14 @@ class GameController {
 			throw new IllegalStateException("Game is full!");
 		}
 
-		gamesRepo.save(game);
+		
 
 		def u = usersRepo.addGameToUser(userId, gameId);
+		
+		println "Added $gameId to $u"
+		game.audit << new GameAudit(gameId: gameId, playerId: match.id, order: 0, message: "${u.id} joined the game")
+		
+		gamesRepo.save(game);
 
 		//TODO send notification
 

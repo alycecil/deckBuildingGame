@@ -123,7 +123,7 @@ public class GameWebController {
 		return true;
 	}
 
-	@RequestMapping(value = "/new", method = { RequestMethod.GET,
+	@RequestMapping(value = "/solo", method = { RequestMethod.GET,
 			RequestMethod.POST })
 	public GameState newGame(@RequestParam(value = "token") String token,
 			HttpServletResponse response) {

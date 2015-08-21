@@ -36,7 +36,7 @@ class LoadCards extends Action{
 		try{result.close()}catch(ignored){}
 
 		List<Card> cards = []
-		setDefn.each{ println "loading $it";parseCards(it, cards) }
+		setDefn.each{ /*println "loading $it";*/parseCards(it, cards) }
 
 		debugDisplayLoadResults(cards)
 

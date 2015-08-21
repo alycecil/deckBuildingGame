@@ -1,6 +1,6 @@
-//TODO alter to real game id
 var gameId = null
 var token = null
+var userid = null
 
 function showLogin() {
 	var context = {}
@@ -40,6 +40,8 @@ function createUser(){
 		 	$.ajax({
 		        url: url,
 		        success: function(context) {
+			         token = context.token
+			         userid = context.userid
 		             login();
 		        },
 		        error: function(){
@@ -67,6 +69,7 @@ function login() {
 		        url: url,
 		        success: function(context) {
 		            token = context.token
+		            userid = context.userid
 		            loadGames();
 		        },
 		        error: function(){
@@ -127,7 +130,18 @@ function newGame() {
 		showLogin()
 	}else{
 	    $.ajax({
-	        url: '/game/new?token='+token,
+	        url: '/game/queue?token='+token,
+	        success: loadGames
+	    });
+    }
+}
+
+function newSoloGame() {
+	if(token==null){
+		showLogin()
+	}else{
+	    $.ajax({
+	        url: '/game/solo?token='+token,
 	        success: renderGame
 	    });
     }

@@ -38,7 +38,9 @@ public class MaskingHelper {
 		Player p2 = new Player();
 
 		if (p != null) {
+			p2.setUserId(p.getUserId());
 			p2.setId(p.getId());
+			
 			p2.setMoney(p.getMoney());
 
 			p2.setDeck(maskCards(p.getDeck()));

@@ -20,6 +20,13 @@
 	min-width: 90%;
 }
 
+.buyCardRoot {
+	position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+}
+
 .playCard {
 	margin: 3px;
 	min-width: 90%;

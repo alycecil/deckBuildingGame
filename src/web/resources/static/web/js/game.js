@@ -87,7 +87,7 @@ function login() {
 
 function loadGames() {
 	if(token==null){
-		showLogin()
+		showLogin();
 	}else{
 	    $.ajax({
 	        url: '/game/list?token='+token,
@@ -118,6 +118,7 @@ function renderGame(context){
         $('.playCard').click(playCard);
         $('.buyCard').click(buyCard);
         $('.playAll').click(playAll);
+        $('.showHistory').click(loadHistory)
         
 		$('[data-toggle="tooltip"]').tooltip()
 
@@ -127,7 +128,7 @@ function renderGame(context){
 
 function newGame() {
 	if(token==null){
-		showLogin()
+		showLogin();
 	}else{
 	    $.ajax({
 	        url: '/game/queue?token='+token,
@@ -138,7 +139,7 @@ function newGame() {
 
 function newSoloGame() {
 	if(token==null){
-		showLogin()
+		showLogin();
 	}else{
 	    $.ajax({
 	        url: '/game/solo?token='+token,
@@ -150,7 +151,7 @@ function newSoloGame() {
 function getGameById(_gameId) {
 	gameId = _gameId
 	if(token==null){
-		showLogin()
+		showLogin();
 	}else{
 	    $.ajax({
 	        url: '/game/get?id='+gameId+'&token='+token,
@@ -165,7 +166,7 @@ function getGame() {
 
 function playAll() {
 	if(token==null){
-		showLogin()
+		showLogin();
 	}else{
 	    $.ajax({
 	        url: '/game/move?id='+gameId+'&action=PlayHand&token='+token,
@@ -176,7 +177,7 @@ function playAll() {
 
 function buyCard() {
 	if(token==null){
-		showLogin()
+		showLogin();
 	}else{
 	    $.ajax({
 	        url: '/game/move?id='+gameId+'&action=BuyCard&token='+token+'&targetCard='+$(this).attr('card'),
@@ -187,7 +188,7 @@ function buyCard() {
 
 function playCard() {
 	if(token==null){
-		showLogin()
+		showLogin();
 	}else{
 	    $.ajax({
 	        url: '/game/move?id='+gameId+'&action=PlayCard&token='+token+'&sourceCard='+$(this).attr('card'),
@@ -198,7 +199,7 @@ function playCard() {
 
 function endTurn() {
 	if(token==null){
-		showLogin()
+		showLogin();
 	}else{
 	    $.ajax({
 	        url: '/game/move?id='+gameId+'&token='+token+'&action=EndTurn',
@@ -210,7 +211,7 @@ function endTurn() {
 
 function loadHistory(){
 	if(token==null){
-		showLogin()
+		showLogin();
 	}else{
 		$.ajax({
 	        url: '/game/audit?id='+gameId+'&token='+token,

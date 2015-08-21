@@ -3,6 +3,9 @@
 	<div class="col-md-4">{{cost}} <i class="fa fa-money"></i></div>
 	<div class="col-md-8 description">{{description}}</div>
 	<div class="col-md-4">{{value}} <i class="fa fa-heart"></i></div>
+	{{#isMe currentUserId}}
 	<div class="col-md-12"><button type="button" class="btn btn-success buyCard" id="buy-card-{{id}}" card="{{id}}">Buy Card</button></div>
+	{{/isMe}}	
+	<!-- {{../currentUserId}} , {{../../currentUserId}}, {{currentUserId}} -->
 </div>
 					

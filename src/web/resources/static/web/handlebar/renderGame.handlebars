@@ -31,7 +31,7 @@
 				</div>
 				<div class="panel-body">
 					{{#each available}}
-						{{> buyCard}}
+						{{> buyCard currentUserId=../currentPlayer.userId}}
 					{{else}}
 					<div class="col-sm-3 card">
 						No Cards Available
@@ -49,7 +49,7 @@
 				</div>
 				<div class="panel-body">
 				{{#each staticCards}}
-					{{> renderMulticard }}		
+					{{> renderMulticard currentUserId=../currentPlayer.userId}}		
 				{{/each}}
 				</div>
 			</div>
@@ -59,14 +59,14 @@
 				{{#eq id ../currentPlayer.id}}
 					<!-- ignore {{id}} -->
 				{{else}}
-					{{> player currentPlayerId=../../currentPlayer.id}}
+					{{> player currentPlayerId=../../currentPlayer.id currentUserId=../../currentPlayer.userId}}
 				{{/eq}}
 			{{else}}
 				<h1>No players</h1>
 			{{/each}}
 		</div>
 		
-		<button class="btn btn-primary showHistory" type="button" data-toggle="collapse" data-target="#collapseAudit" aria-expanded="false" aria-controls="collapseAudit" onclick="loadHistory();">
+		<button class="btn btn-primary showHistory" type="button" data-toggle="collapse" data-target="#collapseAudit" aria-expanded="false" aria-controls="collapseAudit">
 		History <span class="badge">{{auditCount}}</span>
 		</button>
 		<div class="collapse" id="collapseAudit">

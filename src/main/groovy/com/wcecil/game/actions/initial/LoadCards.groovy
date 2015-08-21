@@ -51,7 +51,7 @@ class LoadCards extends Action{
 	}
 
 	def parseCards(String f, List cards) {
-		InputStream result = this.getClass().getClassLoader().getResourceAsStream("${BASEDIR}$f")
+		InputStream result = this.getClass().getClassLoader().getResourceAsStream("${BASEDIR}${f}")
 		def json = StreamUtils.convertStreamToString(result)
 		try{result.close()}catch(ignored){}
 		

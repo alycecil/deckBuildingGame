@@ -1,5 +1,6 @@
 package com.wcecil.data.objects
 
+import groovy.transform.Canonical;
 import groovy.transform.CompileStatic;
 
 import javax.validation.constraints.NotNull
@@ -10,6 +11,7 @@ import org.springframework.data.mongodb.core.mapping.Document
 
 @Document
 @CompileStatic
+@Canonical
 class User {
 	
 	@Id

@@ -15,18 +15,12 @@ class ScriptLoader {
 		if(script!=null&&script.trim().startsWith(FILE_PREFIX)){
 			script = script.substring(FILE_PREFIX.length()+script.indexOf(FILE_PREFIX)).trim()
 			
-			println "loading file $script"
+			println "loading file: $script"
 			
-			def scriptURL = this.getClass().getClassLoader().getResourceAsStream(script)
-			
-			if(scriptURL==null){
-				scriptURL = this.getClass().getClassLoader().getResourceAsStream("static/$script")
-			}
-			if(scriptURL==null){
-				scriptURL = this.getClass().getClassLoader().getResourceAsStream("static/scripts/$script")
-			}
+			InputStream scriptURL = this.getClass().getClassLoader().getResourceAsStream(script)
 			
 			finalScript = StreamUtils.convertStreamToString(scriptURL);
+			println "file loaded: $script"
 		}else{
 			finalScript = script?.replaceAll('\\\\n', '\n')
 		}

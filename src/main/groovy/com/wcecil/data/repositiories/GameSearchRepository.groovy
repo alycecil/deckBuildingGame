@@ -37,38 +37,12 @@ public class GameSearchRepository {
 		gs
 	}
 	
-	@Synchronized
-	public void matchGames(){
-		//TODO move to redis
-		
-		//TODO use RLock
-		
-		List<GameSearch> list = listAll()
-		
-		while(list.size()>1){
-			GameSearch a, b;
-			a = getPlayer(list);
-			b = getPlayer(list);
-			
-			if(!a){
-				println 'Unable to find even 1'
-			}else if(a&&!b){
-				mongoTemplate.save(a, SEARCH_REPO);
-				println "re-adding a of $a"
-			}else if(a.userId?.equals(b.userId)){ //TODO SOLVED WHEN USING RSET IN FUTURE
-				mongoTemplate.save(a, SEARCH_REPO);
-				println "Found dupe for ${a.userId} and ${b.userId}"
-			}else{
-				//TODO match game for a and b
-				println "Matched a game for ${a.userId} and ${b.userId}"
-			}
-			
-			list = listAll()
-		}
+	public GameSearch save(GameSearch gs){
+		mongoTemplate.save(gs, SEARCH_REPO)
 	}
 
 	@Synchronized
-	private GameSearch getPlayer(List<GameSearch> list){
+	public GameSearch popPlayer(List<GameSearch> list){
 		GameSearch gs = null;
 		while(gs==null && !list.isEmpty()){
 			gs = list.remove(0);

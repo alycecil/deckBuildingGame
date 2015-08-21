@@ -6,19 +6,21 @@
 {{/if}}
 <div class="panel panel-success">
 	<div class="panel-heading">
-		<h4>Current Player {{currentPlayer.id}} <i class="fa fa-user"></i>, {{currentPlayer.money}} <i class="fa fa-money"></i>, <span data-toggle="tooltip" title="Cards in Hand">{{currentPlayer.hand.length}} <i class="fa fa-clone"></i></span></h4>	
-		<div class="centered">
-			<button type="button" class="btn btn-info playAll" player="{{currentPlayer.id}}">Play All</button>
-		</div>
-		<div class="centered">
-			<button type="button" class="btn btn-danger endTurn" player="{{currentPlayer.id}}">End Turn</button>
-		</div>
+		<h4>Current Player {{currentPlayer.id}} {{#isMe currentPlayer.userId}}(You){{/isMe}} <i class="fa fa-user"></i>, {{currentPlayer.money}} <i class="fa fa-money"></i>, <span data-toggle="tooltip" title="Cards in Hand">{{currentPlayer.hand.length}} <i class="fa fa-clone"></i></span></h4>	
+		{{#isMe currentPlayer.userId}}
+			<div class="centered">
+				<button type="button" class="btn btn-info playAll" player="{{currentPlayer.id}}">Play All</button>
+			</div>
+			<div class="centered">
+				<button type="button" class="btn btn-danger endTurn" player="{{currentPlayer.id}}">End Turn</button>
+			</div>
+		{{/isMe}}
 	</div>
 	<div class="panel-body">
 		<div class = "col-md-12">
 			{{#each players}}
 				{{#eq id ../currentPlayer.id}}
-					{{> player currentPlayerId=../../currentPlayer.id}}
+					{{> player currentPlayerId=../../currentPlayer.id currentUserId=../../currentPlayer.userId}}
 				{{/eq}}
 			{{/each}}
 		</div>

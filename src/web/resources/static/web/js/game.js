@@ -1,6 +1,6 @@
 var gameId = null
 var token = null
-var userid = null
+var userId = null
 
 function showLogin() {
 	var context = {}
@@ -41,7 +41,7 @@ function createUser(){
 		        url: url,
 		        success: function(context) {
 			         token = context.token
-			         userid = context.userid
+			         userId = context.userId
 		             login();
 		        },
 		        error: function(){
@@ -69,7 +69,7 @@ function login() {
 		        url: url,
 		        success: function(context) {
 		            token = context.token
-		            userid = context.userid
+		            userId = context.userId
 		            loadGames();
 		        },
 		        error: function(){

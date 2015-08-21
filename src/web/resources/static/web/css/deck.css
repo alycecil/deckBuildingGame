@@ -3,6 +3,7 @@
 }
 
 .card {
+    background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' version='1.1' height='20px' width='40px'><text x='0' y='15' fill='#CCC' font-size='20'>card</text></svg>");
 	background-color: lightgrey;
 	border-color: white;
 	border-width: 1px;

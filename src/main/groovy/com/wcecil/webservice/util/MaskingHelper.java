@@ -3,18 +3,25 @@ package com.wcecil.webservice.util;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+
 import com.wcecil.beans.GameState;
 import com.wcecil.beans.gameobjects.Card;
 import com.wcecil.beans.gameobjects.CardTemplate;
 import com.wcecil.beans.gameobjects.Player;
+import com.wcecil.data.repositiories.UsersRepository;
 
+@Service
 public class MaskingHelper {
-	public static List<Card> maskCards(GameState g) {
+	@Autowired UsersRepository usersRepo;
+	
+	public List<Card> maskCards(GameState g) {
 		List<Card> mainDeck = g.getMainDeck();
 		return maskCards(mainDeck);
 	}
 
-	public static List<Card> maskCards(List<Card> mainDeck) {
+	public List<Card> maskCards(List<Card> mainDeck) {
 		List<Card> deck = new ArrayList<>();
 
 		for (@SuppressWarnings("unused")
@@ -24,7 +31,7 @@ public class MaskingHelper {
 		return deck;
 	}
 
-	public static List<Player> maskPlayersDetails(GameState g, String userId) {
+	public List<Player> maskPlayersDetails(GameState g, String userId) {
 		List<Player> players = new ArrayList<>();
 
 		for (Player player : g.getPlayers()) {
@@ -34,7 +41,7 @@ public class MaskingHelper {
 		return players;
 	}
 
-	public static Player maskPlayerDetails(Player p, String userId) {
+	public Player maskPlayerDetails(Player p, String userId) {
 		Player p2 = new Player();
 
 		if (p != null) {

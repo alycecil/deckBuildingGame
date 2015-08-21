@@ -31,18 +31,13 @@ import com.wcecil.webservice.util.MaskingHelper;
 @RequestMapping("/game")
 public class GameWebController {
 	private @Autowired GameRepository gamesRepo;
-
 	private @Autowired AuditRepository auditRepo;
-
 	private @Autowired AuthenticationService authService;
-
 	private @Autowired UsersRepository usersRepo;
-
 	private @Autowired GameSearchRepository gameSearchRepo;
-
 	private @Autowired ApplicationComponent context;
-	
 	private @Autowired GameController gameController;
+	private @Autowired MaskingHelper maskingHelper;
 
 	public GameWebController() {
 		System.out.print("Creating " + this);
@@ -71,11 +66,11 @@ public class GameWebController {
 		if (g != null) {
 			retVal.setId(gameId);
 			// retVal.setAudit(g.getAudit());
-			retVal.setCurrentPlayer(MaskingHelper.maskPlayerDetails(
+			retVal.setCurrentPlayer(maskingHelper.maskPlayerDetails(
 					g.getCurrentPlayer(), userId));
-			retVal.setPlayers(MaskingHelper.maskPlayersDetails(g, userId));
+			retVal.setPlayers(maskingHelper.maskPlayersDetails(g, userId));
 			retVal.setTicCount(g.getTicCount());
-			retVal.setMainDeck(MaskingHelper.maskCards(g));
+			retVal.setMainDeck(maskingHelper.maskCards(g));
 			retVal.setStaticCards(g.getStaticCards());
 			retVal.setTriggers(g.getTriggers());
 			retVal.setAvailable(g.getAvailable());
@@ -116,8 +111,8 @@ public class GameWebController {
 			return null;
 		}
 		String userId = authService.getUserFromToken(token, response);
-		
-		gameSearchRepo.enterSearch(userId);		
+
+		gameSearchRepo.enterSearch(userId);
 		gameSearchRepo.enterSearch(_userId);
 
 		return true;
@@ -145,63 +140,71 @@ public class GameWebController {
 			@RequestParam(value = "targetCard", required = false) Long targetCard,
 			@RequestParam(value = "targetPlayer", required = false) Long targetPlayer,
 			@RequestParam(value = "token") String token,
-			HttpServletResponse response) {
-		// TODO String userId =
-		authService.getUserFromToken(token, response);
+			HttpServletResponse response) throws IOException {
+		String userId = authService.getUserFromToken(token, response);
 
 		GameState g = gamesRepo.getGame(gameId, true);
+		if (!userId.equalsIgnoreCase(g.getCurrentPlayer().getUserId())) {
+			response.sendError(HttpServletResponse.SC_PRECONDITION_FAILED,
+					"You are not the current player");
+			return null;
+		} else {
 
-		Action a = GameController.buildAction(g, action);
+			Action a = GameController.buildAction(g, action);
 
-		if (targetPlayer != null) {
-			for (Player p : g.getPlayers()) {
-				if (p.getId().equals(targetPlayer)) {
-					a.setTargetPlayer(p);
-					break;
-				}
-			}
-
-			if (a.getTargetPlayer() == null) {
-				throw new IllegalStateException("Unable to find target player");
-			}
-		}
-
-		if (sourceCard != null) {
-			for (Card c : a.getSourcePlayer().getHand()) {
-				if (c instanceof ActualCard) {
-					ActualCard c2 = (ActualCard) c;
-					if (sourceCard.equals(c2.getId())) {
-						a.setSourceCard(c2);
+			if (targetPlayer != null) {
+				for (Player p : g.getPlayers()) {
+					if (p.getId().equals(targetPlayer)) {
+						a.setTargetPlayer(p);
 						break;
 					}
 				}
-			}
 
-			if (a.getSourceCard() == null) {
-				throw new IllegalStateException("Unable to find source card");
-			}
-		}
-
-		if (targetCard != null) {
-			for (Card c : g.getAllCards()) {
-				if (c instanceof ActualCard) {
-					ActualCard c2 = (ActualCard) c;
-					if (targetCard.equals(c2.getId())) {
-						a.setTargetCard(c2);
-						break;
-					}
+				if (a.getTargetPlayer() == null) {
+					throw new IllegalStateException(
+							"Unable to find target player");
 				}
 			}
 
-			if (a.getTargetCard() == null) {
-				throw new IllegalStateException("Unable to find target card");
+			if (sourceCard != null) {
+				for (Card c : a.getSourcePlayer().getHand()) {
+					if (c instanceof ActualCard) {
+						ActualCard c2 = (ActualCard) c;
+						if (sourceCard.equals(c2.getId())) {
+							a.setSourceCard(c2);
+							break;
+						}
+					}
+				}
+
+				if (a.getSourceCard() == null) {
+					throw new IllegalStateException(
+							"Unable to find source card");
+				}
 			}
+
+			if (targetCard != null) {
+				for (Card c : g.getAllCards()) {
+					if (c instanceof ActualCard) {
+						ActualCard c2 = (ActualCard) c;
+						if (targetCard.equals(c2.getId())) {
+							a.setTargetCard(c2);
+							break;
+						}
+					}
+				}
+
+				if (a.getTargetCard() == null) {
+					throw new IllegalStateException(
+							"Unable to find target card");
+				}
+			}
+
+			GameController.doAction(g, a);
+
+			gamesRepo.save(g);
+
+			return getGame(gameId, token, response);
 		}
-
-		GameController.doAction(g, a);
-
-		gamesRepo.save(g);
-
-		return getGame(gameId, token, response);
 	}
 }

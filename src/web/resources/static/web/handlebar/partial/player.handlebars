@@ -28,7 +28,7 @@
 			</span>
 		</h6>
 	</div>
-	{{#isMe currentUserId}}
+	{{#isMe userId}}
 		<div class="panel-body hand">
 			{{#each hand}}
 				{{> playerHandCard playerId=../id currentPlayerId=../currentPlayerId currentUserId=../currentUserId }}

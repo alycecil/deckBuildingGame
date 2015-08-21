@@ -206,3 +206,20 @@ function endTurn() {
 	    });
     }
 }
+
+
+function loadHistory(){
+	if(token==null){
+		showLogin()
+	}else{
+		$.ajax({
+	        url: '/game/audit?id='+gameId+'&token='+token,
+	        success:  function(context){
+		        	getTemplateAjax('handlebar/audit.handlebars', function(template) {
+				        var html = template(context);
+				        $('.well.audit').html(html);
+    				});
+    		}
+	    });
+	}
+}

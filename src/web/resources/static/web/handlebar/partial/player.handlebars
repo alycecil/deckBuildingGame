@@ -28,11 +28,13 @@
 			</span>
 		</h6>
 	</div>
-	<div class="panel-body hand">
-		{{#each hand}}
-			{{> playerHandCard playerId=../id currentPlayerId=../currentPlayerId currentUserId=../currentUserId }}
-		{{/each}}
-	</div>
+	{{#isMe currentUserId}}
+		<div class="panel-body hand">
+			{{#each hand}}
+				{{> playerHandCard playerId=../id currentPlayerId=../currentPlayerId currentUserId=../currentUserId }}
+			{{/each}}
+		</div>
+	{{/isMe}}
 </div>
 <!--x-id="player-{{id}}"-->
 

@@ -3,9 +3,14 @@ package com.wcecil.beans.gameobjects
 import groovy.transform.Canonical
 import groovy.transform.CompileStatic
 
+import org.springframework.data.annotation.Transient
+import org.springframework.data.mongodb.core.mapping.Document
+
 import com.wcecil.common.settings.Settings
+import com.wcecil.data.objects.User
 
 @CompileStatic
+@Document
 @Canonical
 class Player {
 	String userId
@@ -20,6 +25,9 @@ class Player {
 	Integer money = 0
 	
 	Integer score = 0
+	@Transient
+	User user
+	
 	public Player() {
 		super();
 

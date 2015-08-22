@@ -20,13 +20,14 @@ import com.wcecil.game.actions.Action
 import com.wcecil.game.actions.initial.LoadGame
 import com.wcecil.game.rules.Rule
 import com.wcecil.game.triggers.Trigger
+import com.wcecil.websocket.messanger.MessangerService
 
 @Service
 class GameController {
 	private @Autowired GameRepository gamesRepo;
 	private @Autowired UsersRepository usersRepo;
 	private @Autowired GameSearchRepository gameSearchRepo;
-
+	private @Autowired MessangerService messangerService;
 
 	public GameState createBaseGame(){
 		GameState g = new GameState();
@@ -116,7 +117,7 @@ class GameController {
 		
 		gamesRepo.save(game);
 
-		//TODO send notification
+		messangerService.alertUserNewGame(u.id, "New game matched")
 
 		u
 	}

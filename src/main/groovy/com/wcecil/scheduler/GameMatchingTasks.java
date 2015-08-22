@@ -9,12 +9,14 @@ import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Component;
 
 import com.wcecil.game.core.GameController;
+import com.wcecil.websocket.messanger.MessangerService;
 
 @Component
 public class GameMatchingTasks {
 	private static final Logger logger = LoggerFactory.getLogger(GameMatchingTasks.class);
 	
 	private @Autowired GameController gameController;
+	private @Autowired MessangerService messangerService;
 	
 	@Scheduled(fixedRate = 5000)
 	public void matchGames(){
@@ -22,4 +24,8 @@ public class GameMatchingTasks {
 		gameController.matchGames();
 	}
 
+	@Scheduled(fixedRate = 5000)
+	public void heartBeat(){
+		messangerService.sendHeartbeat();
+	}
 }

@@ -5,6 +5,7 @@ import groovy.transform.CompileStatic;
 import com.wcecil.beans.GameState
 import com.wcecil.beans.gameobjects.Card
 import com.wcecil.beans.gameobjects.Player
+import com.wcecil.websocket.messanger.MessangerService;
 
 @CompileStatic
 abstract class Action {
@@ -17,6 +18,10 @@ abstract class Action {
 	abstract def doAction(GameState g)
 	
 	abstract boolean isValid(GameState g)
+	
+	void sendNotification(GameState g, MessangerService messangerService){
+		
+	}
 	
 	String getAudit(){
 		"An unknown action of ${this.getClass()} was performed"

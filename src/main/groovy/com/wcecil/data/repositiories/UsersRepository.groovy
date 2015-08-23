@@ -20,7 +20,7 @@ public class UsersRepository {
 	@Autowired
 	MongoTemplate mongoTemplate;
 
-	boolean mask = true;
+	final boolean mask = true;
 
 	public List<User> listAll() {
 		def result = mongoTemplate.findAll(User.class, USERS_REPO);

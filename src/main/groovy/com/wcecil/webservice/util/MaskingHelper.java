@@ -46,6 +46,11 @@ public class MaskingHelper {
 
 		if (p != null) {
 			p2.setUserId(p.getUserId());
+			p2.setUser(p.getUser());
+			if(p2.getUser()==null && p2.getUserId()!=null){
+				p2.setUser(usersRepo.getUser(p2.getUserId()));
+			}
+			
 			p2.setId(p.getId());
 			
 			p2.setMoney(p.getMoney());

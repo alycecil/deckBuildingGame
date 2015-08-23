@@ -12,14 +12,14 @@ function connect() {
     stompClient = Stomp.over(socket);            
 }
 
-function subscribe(channel, callback) {
+function subscribe(channel, callback, data) {
     if(stompClient==null){
 		connect();
 	}
 
 	stompClient.connect({}, function(frame) {
         console.log('Connected: ' + frame);
-        stompClient.subscribe(channel, callback);
+        stompClient.subscribe(channel, callback, data);
     });           
 }
 
@@ -33,5 +33,5 @@ function logMessage(raw){
 }
 
 function listenHeartBeat(){
-	subscribe('/topic/heartbeat', logMessage)	
+	subscribe('/topic/heartbeat', logMessage, {id:'heartbeat'})	
 }

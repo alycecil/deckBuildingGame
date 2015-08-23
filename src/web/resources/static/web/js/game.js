@@ -1,6 +1,7 @@
-var gameId = null
-var token = null
-var userId = null
+var gameId = null;
+var token = null;
+var userId = null;
+var gameChannel = null;
 
 function showLogin() {
 	var context = {}
@@ -113,6 +114,9 @@ function renderGame(context){
     getTemplateAjax('handlebar/renderGame.handlebars', function(template) {
     	gameId=context.id
         var html = template(context);
+        
+        joinGameChannel();
+        
         $("#gamesList").html(html);
         $('.endTurn').click(endTurn);
         $('.playCard').click(playCard);
@@ -203,7 +207,7 @@ function endTurn() {
 	}else{
 	    $.ajax({
 	        url: '/game/move?id='+gameId+'&token='+token+'&action=EndTurn',
-	        success: renderGame
+	        success: function(){}
 	    });
     }
 }
@@ -223,4 +227,30 @@ function loadHistory(){
     		}
 	    });
 	}
+}
+
+function handleGameMessages(raw){
+	var msg = JSON.parse(raw.body);
+	if(msg.content == gameId){
+		if(msg.type="ENDTURN"){
+			console.log("End Turn Recieved");
+			getGame();
+		}
+	}else{
+		console.log("should of unsubcribed this channel")
+		joinGameChannel();
+	}
+}
+
+
+function joinGameChannel(){
+	var channel = gameId;
+	if(gameChannel != channel){
+		if(gameChannel!=null)
+			stompClient.unsubscribe('gamesub');
+		
+		gameChannel = channel;
+		subscribe('/topic/game.'+channel, handleGameMessages, {id:'gamesub'})
+	}
+	
 }

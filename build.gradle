@@ -23,23 +23,19 @@ buildscript {
 
 repositories { mavenCentral() }
 
-configurations {
-	compile.exclude module: 'spring-boot-starter-logging'
-}
-
 dependencies {
 	compile 'org.springframework.boot:spring-boot-starter-web:1.2.5.RELEASE'
 	compile 'org.springframework.boot:spring-boot-starter-websocket:1.2.5.RELEASE'
-	
+
 	compile 'org.springframework.boot:spring-boot-starter-actuator:1.2.5.RELEASE'
-	
+
 	compile 'org.springframework.boot:spring-boot-starter-logging:1.2.5.RELEASE'
-	
+
 	compile 'org.springframework.data:spring-data-jpa:1.8.2.RELEASE'
 	compile 'org.springframework.data:spring-data-mongodb:1.7.2.RELEASE'
 
 	compile 'org.springframework:spring-messaging'
-	
+
 	compile 'com.fasterxml.jackson.core:jackson-databind:2.5.4'
 	compile 'org.codehaus.groovy:groovy-all:2.4.1'
 
@@ -61,12 +57,7 @@ bootRun { addResources = false }
 sourceSets {
 	main {
 		resources {
-			srcDirs = [
-				'src/main/resources',
-				"src/env/resources/$__env",
-				"src/cards/set/$__set",
-				"src/web/resources"
-			]
+			srcDirs = ['src/main/resources', "src/env/resources/$__env", "src/cards/set/$__set", "src/web/resources"]
 		}
 	}
 }

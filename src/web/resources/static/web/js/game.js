@@ -234,7 +234,7 @@ function handleGameMessages(raw){
 	if(msg.content == gameId){
 		if(msg.type="ENDTURN"){
 			console.log("End Turn Recieved");
-			getGame();
+			setTimeout(getGame,100);
 		}
 	}else{
 		console.log("should of unsubcribed this channel")

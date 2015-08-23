@@ -10,12 +10,14 @@ import com.wcecil.beans.GameState;
 import com.wcecil.beans.gameobjects.Card;
 import com.wcecil.beans.gameobjects.CardTemplate;
 import com.wcecil.beans.gameobjects.Player;
+import com.wcecil.data.objects.User;
 import com.wcecil.data.repositiories.UsersRepository;
 
 @Service
 public class MaskingHelper {
-	@Autowired UsersRepository usersRepo;
-	
+	@Autowired
+	UsersRepository usersRepo;
+
 	public List<Card> maskCards(GameState g) {
 		List<Card> mainDeck = g.getMainDeck();
 		return maskCards(mainDeck);
@@ -47,12 +49,24 @@ public class MaskingHelper {
 		if (p != null) {
 			p2.setUserId(p.getUserId());
 			p2.setUser(p.getUser());
-			if(p2.getUser()==null && p2.getUserId()!=null){
-				p2.setUser(usersRepo.getUser(p2.getUserId()));
+			if (p2.getUser() == null && p2.getUserId() != null) {
+				User user = usersRepo.getUser(p2.getUserId());
+				if (user != null) {
+					user.setGames(null);
+					user.setPassword(null);
+					if (user.getName() == null) {
+						if (user.getLogin() == null
+								|| user.getLogin().isEmpty()) {
+							user.setLogin("[???]");
+						}
+						user.setName(user.getLogin());
+					}
+					p2.setUser(user);
+				}
 			}
-			
+
 			p2.setId(p.getId());
-			
+
 			p2.setMoney(p.getMoney());
 
 			p2.setDeck(maskCards(p.getDeck()));

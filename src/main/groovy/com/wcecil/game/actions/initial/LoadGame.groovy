@@ -1,7 +1,7 @@
 package com.wcecil.game.actions.initial
 
 import com.fasterxml.jackson.databind.ObjectMapper
-import com.wcecil.beans.GameState
+import com.wcecil.beans.dto.GameState;
 import com.wcecil.beans.gameobjects.ActualCard
 import com.wcecil.beans.gameobjects.Card
 import com.wcecil.beans.gameobjects.Player

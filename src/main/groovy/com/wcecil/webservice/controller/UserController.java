@@ -10,9 +10,9 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.wcecil.beans.dto.User;
+import com.wcecil.beans.dto.UserToken;
 import com.wcecil.common.settings.ApplicationComponent;
-import com.wcecil.data.objects.User;
-import com.wcecil.data.objects.UserToken;
 import com.wcecil.data.repositiories.UsersRepository;
 import com.wcecil.webservice.service.AuthenticationService;
 

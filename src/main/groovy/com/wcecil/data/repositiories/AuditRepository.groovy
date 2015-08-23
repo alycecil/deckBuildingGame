@@ -8,8 +8,8 @@ import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.data.mongodb.core.MongoTemplate
 import org.springframework.stereotype.Service
 
-import com.wcecil.beans.GameState
-import com.wcecil.data.objects.GameAudit
+import com.wcecil.beans.dto.GameAudit;
+import com.wcecil.beans.dto.GameState;
 
 @Service
 @CompileStatic

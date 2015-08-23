@@ -1,6 +1,6 @@
 package com.wcecil.game.actions.core
 
-import com.wcecil.beans.GameState
+import com.wcecil.beans.dto.GameState;
 import com.wcecil.beans.gameobjects.Card
 import com.wcecil.beans.gameobjects.Player
 import com.wcecil.common.annotations.UserAction

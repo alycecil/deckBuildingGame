@@ -11,13 +11,13 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.wcecil.beans.GamePlayerState;
-import com.wcecil.beans.GameState;
+import com.wcecil.beans.dto.GameAudit;
+import com.wcecil.beans.dto.GameState;
 import com.wcecil.beans.gameobjects.ActualCard;
 import com.wcecil.beans.gameobjects.Card;
 import com.wcecil.beans.gameobjects.Player;
+import com.wcecil.beans.io.GamePlayerState;
 import com.wcecil.common.settings.ApplicationComponent;
-import com.wcecil.data.objects.GameAudit;
 import com.wcecil.data.repositiories.AuditRepository;
 import com.wcecil.data.repositiories.GameRepository;
 import com.wcecil.data.repositiories.GameSearchRepository;

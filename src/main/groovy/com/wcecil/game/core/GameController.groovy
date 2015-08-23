@@ -7,12 +7,12 @@ import groovy.transform.Synchronized
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.stereotype.Service
 
-import com.wcecil.beans.GameState
+import com.wcecil.beans.dto.GameAudit;
+import com.wcecil.beans.dto.GameSearch;
+import com.wcecil.beans.dto.GameState;
+import com.wcecil.beans.dto.User;
 import com.wcecil.beans.gameobjects.Player
 import com.wcecil.common.settings.Settings
-import com.wcecil.data.objects.GameAudit
-import com.wcecil.data.objects.GameSearch
-import com.wcecil.data.objects.User
 import com.wcecil.data.repositiories.GameRepository
 import com.wcecil.data.repositiories.GameSearchRepository
 import com.wcecil.data.repositiories.UsersRepository

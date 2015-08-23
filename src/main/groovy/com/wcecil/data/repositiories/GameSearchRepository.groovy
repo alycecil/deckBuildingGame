@@ -10,7 +10,7 @@ import org.springframework.data.mongodb.core.MongoTemplate
 import org.springframework.stereotype.Service
 
 import com.mongodb.WriteResult
-import com.wcecil.data.objects.GameSearch
+import com.wcecil.beans.dto.GameSearch;
 
 @Service
 @CompileStatic

@@ -3,4 +3,4 @@ import com.wcecil.game.core.GameController;
 
 def discard = new DiscardCard(targetPlayer:game.currentPlayer, cause:null, sourcePlayer:source);
 
-GameController.doAction(game, discard)
+gameController.doAction(game, discard)

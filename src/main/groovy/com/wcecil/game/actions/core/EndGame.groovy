@@ -1,14 +1,14 @@
 package com.wcecil.game.actions.core
 
-import com.wcecil.beans.GameState
+import com.wcecil.beans.dto.GameState
 import com.wcecil.beans.gameobjects.Card
 import com.wcecil.beans.gameobjects.Player
 import com.wcecil.common.annotations.UserAction
 import com.wcecil.common.enums.AnnouncementType
 import com.wcecil.game.actions.Action
-import com.wcecil.game.common.CardMovementHelper
 import com.wcecil.game.core.GameController
-import com.wcecil.websocket.messanger.MessangerService;
+import com.wcecil.game.util.CardMovementHelper
+import com.wcecil.websocket.messanger.MessangerService
 
 @UserAction
 class EndGame extends Action {

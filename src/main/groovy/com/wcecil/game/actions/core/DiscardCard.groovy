@@ -2,7 +2,7 @@ package com.wcecil.game.actions.core
 
 import java.util.concurrent.ThreadLocalRandom
 
-import com.wcecil.beans.GameState
+import com.wcecil.beans.dto.GameState;
 import com.wcecil.game.actions.Action
 import com.wcecil.game.core.GameController;
 

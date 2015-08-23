@@ -3,7 +3,7 @@ package com.wcecil
 
 import org.junit.Test
 
-import com.wcecil.beans.GameState
+import com.wcecil.beans.dto.GameState;
 import com.wcecil.beans.gameobjects.Card
 import com.wcecil.game.actions.core.BuyCard
 import com.wcecil.game.actions.core.EndTurn

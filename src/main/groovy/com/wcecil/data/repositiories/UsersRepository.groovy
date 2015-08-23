@@ -8,8 +8,8 @@ import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.data.mongodb.core.MongoTemplate
 import org.springframework.stereotype.Service
 
-import com.wcecil.data.objects.User
-import com.wcecil.data.objects.UserToken
+import com.wcecil.beans.dto.User;
+import com.wcecil.beans.dto.UserToken;
 
 @Service
 @CompileStatic

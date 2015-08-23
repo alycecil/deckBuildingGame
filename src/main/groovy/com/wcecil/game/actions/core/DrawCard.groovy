@@ -2,10 +2,10 @@ package com.wcecil.game.actions.core
 
 import groovy.transform.CompileStatic
 
-import com.wcecil.beans.GameState
+import com.wcecil.beans.dto.GameState
 import com.wcecil.game.actions.Action
-import com.wcecil.game.common.CardMovementHelper
 import com.wcecil.game.core.GameController
+import com.wcecil.game.util.CardMovementHelper
 
 @CompileStatic
 class DrawCard extends Action {

@@ -2,14 +2,14 @@ package com.wcecil.game.actions.initial
 
 import com.fasterxml.jackson.databind.JavaType
 import com.fasterxml.jackson.databind.ObjectMapper
-import com.wcecil.beans.GameState
+import com.wcecil.beans.dto.GameState
 import com.wcecil.beans.gameobjects.Card
 import com.wcecil.beans.gameobjects.CardTemplate
 import com.wcecil.common.settings.Settings
 import com.wcecil.common.util.StreamUtils
 import com.wcecil.game.actions.Action
-import com.wcecil.game.common.ScriptLoader
 import com.wcecil.game.core.GameController
+import com.wcecil.game.util.ScriptLoader
 
 class LoadCards extends Action{
 	static final String BASEDIR = 'static/cards/'

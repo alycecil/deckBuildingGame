@@ -4,8 +4,9 @@ import static org.junit.Assert.*
 
 import org.junit.Test
 
+import com.wcecil.beans.dto.GameState
 import com.wcecil.game.actions.initial.LoadCards
-import com.wcecil.beans.GameState
+import com.wcecil.game.core.GameController
 
 
 class CardTest {
@@ -76,7 +77,7 @@ println 'Hello Cards From File'
 			def real = new ActualCard(c)
 			verifyCard(real, money, cost, draw, value, name, description, staticCount, deckCount, startingCount, scriptRaw)
 
-			def result = real.specialAction(game, source, target)
+			def result = real.specialAction(game, source, target, new GameController())
 
 			assertEquals c.cost, newCost
 		}
@@ -140,7 +141,7 @@ println 'Hello Cards'
 			def real = new ActualCard(c)
 			verifyCard(real, money, cost, draw, value, name, description, staticCount, deckCount, startingCount, script)
 
-			def result = real.specialAction(game, source, target)
+			def result = real.specialAction(game, source, target, new GameController())
 
 			assertEquals c.cost, newCost
 		}

@@ -8,9 +8,9 @@ import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.data.mongodb.core.MongoTemplate
 import org.springframework.stereotype.Service
 
-import com.wcecil.beans.GamePlayerState
-import com.wcecil.beans.GameState
-import com.wcecil.data.objects.User
+import com.wcecil.beans.dto.GameState;
+import com.wcecil.beans.dto.User;
+import com.wcecil.beans.io.GamePlayerState;
 
 @Service
 @CompileStatic

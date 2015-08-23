@@ -6,8 +6,8 @@ import groovy.transform.CompileStatic
 import org.springframework.data.annotation.Transient
 import org.springframework.data.mongodb.core.mapping.Document
 
+import com.wcecil.beans.dto.User;
 import com.wcecil.common.settings.Settings
-import com.wcecil.data.objects.User
 
 @CompileStatic
 @Document

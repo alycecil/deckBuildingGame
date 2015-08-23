@@ -4,10 +4,10 @@ import static org.junit.Assert.*
 
 import org.junit.Test
 
-import com.wcecil.beans.GameState
+import com.wcecil.beans.dto.GameState;
 import com.wcecil.common.enums.Persistence
 import com.wcecil.game.actions.Action
-import com.wcecil.game.actions.NullAction
+import com.wcecil.game.actions.core.NullAction;
 import com.wcecil.game.triggers.Trigger
 
 

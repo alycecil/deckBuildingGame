@@ -2,7 +2,7 @@ package com.wcecil.game.actions
 
 import groovy.transform.CompileStatic;
 
-import com.wcecil.beans.GameState
+import com.wcecil.beans.dto.GameState;
 import com.wcecil.beans.gameobjects.Card
 import com.wcecil.beans.gameobjects.Player
 import com.wcecil.game.core.GameController

@@ -6,11 +6,11 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.wcecil.beans.GameState;
+import com.wcecil.beans.dto.GameState;
+import com.wcecil.beans.dto.User;
 import com.wcecil.beans.gameobjects.Card;
 import com.wcecil.beans.gameobjects.CardTemplate;
 import com.wcecil.beans.gameobjects.Player;
-import com.wcecil.data.objects.User;
 import com.wcecil.data.repositiories.UsersRepository;
 
 @Service

@@ -7,13 +7,14 @@ import com.wcecil.common.settings.Settings
 import com.wcecil.game.actions.Action
 import com.wcecil.game.common.CardMovementHelper
 import com.wcecil.game.core.GameController
+import com.wcecil.websocket.messanger.MessangerService;
 
 @UserAction
 class EndTurn extends Action {
 
 	String audit = super.getAudit()
 
-	def doAction(GameState g) {
+	def doAction(GameState g, GameController gc) {
 		Player currentPlayer  = g.currentPlayer
 
 		Player nextPlayer = null
@@ -29,10 +30,10 @@ class EndTurn extends Action {
 		}
 
 		CardMovementHelper.moveFullZones(currentPlayer.hand, currentPlayer.discard, g, this)
-		GameController.doAction(g, new DrawHand(targetPlayer:currentPlayer))
+		gc.doAction(g, new DrawHand(targetPlayer:currentPlayer))
 		
 		while(g.available.size()<Settings.defaultAvailableSize){
-			GameController.doAction(g, new MakeCardAvailable(cause:this))
+			gc.doAction(g, new MakeCardAvailable(cause:this))
 		}
 		
 		g.currentPlayer = nextPlayer
@@ -44,5 +45,10 @@ class EndTurn extends Action {
 
 	boolean isValid(GameState g) {
 		true
+	}
+
+	@Override
+	public void sendNotification(GameState g, MessangerService messangerService) {
+		messangerService.endTurn(g.id);
 	}
 }

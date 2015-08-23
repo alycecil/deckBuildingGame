@@ -200,7 +200,7 @@ public class GameWebController {
 				}
 			}
 
-			GameController.doAction(g, a);
+			gameController.doAction(g, a);
 
 			gamesRepo.save(g);
 

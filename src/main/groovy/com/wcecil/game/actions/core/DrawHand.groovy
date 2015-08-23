@@ -13,14 +13,14 @@ import com.wcecil.game.core.GameController
 class DrawHand extends Action {
 	String audit = 'Unknown Error'
 
-	def doAction(GameState g) {
+	def doAction(GameState g, GameController gc) {
 		if(targetPlayer.hand){
 			def discardCards = new DiscardHand(targetPlayer:targetPlayer, cause:this);
-			GameController.doAction(g, discardCards)
+			gc.doAction(g, discardCards)
 		}
 		
 		(1..Settings.defaultHandSize).each {
-			CardMovementHelper.drawCard(targetPlayer,g,this)
+			CardMovementHelper.drawCard(targetPlayer,g,this,gc)
 		}
 
 		audit = "Player ${targetPlayer.id} drew a new hand"

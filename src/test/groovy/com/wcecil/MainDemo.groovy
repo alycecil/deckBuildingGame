@@ -12,6 +12,8 @@ import com.wcecil.game.actions.initial.LoadGame
 import com.wcecil.game.core.GameController
 
 public class MainDemo {
+	
+	GameController gc = new GameController();
 
 	void printState(GameState g){
 		println """Current Game State
@@ -24,13 +26,13 @@ Available : ${g.available}
 		while(!g.currentPlayer.hand.isEmpty()) {
 			Card c = g.currentPlayer.hand.get(0)
 
-			GameController.doAction(g, new PlayCard(sourceCard:c, sourcePlayer:g.currentPlayer))
+			gc.doAction(g, new PlayCard(sourceCard:c, sourcePlayer:g.currentPlayer))
 		}
 	}
 	void buyAll(GameState g) {
 		while(!g.available.isEmpty()){
 			Card c = g.available.get(0);
-			GameController.doAction(g, new BuyCard(targetCard:c, sourcePlayer:g.currentPlayer))
+			gc.doAction(g, new BuyCard(targetCard:c, sourcePlayer:g.currentPlayer))
 		}
 	}
 
@@ -38,7 +40,7 @@ Available : ${g.available}
 	public void test(){
 		GameState g = new GameState()
 
-		GameController.doAction(g, new LoadGame())
+		gc.doAction(g, new LoadGame())
 
 		printState(g)
 
@@ -46,7 +48,7 @@ Available : ${g.available}
 
 		printState(g)
 
-		GameController.doAction(g, new EndTurn())
+		gc.doAction(g, new EndTurn())
 
 		printState(g)
 
@@ -59,7 +61,7 @@ Available : ${g.available}
 		printState(g)
 
 		(1..10).each{
-			GameController.doAction(g, new EndTurn())
+			gc.doAction(g, new EndTurn())
 
 			printState(g)
 		}

@@ -10,7 +10,7 @@ import com.wcecil.game.core.GameController
 class EndGameRule extends Rule{
 
 	@Override
-	public Object doRule(GameState g) {
+	public Object doRule(GameState g, GameController gc) {
 		def triggered = false
 		if(g.getCurrentPlayer()!=null){
 			if(!g.mainDeck){
@@ -19,7 +19,7 @@ class EndGameRule extends Rule{
 		}
 
 		if(triggered){
-			GameController.doAction(g, new EndGame())
+			gc.doAction(g, new EndGame())
 		}
 	}
 }

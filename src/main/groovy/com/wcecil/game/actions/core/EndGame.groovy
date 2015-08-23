@@ -7,13 +7,15 @@ import com.wcecil.common.annotations.UserAction
 import com.wcecil.common.enums.AnnouncementType
 import com.wcecil.game.actions.Action
 import com.wcecil.game.common.CardMovementHelper
+import com.wcecil.game.core.GameController
+import com.wcecil.websocket.messanger.MessangerService;
 
 @UserAction
 class EndGame extends Action {
 
 	String audit = super.getAudit()
 
-	def doAction(GameState g) {
+	def doAction(GameState g, GameController gc) {
 		
 		g.triggers = []
 		
@@ -59,5 +61,10 @@ class EndGame extends Action {
 
 	boolean isValid(GameState g) {
 		true
+	}
+	
+	@Override
+	public void sendNotification(GameState g, MessangerService messangerService) {
+		messangerService.endGame(g.id);
 	}
 }

@@ -13,7 +13,7 @@ class PlayHand extends Action {
 
 	String audit = 'Unable to play hand'
 
-	def doAction(GameState g) {
+	def doAction(GameState g, GameController gc) {
 		
 		cleanAnnouncment(g)
 		
@@ -29,7 +29,7 @@ class PlayHand extends Action {
 				keys.add(c.id)
 			}
 
-			GameController.doAction(g, new PlayCard(sourceCard:c, sourcePlayer:g.currentPlayer))
+			gc.doAction(g, new PlayCard(sourceCard:c, sourcePlayer:g.currentPlayer))
 		}
 		
 		audit = "Player ${sourcePlayer.id} played all the cards in their hand"

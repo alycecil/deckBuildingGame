@@ -6,12 +6,13 @@ import com.wcecil.beans.GameState
 import com.wcecil.beans.gameobjects.Player
 import com.wcecil.game.actions.Action
 import com.wcecil.game.common.CardMovementHelper
+import com.wcecil.game.core.GameController
 
 @CompileStatic
 class ShuffleDiscardIntoDeck extends Action {
 	String audit = 'Unknown Error'
 	
-	def doAction(GameState g) {
+	def doAction(GameState g, GameController gc) {
 		if(CardMovementHelper.moveDiscardToDeckAndShuffle(targetPlayer,g,this)){
 			audit = "Player ${targetPlayer.id} Shuffled Discard Pile into Deck"
 		}else{

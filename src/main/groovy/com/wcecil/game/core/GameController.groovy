@@ -31,7 +31,7 @@ class GameController {
 
 	public GameState createBaseGame(){
 		GameState g = new GameState();
-		GameController.doAction(g, new LoadGame());
+		doAction(g, new LoadGame());
 
 		gamesRepo.save(g);
 
@@ -122,7 +122,7 @@ class GameController {
 		u
 	}
 
-	static def doAction(GameState g, Action a){
+	def doAction(GameState g, Action a){
 		def result = null
 		if(a.isValid(g)){
 
@@ -134,8 +134,11 @@ class GameController {
 			saveAudit(g, a)
 
 			g.getRules().each{ Rule r ->
-				r.doRule(g)
+				r.doRule(g, this)
 			}
+			
+			if(messangerService)
+				a.sendNotification(g, messangerService)
 		}else{
 			throw new IllegalStateException("Game in illegal state for attempting $a on $g");
 		}

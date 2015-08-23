@@ -5,6 +5,7 @@ import groovy.transform.CompileStatic;
 import com.wcecil.beans.GameState
 import com.wcecil.beans.gameobjects.Card
 import com.wcecil.beans.gameobjects.Player
+import com.wcecil.game.core.GameController
 import com.wcecil.websocket.messanger.MessangerService;
 
 @CompileStatic
@@ -15,7 +16,7 @@ abstract class Action {
 	Player sourcePlayer
 	Action cause
 	
-	abstract def doAction(GameState g)
+	abstract def doAction(GameState g, GameController gc)
 	
 	abstract boolean isValid(GameState g)
 	

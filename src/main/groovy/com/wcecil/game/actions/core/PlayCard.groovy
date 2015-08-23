@@ -13,13 +13,13 @@ class PlayCard extends Action {
 
 	String audit = 'Unable to play card'
 
-	def doAction(GameState g) {
+	def doAction(GameState g, GameController gc) {
 		if(sourceCard.money){
 			addMoney(sourcePlayer, sourceCard.money)
 		}
 
 		if(sourceCard.draw){
-			drawCards(g, sourcePlayer, sourceCard.draw)
+			drawCards(g, sourcePlayer, sourceCard.draw, gc)
 		}
 
 		if(sourceCard.specialActionScript){
@@ -41,10 +41,10 @@ class PlayCard extends Action {
 		player.money+=money;
 	}
 
-	def drawCards(GameState g, Player player, Integer cards){
+	def drawCards(GameState g, Player player, Integer cards, GameController gc){
 		(1..cards).each{
 			def drawCard = new DrawCard(targetPlayer:sourcePlayer, cause:this)
-			GameController.doAction(g, drawCard)
+			gc.doAction(g, drawCard)
 		}
 	}
 }

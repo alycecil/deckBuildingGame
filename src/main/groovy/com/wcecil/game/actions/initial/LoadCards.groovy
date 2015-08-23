@@ -9,6 +9,7 @@ import com.wcecil.common.settings.Settings
 import com.wcecil.common.util.StreamUtils
 import com.wcecil.game.actions.Action
 import com.wcecil.game.common.ScriptLoader
+import com.wcecil.game.core.GameController
 
 class LoadCards extends Action{
 	static final String BASEDIR = 'static/cards/'
@@ -16,7 +17,7 @@ class LoadCards extends Action{
 
 	def loadedCardsCount
 	
-	def doAction(GameState g) {
+	def doAction(GameState g, GameController gc) {
 		return loadCards(g)
 	}
 

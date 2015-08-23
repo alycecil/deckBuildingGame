@@ -7,13 +7,14 @@ import com.wcecil.common.annotations.UserAction
 import com.wcecil.common.enums.AnnouncementType
 import com.wcecil.game.actions.Action
 import com.wcecil.game.common.CardMovementHelper
+import com.wcecil.game.core.GameController
 
 @UserAction
 class BuyCard extends Action {
 
 	String audit = 'Unable to buy card'
 
-	def doAction(GameState g) {
+	def doAction(GameState g, GameController gc) {
 		if(sourcePlayer.money < targetCard.cost){
 			audit = "Current money is only ${sourcePlayer.money} <i class='fa fa-money'></i> which is less than the required ${targetCard.cost} <i class='fa fa-money'></i>";
 

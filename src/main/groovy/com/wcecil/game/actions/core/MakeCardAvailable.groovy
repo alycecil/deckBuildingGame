@@ -2,10 +2,11 @@ package com.wcecil.game.actions.core
 
 import com.wcecil.beans.GameState
 import com.wcecil.game.actions.Action
+import com.wcecil.game.core.GameController
 
 class MakeCardAvailable extends Action {
 String audit
-	def doAction(GameState g) {
+	def doAction(GameState g, GameController gc) {
 		if(g.mainDeck){
 			def top = g.mainDeck.remove(0)
 			g.available << top

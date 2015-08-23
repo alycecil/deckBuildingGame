@@ -15,13 +15,13 @@ import com.wcecil.game.rules.EndGameRule
 class LoadGame extends Action{
 	ObjectMapper mapper = new ObjectMapper()
 
-	def doAction(GameState g) {
+	def doAction(GameState g, GameController gc) {
 		List<Card> cards = loadCards(g)
-		setupMainDeck(g,cards)
+		setupMainDeck(g,cards,gc)
 		setupPlayers(g, cards)
 
 		println "Added ${g.allCards.size()}"
-		drawHands(g)
+		drawHands(g, gc)
 
 		addRules(g)
 	}
@@ -38,7 +38,7 @@ class LoadGame extends Action{
 		"The game was loaded at ${new Date()}"
 	}
 
-	def setupMainDeck(GameState g, List<Card> cards){
+	def setupMainDeck(GameState g, List<Card> cards, GameController gc){
 		cards.each { Card c->
 			if(c.deckCount){
 				(1..c.deckCount).each {
@@ -67,14 +67,14 @@ class LoadGame extends Action{
 		Collections.shuffle(g.mainDeck)
 
 		(1..Settings.defaultAvailableSize).each {
-			GameController.doAction(g, new MakeCardAvailable(cause:this))
+			gc.doAction(g, new MakeCardAvailable(cause:this))
 		}
 	}
 
-	def drawHands(GameState g){
+	def drawHands(GameState g, GameController gc){
 		g.players.each {
 			def drawHand = new DrawHand(targetPlayer:it, cause:this)
-			GameController.doAction(g, drawHand)
+			gc.doAction(g, drawHand)
 		}
 	}
 
@@ -111,8 +111,8 @@ class LoadGame extends Action{
 		result
 	}
 
-	def loadCards(GameState g){
+	def loadCards(GameState g, GameController gc){
 		def laodCards = new LoadCards(cause:this)
-		return GameController.doAction(g, laodCards)
+		return gc.doAction(g, laodCards)
 	}
 }

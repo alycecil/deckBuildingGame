@@ -11,11 +11,11 @@ import com.wcecil.game.actions.Action;
 
 @CompileStatic
 class CardMovementHelper {
-	static Card drawCard(Player p, GameState g, Action cause){
+	static Card drawCard(Player p, GameState g, Action cause, GameController gc){
 		Card result = null
 		if(!p.deck){
 			def shuffle = new ShuffleDiscardIntoDeck(targetPlayer:p, cause:cause);
-			GameController.doAction(g, shuffle)
+			gc.doAction(g, shuffle)
 		}
 
 		if(p.deck){

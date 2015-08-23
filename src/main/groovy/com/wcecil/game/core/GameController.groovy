@@ -128,7 +128,7 @@ class GameController {
 
 			doTriggers( g,  a )
 
-			result = a.doAction(g);
+			result = a.doAction(g, this);
 
 			def tic = g.ticCount.getAndIncrement()
 			saveAudit(g, a)

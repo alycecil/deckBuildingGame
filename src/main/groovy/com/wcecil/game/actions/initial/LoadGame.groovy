@@ -16,7 +16,7 @@ class LoadGame extends Action{
 	ObjectMapper mapper = new ObjectMapper()
 
 	def doAction(GameState g, GameController gc) {
-		List<Card> cards = loadCards(g)
+		List<Card> cards = loadCards(g, gc)
 		setupMainDeck(g,cards,gc)
 		setupPlayers(g, cards)
 

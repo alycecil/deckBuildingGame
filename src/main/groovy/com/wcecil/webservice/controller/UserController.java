@@ -15,6 +15,7 @@ import com.wcecil.beans.dto.UserToken;
 import com.wcecil.common.settings.ApplicationComponent;
 import com.wcecil.data.repositiories.UsersRepository;
 import com.wcecil.webservice.service.AuthenticationService;
+import com.wcecil.websocket.messanger.MessangerService;
 
 //TODO make secure
 @RestController
@@ -27,6 +28,9 @@ public class UserController {
 
 	@Autowired
 	AuthenticationService authService;
+	
+	@Autowired
+	MessangerService messageService;
 
 	@RequestMapping("/players/all")
 	public List<User> listAll(HttpServletResponse response) throws IOException {
@@ -88,6 +92,21 @@ public class UserController {
 			return null;
 		}
 		return usersRepo.addGameToUser(userId, gameId);
+	}
+	
+	@RequestMapping("/players/message/send")
+	public Boolean sendMessage(@RequestParam("userId") String userId, 
+			@RequestParam("message") String message, HttpServletResponse response)
+			throws IOException {
+		if (!context.getAllowDebug()) {
+			response.sendError(HttpServletResponse.SC_UNAUTHORIZED,
+					"Not Authorized");
+			return null;
+		}
+		
+		messageService.alertUser(userId, message);
+		
+		return true;
 	}
 
 }

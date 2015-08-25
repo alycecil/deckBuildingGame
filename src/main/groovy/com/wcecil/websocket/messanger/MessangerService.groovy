@@ -2,8 +2,6 @@ package com.wcecil.websocket.messanger;
 
 import groovy.transform.CompileStatic
 
-import com.wcecil.common.AsyncronousService
-
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.messaging.simp.SimpMessagingTemplate
 import org.springframework.scheduling.annotation.Async
@@ -14,7 +12,7 @@ import com.wcecil.websocket.messages.enums.MessageTypes
 
 @Service
 @CompileStatic
-public class MessangerService extends AsyncronousService{
+public class MessangerService {
 	private @Autowired SimpMessagingTemplate template;
 	
 	@Async

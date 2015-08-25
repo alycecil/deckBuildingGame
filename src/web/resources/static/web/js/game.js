@@ -2,6 +2,7 @@ var gameId = null;
 var token = null;
 var userId = null;
 var gameChannel = null;
+var userChannel = null;
 
 function showLogin() {
 	var context = {}
@@ -41,8 +42,9 @@ function createUser(){
 		 	$.ajax({
 		        url: url,
 		        success: function(context) {
-			         token = context.token
-			         userId = context.userId
+			         token = context.token;
+			         userId = context.userId;
+			         connectUserChannel();
 		             login();
 		        },
 		        error: function(){
@@ -69,8 +71,9 @@ function login() {
 		 	$.ajax({
 		        url: url,
 		        success: function(context) {
-		            token = context.token
-		            userId = context.userId
+		            token = context.token;
+		            userId = context.userId;
+		            connectUserChannel();
 		            loadGames();
 		        },
 		        error: function(){
@@ -253,4 +256,21 @@ function joinGameChannel(){
 		subscribe('/topic/game.'+channel, handleGameMessages, {id:'gamesub'})
 	}
 	
+}
+
+function handleUserMessages(raw){
+	var msg = JSON.parse(raw.body);
+	console.log(msg);
+}
+
+
+function connectUserChannel(){
+	var channel = userId;
+	if(userChannel != channel){
+		if(gameChannel!=null)
+			stompClient.unsubscribe('usersub');
+		
+		userChannel = channel;
+		subscribe('/topic/user.'+channel, handleUserMessages, {id:'usersub'})
+	}
 }

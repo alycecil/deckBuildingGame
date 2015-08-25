@@ -1,7 +1,8 @@
 [
 {"cost":3, "money":2, "draw":0, "value":0, "name":"Bag of Money", "description":"+2 <i class='fa fa-money'></i>", "startingCount":0, "deckCount":0, "staticCount":20, "specialActionScript":null},
 {"cost":1, "money":1, "draw":0, "value":0, "name":"Pauper's Profit", "description":"+1 <i class='fa fa-money'></i>", "startingCount":0, "deckCount":0, "staticCount":20, "specialActionScript":null},
-{"cost":8, "money":0, "draw":0, "value":6, "name":"Endless Renown", "description":"6 Victory Points", "startingCount":0, "deckCount":0, "staticCount":6, "specialActionScript":"file:static/scripts/buyClassicalRenown.script"},
-{"cost":6, "money":0, "draw":0, "value":3, "name":"Classical Renown", "description":"3 Victory Points", "startingCount":0, "deckCount":0, "staticCount":10, "specialActionScript":null},
-{"cost":2, "money":0, "draw":0, "value":1, "name":"Renown", "description":"1 Victory Point", "startingCount":0, "deckCount":0, "staticCount":10, "specialActionScript":null}
+{"cost":8, "money":0, "draw":0, "value":6, "name":"Endless Renown", "description":"", "startingCount":0, "deckCount":0, "staticCount":6, "specialActionScript":"file:static/scripts/buyClassicalRenown.script"},
+{"cost":6, "money":0, "draw":0, "value":3, "name":"Classical Renown", "description":"", "startingCount":0, "deckCount":0, "staticCount":10, "specialActionScript":null},
+{"cost":2, "money":0, "draw":0, "value":1, "name":"Renown", "description":"", "startingCount":0, "deckCount":0, "staticCount":10, "specialActionScript":null}
+{"cost":6, "money":3, "draw":0, "value":0, "name":"Endless Wealth", "description":"+3 <i class='fa fa-money'></i>", "startingCount":0, "deckCount":0, "staticCount":10, "specialActionScript":null},
 ]

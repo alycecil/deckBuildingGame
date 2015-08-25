@@ -1,13 +1,12 @@
 [
-{"cost":-1, "money":1, "draw":0, "value":-1, "name":"Begger's Boon", "description":"+1 <i class='fa fa-money'></i>\nAt time of purchase, +1 <i class='fa fa-money'></i>\n-1 Victory Points", "startingCount":0, "deckCount":3, "specialActionScript":null},
-{"cost":2, "money":0, "draw":1, "value":0, "name":"Forethought", "description":"+1 Card", "startingCount":0, "deckCount":5, "specialActionScript":null},
-{"cost":3, "money":0, "draw":2, "value":0, "name":"Mental Rebound", "description":"+2 Cards, Discard a card at random", "startingCount":0, "deckCount":4, "specialActionScript":"file:static/scripts/MentalRebound.script"},
-{"cost":3, "money":3, "draw":0, "value":-3, "name":"Personal Thug", "description":"+3 <i class='fa fa-money'></i>\n-3 Victory Points", "startingCount":0, "deckCount":3, "specialActionScript":null},
-{"cost":3, "money":1, "draw":1, "value":0, "name":"Shrewd Investment", "description":"+1 <i class='fa fa-money'></i>\n+1 Card", "startingCount":0, "deckCount":4, "specialActionScript":null},
-{"cost":4, "money":2, "draw":1, "value":0, "name":"Well Wrought Ways", "description":"+1 Card\n+2 <i class='fa fa-money'></i>", "startingCount":0, "deckCount":4, "specialActionScript":null},
-{"cost":4, "money":0, "draw":2, "value":0, "name":"Curiosity", "description":"+2 Cards", "startingCount":0, "deckCount":4, "specialActionScript":null},
-{"cost":5, "money":-3, "draw":4, "value":-2, "name":"Glory at Any Cost", "description":"-3 <i class='fa fa-money'></i>\n+4 Cards\n-2 Victory Points", "startingCount":0, "deckCount":2, "specialActionScript":null},
-{"cost":5, "money":1, "draw":1, "value":1, "name":"Personal Servant", "description":"+1 <i class='fa fa-money'></i>\n+1 Card\n1 Victory Point", "startingCount":0, "deckCount":2, "specialActionScript":null},
-{"cost":6, "money":3, "draw":0, "value":0, "name":"Endless Wealth", "description":"+3 <i class='fa fa-money'></i>", "startingCount":0, "deckCount":5, "specialActionScript":null},
+{"cost":-1, "money":1, "draw":0, "value":-1, "name":"Begger's Boon", "description":"+1 <i class='fa fa-money'></i>\nAt time of purchase, +1 <i class='fa fa-money'></i>", "startingCount":0, "deckCount":3, "specialActionScript":null},
+{"cost":2, "money":0, "draw":1, "value":0, "name":"Forethought", "description":"+1 Card", "startingCount":0, "deckCount":3, "specialActionScript":null},
+{"cost":3, "money":0, "draw":2, "value":0, "name":"Mental Rebound", "description":"+2 Cards, Discard a card at random", "startingCount":0, "deckCount":3, "specialActionScript":"file:static/scripts/MentalRebound.script"},
+{"cost":3, "money":3, "draw":0, "value":-3, "name":"Personal Thug", "description":"+3 <i class='fa fa-money'></i>", "startingCount":0, "deckCount":3, "specialActionScript":null},
+{"cost":3, "money":1, "draw":1, "value":0, "name":"Shrewd Investment", "description":"+1 <i class='fa fa-money'></i>\n+1 Card", "startingCount":0, "deckCount":3, "specialActionScript":null},
+{"cost":4, "money":2, "draw":1, "value":0, "name":"Well Wrought Ways", "description":"+1 Card\n+2 <i class='fa fa-money'></i>", "startingCount":0, "deckCount":3, "specialActionScript":null},
+{"cost":4, "money":0, "draw":2, "value":0, "name":"Curiosity", "description":"+2 Cards", "startingCount":0, "deckCount":3, "specialActionScript":null},
+{"cost":5, "money":-3, "draw":4, "value":-2, "name":"Glory at Any Cost", "description":"-3 <i class='fa fa-money'></i>\n+4 Cards", "startingCount":0, "deckCount":2, "specialActionScript":null},
+{"cost":5, "money":1, "draw":1, "value":1, "name":"Personal Servant", "description":"+1 <i class='fa fa-money'></i>\n+1 Card", "startingCount":0, "deckCount":2, "specialActionScript":null},
 {"cost":10, "money":0, "draw":4, "value":0, "name":"Endless Knowledge", "description":"+4 Cards", "startingCount":0, "deckCount":1, "specialActionScript":null}
 ]

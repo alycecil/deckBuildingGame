@@ -3,8 +3,10 @@ var token = null;
 var userId = null;
 var gameChannel = null;
 var userChannel = null;
+var msgCnt = 0;
 
 function showLogin() {
+	gameId = null;
 	var context = {}
 	_showLogin(context)
 }
@@ -90,6 +92,7 @@ function login() {
 
 
 function loadGames() {
+	gameId = null;
 	if(token==null){
 		showLogin();
 	}else{
@@ -258,9 +261,47 @@ function joinGameChannel(){
 	
 }
 
+function myAlert(msg, myClass){
+	if(myClass==null){myClass='success';}
+	msgCnt++;
+	var myCnt = msgCnt;
+	$('#gameHeader').append('<div class="alert alert-'
+		+myClass
+		+'" id="success-alert-'
+		+ myCnt
+		+'"><button type="button" class="close" data-dismiss="alert">x</button>'
+		+ msg
+		+'</div>');
+		
+	
+}
+
+
+function showUpdate(msg){
+	myAlert(msg.content, 'info');
+}
+
+function newGameAlert(msg){
+	if(gameId==null){
+		loadGames();
+	}
+	myAlert(msg.content);
+}
+
 function handleUserMessages(raw){
 	var msg = JSON.parse(raw.body);
 	console.log(msg);
+	if(userChannel == userId){
+		if(msg.type == "UPDATE"){
+			showUpdate(msg);
+		}else if(msg.type == "NEWGAME"){
+			newGameAlert(msg);
+		}else{
+			console.log("Unknown Message Type in usersChannel :"+msg.type);
+		}
+	}else{
+		connectUserChannel();
+	}
 }
 
 

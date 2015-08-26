@@ -103,6 +103,7 @@ public class GameWebController {
 		
 		//TODO ACTUALLY END GAME, with 'me' losing
 		
+		usersRepo.saveUser(u);
 		gamesRepo.save(g);
 		messangerService.endGame(gameId);
 

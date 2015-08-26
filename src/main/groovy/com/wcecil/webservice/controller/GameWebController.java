@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.wcecil.beans.dto.GameAudit;
 import com.wcecil.beans.dto.GameState;
+import com.wcecil.beans.dto.User;
 import com.wcecil.beans.gameobjects.ActualCard;
 import com.wcecil.beans.gameobjects.Card;
 import com.wcecil.beans.gameobjects.Player;
@@ -26,6 +27,7 @@ import com.wcecil.game.actions.Action;
 import com.wcecil.game.core.GameController;
 import com.wcecil.webservice.service.AuthenticationService;
 import com.wcecil.webservice.util.MaskingHelper;
+import com.wcecil.websocket.messanger.MessangerService;
 
 @RestController
 @RequestMapping("/game")
@@ -38,6 +40,7 @@ public class GameWebController {
 	private @Autowired ApplicationComponent context;
 	private @Autowired GameController gameController;
 	private @Autowired MaskingHelper maskingHelper;
+	private @Autowired MessangerService messangerService;
 
 	public GameWebController() {
 		System.out.print("Creating " + this);
@@ -78,6 +81,32 @@ public class GameWebController {
 		}
 
 		return retVal;
+	}
+	
+	@RequestMapping(value = "/quit", method = { RequestMethod.GET })
+	public GamePlayerState quitGame(@RequestParam(value = "id") String gameId,
+			@RequestParam(value = "token") String token,
+			HttpServletResponse response) throws IOException {
+		String userId = authService.getUserFromToken(token, response);
+
+		GameState g = gamesRepo.getGame(gameId, true);
+		
+		User me = usersRepo.getUser(userId);
+		
+		boolean left = me.getGames().remove(gameId);
+		//TODO AUTH USER IS STILL IN GAME
+		
+		if(!left){
+			response.sendError(HttpServletResponse.SC_BAD_REQUEST, "Unable to quit a game you are not in.");
+			return null;
+		}
+		
+		//TODO ACTUALLY END GAME, with 'me' losing
+		
+		gamesRepo.save(g);
+		messangerService.endGame(gameId);
+
+		return listGames(token, response);
 	}
 
 	@RequestMapping(value = "/audit", method = { RequestMethod.GET })

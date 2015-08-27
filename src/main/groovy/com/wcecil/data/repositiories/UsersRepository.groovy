@@ -78,6 +78,13 @@ public class UsersRepository {
 	}
 
 	public void saveUser(User u){
+		if(!u.getPassword()){
+			//unmask
+			def me = getUserById(u.id)
+			
+			u.password = me.password
+			u.login = me.login
+		}
 		mongoTemplate.save(u, USERS_REPO);
 	}
 

@@ -60,15 +60,18 @@ public class AdminController {
 		}
 
 		usersRepo.listAll().each { User u ->
-			u.getGames().each{ String gameId->
+			u.getGames()?.each{ String gameId->
 				GameState g = gamesRepo.getGame(gameId, false);
-				g.players.each {  Player p ->
-					if(p.userId){
-						messageService.alertUser(p.userId, 'You have been kicked from a game.');
+				if(g){
+					g?.players?.each {  Player p ->
+						if(p?.userId){
+							messageService.alertUser(p.userId, 'You have been kicked from a game.');
+						}
+						p.userId = null;
 					}
-					p.userId = null;
+					
+					gamesRepo.delete(g);
 				}
-				gamesRepo.delete(g);
 			}
 
 			u.setGames([]);

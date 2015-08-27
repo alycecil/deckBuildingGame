@@ -6,3 +6,5 @@ Game Uses simple common actions with optional scriptable enhancements to cards t
 Game uses two resources Victory Points and Money. Money allows you to buy more cards, Victory Points well win you the game.
 
 The game is over when the main deck is empty.
+
+Openshift Small Gear : http://deckbuilder-alysforever.rhcloud.com/

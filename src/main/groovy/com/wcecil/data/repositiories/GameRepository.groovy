@@ -57,4 +57,10 @@ public class GameRepository {
 		
 		return state
 	}
+	
+	public boolean delete(GameState g){
+		mongoTemplate.remove(g, __REPO);
+		
+		return true
+	}
 }

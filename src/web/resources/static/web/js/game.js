@@ -285,7 +285,10 @@ function newGameAlert(msg){
 	if(gameId==null){
 		loadGames();
 	}
-	myAlert(msg.content);
+	
+	var message = '<a onclick="gameid="'+msg.content+'"; showGame();">Started a new game, click to play now</a>'
+	
+	myAlert(message);
 }
 
 function handleUserMessages(raw){

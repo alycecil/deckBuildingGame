@@ -1,7 +1,6 @@
 package com.wcecil.webservice.controller;
 
 import java.io.IOException;
-import java.util.List;
 
 import javax.servlet.http.HttpServletResponse;
 
@@ -17,30 +16,12 @@ import com.wcecil.data.repositiories.UsersRepository;
 import com.wcecil.webservice.service.AuthenticationService;
 import com.wcecil.websocket.messanger.MessangerService;
 
-//TODO make secure
 @RestController
 public class UserController {
-	@Autowired
-	UsersRepository usersRepo;
-
-	@Autowired
-	ApplicationComponent context;
-
-	@Autowired
-	AuthenticationService authService;
-	
-	@Autowired
-	MessangerService messageService;
-
-	@RequestMapping("/players/all")
-	public List<User> listAll(HttpServletResponse response) throws IOException {
-		if (!context.getAllowDebug()) {
-			response.sendError(HttpServletResponse.SC_UNAUTHORIZED,
-					"Not Authorized");
-			return null;
-		}
-		return usersRepo.listAll();
-	}
+	private @Autowired UsersRepository usersRepo;
+	private @Autowired ApplicationComponent context;
+	private @Autowired AuthenticationService authService;
+	private @Autowired MessangerService messageService;
 
 	@RequestMapping("/players/auth")
 	public User auth(@RequestParam("username") String userName,
@@ -81,32 +62,4 @@ public class UserController {
 			@RequestParam(value = "name", required = false) String name) {
 		return usersRepo.createNew(userName, password, name);
 	}
-
-	@RequestMapping("/players/add/game")
-	public User createNew(@RequestParam("userId") String userId,
-			@RequestParam("gameId") String gameId, HttpServletResponse response)
-			throws IOException {
-		if (!context.getAllowDebug()) {
-			response.sendError(HttpServletResponse.SC_UNAUTHORIZED,
-					"Not Authorized");
-			return null;
-		}
-		return usersRepo.addGameToUser(userId, gameId);
-	}
-	
-	@RequestMapping("/players/message/send")
-	public Boolean sendMessage(@RequestParam("userId") String userId, 
-			@RequestParam("message") String message, HttpServletResponse response)
-			throws IOException {
-		if (!context.getAllowDebug()) {
-			response.sendError(HttpServletResponse.SC_UNAUTHORIZED,
-					"Not Authorized");
-			return null;
-		}
-		
-		messageService.alertUser(userId, message);
-		
-		return true;
-	}
-
 }

@@ -257,7 +257,8 @@ function joinGameChannel(){
 		if(gameChannel!=null){
 			gameStomp.unsubscribe('gamesub');
 			disconnect(gameStomp);
-			gameStomp = null;	
+			gameStomp = null;
+			gameChannel = null;
 		}
 		
 		gameChannel = channel;
@@ -320,6 +321,7 @@ function connectUserChannel(){
 			userStomp.unsubscribe('usersub');
 			disconnect(userStomp);
 			userStomp = null;
+			userChannel = null;
 		}
 		
 		userChannel = channel;

@@ -1,26 +1,30 @@
-var stompClient = null;
 
-function disconnect() {
+
+function disconnect(stompClient) {
     if (stompClient != null) {
         stompClient.disconnect();
     }
     console.log("Disconnected");
 }
         
-function connect() {
-    var socket = new SockJS('/hello');
-    stompClient = Stomp.over(socket);            
+function connect(stompClient, socketRoot) {
+    var socket = new SockJS(socketRoot);
+    stompClient = Stomp.over(socket); 
+    
+    return stompClient;           
 }
 
-function subscribe(channel, callback, data) {
+function subscribe(stompClient, socketRoot, channel, callback, data) {
     if(stompClient==null){
-		connect();
+		stompClient = connect(stompClient, socketRoot);
 	}
 
 	stompClient.connect({}, function(frame) {
         console.log('Connected: ' + frame);
         stompClient.subscribe(channel, callback, data);
-    });           
+    });   
+    
+    return stompClient;        
 }
 
 function handleMessage(msg){
@@ -32,6 +36,12 @@ function logMessage(raw){
 	console.log(msg);
 }
 
+var hearbeatStomp = null;
 function listenHeartBeat(){
-	subscribe('/topic/heartbeat', logMessage, {id:'heartbeat'})	
+	if(hearbeatStomp!=null){
+		hearbeatStomp.unsubscribe('heartbeat');
+		disconnect(hearbeatStomp);
+		hearbeatStomp = null;
+	}
+	hearbeatStomp = subscribe(hearbeatStomp, '/wshello', '/topic/heartbeat', logMessage, {id:'heartbeat'})	
 }

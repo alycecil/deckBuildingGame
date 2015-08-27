@@ -3,6 +3,8 @@ var token = null;
 var userId = null;
 var gameChannel = null;
 var userChannel = null;
+var gameStomp = null;
+var userStomp = null;
 var msgCnt = 0;
 
 function showLogin() {
@@ -252,11 +254,14 @@ function handleGameMessages(raw){
 function joinGameChannel(){
 	var channel = gameId;
 	if(gameChannel != channel){
-		if(gameChannel!=null)
-			stompClient.unsubscribe('gamesub');
+		if(gameChannel!=null){
+			gameStomp.unsubscribe('gamesub');
+			disconnect(gameStomp);
+			gameStomp = null;	
+		}
 		
 		gameChannel = channel;
-		subscribe('/topic/game.'+channel, handleGameMessages, {id:'gamesub'})
+		subscribe(gameStomp, '/wshello', '/topic/game.'+channel, handleGameMessages, {id:'gamesub'})
 	}
 	
 }
@@ -286,7 +291,7 @@ function newGameAlert(msg){
 		loadGames();
 	}
 	
-	var message = '<a onclick="gameid="'+msg.content+'"; showGame();">Started a new game, click to play now</a>'
+	var message = '<a onclick="gameId=\''+msg.content.trim()+'\'; getGame();">Started a new game, click to play now</a>'
 	
 	myAlert(message);
 }
@@ -311,10 +316,13 @@ function handleUserMessages(raw){
 function connectUserChannel(){
 	var channel = userId;
 	if(userChannel != channel){
-		if(gameChannel!=null)
-			stompClient.unsubscribe('usersub');
+		if(userChannel!=null){
+			userStomp.unsubscribe('usersub');
+			disconnect(userStomp);
+			userStomp = null;
+		}
 		
 		userChannel = channel;
-		subscribe('/topic/user.'+channel, handleUserMessages, {id:'usersub'})
+		userStomp = subscribe(userStomp,'/wshello','/topic/user.'+channel, handleUserMessages, {id:'usersub'})
 	}
 }

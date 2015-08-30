@@ -11,12 +11,34 @@ import com.wcecil.beans.dto.User;
 import com.wcecil.beans.gameobjects.Card;
 import com.wcecil.beans.gameobjects.CardTemplate;
 import com.wcecil.beans.gameobjects.Player;
+import com.wcecil.data.repositiories.AuditRepository;
 import com.wcecil.data.repositiories.UsersRepository;
 
 @Service
 public class MaskingHelper {
 	@Autowired
 	UsersRepository usersRepo;
+	private @Autowired AuditRepository auditRepo;
+	
+	public GameState maskGame(String gameId, String userId, GameState g) {
+		GameState retVal = new GameState();
+
+		if (g != null) {
+			retVal.setId(gameId);
+			retVal.setName(g.getName());
+			// retVal.setAudit(g.getAudit());
+			retVal.setCurrentPlayer(maskPlayerDetails(
+					g.getCurrentPlayer(), userId));
+			retVal.setPlayers(maskPlayersDetails(g, userId));
+			retVal.setTicCount(g.getTicCount());
+			retVal.setMainDeck(maskCards(g));
+			retVal.setStaticCards(g.getStaticCards());
+			retVal.setTriggers(g.getTriggers());
+			retVal.setAvailable(g.getAvailable());
+			retVal.setAuditCount(auditRepo.getCount(gameId, userId));
+		}
+		return retVal;
+	}
 
 	public List<Card> maskCards(GameState g) {
 		List<Card> mainDeck = g.getMainDeck();

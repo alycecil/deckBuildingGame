@@ -64,24 +64,12 @@ public class GameWebController {
 
 		GameState g = gamesRepo.getGame(gameId, true);
 
-		GameState retVal = new GameState();
-
-		if (g != null) {
-			retVal.setId(gameId);
-			// retVal.setAudit(g.getAudit());
-			retVal.setCurrentPlayer(maskingHelper.maskPlayerDetails(
-					g.getCurrentPlayer(), userId));
-			retVal.setPlayers(maskingHelper.maskPlayersDetails(g, userId));
-			retVal.setTicCount(g.getTicCount());
-			retVal.setMainDeck(maskingHelper.maskCards(g));
-			retVal.setStaticCards(g.getStaticCards());
-			retVal.setTriggers(g.getTriggers());
-			retVal.setAvailable(g.getAvailable());
-			retVal.setAuditCount(auditRepo.getCount(gameId, userId));
-		}
+		GameState retVal = maskingHelper.maskGame(gameId, userId, g);
 
 		return retVal;
 	}
+
+	
 	
 	@RequestMapping(value = "/quit", method = { RequestMethod.GET })
 	public GamePlayerState quitGame(@RequestParam(value = "id") String gameId,

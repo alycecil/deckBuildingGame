@@ -7,6 +7,7 @@ import com.wcecil.common.annotations.UserAction
 import com.wcecil.game.actions.Action
 import com.wcecil.game.core.GameController
 import com.wcecil.game.util.CardMovementHelper
+import com.wcecil.websocket.messanger.MessangerService
 
 @UserAction
 class PlayCard extends Action {
@@ -46,5 +47,10 @@ class PlayCard extends Action {
 			def drawCard = new DrawCard(targetPlayer:sourcePlayer, cause:this)
 			gc.doAction(g, drawCard)
 		}
+	}
+	
+	@Override
+	public void sendNotification(GameState g, MessangerService messangerService) {
+		messangerService.updateGame(g?.id, sourcePlayer?.userId, Action.getActionMessage(this));
 	}
 }

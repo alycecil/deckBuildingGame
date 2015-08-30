@@ -5,6 +5,7 @@ import java.util.concurrent.ThreadLocalRandom
 import com.wcecil.beans.dto.GameState;
 import com.wcecil.game.actions.Action
 import com.wcecil.game.core.GameController;
+import com.wcecil.websocket.messanger.MessangerService;
 
 class DiscardCard extends Action {
 
@@ -22,5 +23,10 @@ class DiscardCard extends Action {
 
 	boolean isValid(GameState g) {
 		true
+	}
+	
+	@Override
+	public void sendNotification(GameState g, MessangerService messangerService) {
+		messangerService.updateGame(g?.id, targetPlayer?.userId, Action.getActionMessage(this));
 	}
 }

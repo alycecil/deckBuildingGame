@@ -6,6 +6,7 @@ import com.wcecil.beans.dto.GameState;
 import com.wcecil.beans.gameobjects.Card
 import com.wcecil.beans.gameobjects.Player
 import com.wcecil.game.core.GameController
+import com.wcecil.websocket.messages.ActionMessage
 import com.wcecil.websocket.messanger.MessangerService;
 
 @CompileStatic
@@ -31,5 +32,11 @@ abstract class Action {
 	def cleanAnnouncment(GameState g) {
 		g.announcement = null;
 		g.announcementType = null
+	}
+	
+	static def getActionMessage(Action a){
+		new ActionMessage(sourceCard: a.sourceCard, targetCard:a.targetCard, 
+			targetPlayer:a.targetPlayer, sourcePlayer:a.sourcePlayer, 
+			type:a.class.name)
 	}
 }

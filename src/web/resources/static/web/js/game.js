@@ -239,7 +239,7 @@ function loadHistory(){
 
 function handleGameMessages(raw){
 	var msg = JSON.parse(raw.body);
-	if(msg.content == gameId){
+	if(msg.gameId == gameId){
 		if(msg.type="ENDTURN"){
 			console.log("End Turn Recieved");
 			setTimeout(getGame,100);

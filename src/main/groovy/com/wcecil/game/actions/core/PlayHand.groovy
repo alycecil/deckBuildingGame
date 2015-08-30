@@ -1,12 +1,13 @@
 package com.wcecil.game.actions.core
 
-import com.wcecil.beans.dto.GameState;
+import com.wcecil.beans.dto.GameState
 import com.wcecil.beans.gameobjects.Card
 import com.wcecil.beans.gameobjects.Player
 import com.wcecil.common.annotations.UserAction
 import com.wcecil.common.enums.AnnouncementType
 import com.wcecil.game.actions.Action
 import com.wcecil.game.core.GameController
+import com.wcecil.websocket.messanger.MessangerService
 
 @UserAction
 class PlayHand extends Action {
@@ -42,5 +43,10 @@ class PlayHand extends Action {
 
 	boolean isValid(GameState g) {
 		sourcePlayer!=null
+	}
+	
+	@Override
+	public void sendNotification(GameState g, MessangerService messangerService) {
+		messangerService.updateGame(g?.id, sourcePlayer?.userId, Action.getActionMessage(this));
 	}
 }

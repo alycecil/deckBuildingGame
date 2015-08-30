@@ -8,6 +8,8 @@ import com.wcecil.common.enums.AnnouncementType
 import com.wcecil.game.actions.Action
 import com.wcecil.game.core.GameController
 import com.wcecil.game.util.CardMovementHelper
+import com.wcecil.websocket.messages.ActionMessage
+import com.wcecil.websocket.messanger.MessangerService;
 
 @UserAction
 class BuyCard extends Action {
@@ -45,5 +47,10 @@ class BuyCard extends Action {
 		}
 
 		g.available.contains(targetCard) || inStatic
+	}
+	
+	@Override
+	public void sendNotification(GameState g, MessangerService messangerService) {
+		messangerService.updateGame(g?.id, sourcePlayer?.userId, Action.getActionMessage(this));
 	}
 }

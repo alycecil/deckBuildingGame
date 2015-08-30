@@ -5,30 +5,33 @@ import com.wcecil.websocket.messages.enums.MessageTypes;
 public class CommonMessage {
 
 	private String id;
-	private String content;
+	private Object content;
 	private String type;
+	private String gameId;
 
 	public CommonMessage(){}
 	
-	public CommonMessage(String content) {
+	public CommonMessage(Object content) {
 		this.content = content;
 		this.type = "common";
 	}
 	
-	public CommonMessage(String id, String content, MessageTypes type) {
+	public CommonMessage(String id, Object content, MessageTypes type, String gameId) {
 		this.id = id;
 		this.content = content;
 		this.type = type.name();
+		this.gameId = gameId;
 	}
 	
 	@Deprecated
-	public CommonMessage(String id, String content, String type) {
+	public CommonMessage(String id, Object content, String type, String gameId) {
 		this.id = id;
 		this.content = content;
 		this.type = type;
+		this.gameId = gameId;
 	}
 
-	public String getContent() {
+	public Object getContent() {
 		return content;
 	}
 
@@ -40,7 +43,7 @@ public class CommonMessage {
 		return type;
 	}
 
-	public void setContent(String content) {
+	public void setContent(Object content) {
 		this.content = content;
 	}
 
@@ -52,4 +55,11 @@ public class CommonMessage {
 		this.type = type;
 	}
 
+	public String getGameId() {
+		return gameId;
+	}
+
+	public void setGameId(String gameId) {
+		this.gameId = gameId;
+	}
 }

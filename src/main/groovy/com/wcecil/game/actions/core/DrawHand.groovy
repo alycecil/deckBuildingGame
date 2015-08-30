@@ -8,6 +8,7 @@ import com.wcecil.common.settings.Settings
 import com.wcecil.game.actions.Action
 import com.wcecil.game.core.GameController
 import com.wcecil.game.util.CardMovementHelper
+import com.wcecil.websocket.messanger.MessangerService;
 
 @CompileStatic
 class DrawHand extends Action {
@@ -28,5 +29,10 @@ class DrawHand extends Action {
 
 	boolean isValid(GameState g) {
 		true
+	}
+	
+	@Override
+	public void sendNotification(GameState g, MessangerService messangerService) {
+		messangerService.updateGame(g.id, targetPlayer.userId, this.class.name);
 	}
 }

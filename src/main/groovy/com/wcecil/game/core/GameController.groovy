@@ -117,7 +117,7 @@ class GameController {
 		
 		gamesRepo.save(game);
 
-		messangerService.alertUserNewGame(u.id, gameId)
+		messangerService.alertUserNewGame(u.id, gameId, gameId)
 
 		u
 	}

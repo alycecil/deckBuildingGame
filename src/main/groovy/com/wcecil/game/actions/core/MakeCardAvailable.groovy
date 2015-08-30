@@ -3,6 +3,7 @@ package com.wcecil.game.actions.core
 import com.wcecil.beans.dto.GameState;
 import com.wcecil.game.actions.Action
 import com.wcecil.game.core.GameController
+import com.wcecil.websocket.messanger.MessangerService;
 
 class MakeCardAvailable extends Action {
 String audit
@@ -20,6 +21,11 @@ String audit
 
 	public boolean isValid(GameState g) {
 		g.mainDeck!=null
+	}
+	
+	@Override
+	public void sendNotification(GameState g, MessangerService messangerService) {
+		messangerService.updateGame(g.id, null, Action.getActionMessage(this));
 	}
 
 }

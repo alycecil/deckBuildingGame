@@ -45,11 +45,11 @@ public class MaskingHelper {
 		return maskCards(mainDeck);
 	}
 
-	public List<Card> maskCards(List<Card> mainDeck) {
+	public List<Card> maskCards(List<Card> cards) {
 		List<Card> deck = new ArrayList<>();
 
 		for (@SuppressWarnings("unused")
-		Card ignored : mainDeck) {
+		Card ignored : cards) {
 			deck.add(new CardTemplate());
 		}
 		return deck;
@@ -96,8 +96,11 @@ public class MaskingHelper {
 			p2.setInplay(p.getInplay());
 			p2.setPlayed(p.getPlayed());
 
-			// TODO MASK HAND OF NOT YOU
-			p2.setHand(p.getHand());
+			if(p.getUserId() == null || (userId!=null && userId.equals(p.getUserId()))){
+				p2.setHand(p.getHand());
+			}else{
+				p2.setHand(maskCards(p.getHand()));
+			}
 		}
 		return p2;
 	}

@@ -40,6 +40,11 @@ public class UsersRepository {
 		if(user==null){
 			return null
 		}
+		
+		if(user.name == null){
+			user.name = user.login;
+		}
+		
 		if(mask){
 			user.login=null
 			user.password=null

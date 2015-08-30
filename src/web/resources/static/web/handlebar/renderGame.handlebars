@@ -4,6 +4,15 @@
   {{{announcement}}}
 </div>
 {{/if}}
+<div>
+<div class="alert alert-success centered gameTitle">
+  {{#if name}}
+    <h1>{{{name}}}</h1>
+  {{else}}
+    <h1>({{id}})</h1>
+  {{/if}}
+</div>
+</div>
 <div class="panel panel-success">
 	<div class="panel-heading">
 		<h4>Current Player <span class="playerName">{{#if currentPlayer.user}}{{currentPlayer.user.name}}{{else}}{{currentPlayer.id}}{{/if}}</span> {{#isMe currentPlayer.userId}}(You){{/isMe}} <i class="fa fa-user"></i>, {{currentPlayer.money}} <i class="fa fa-money"></i>, <span data-toggle="tooltip" title="Cards in Hand">{{currentPlayer.hand.length}} <i class="fa fa-clone"></i></span></h4>	

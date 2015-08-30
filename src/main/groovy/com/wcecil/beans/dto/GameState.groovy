@@ -19,6 +19,8 @@ import com.wcecil.game.triggers.Trigger
 class GameState {
 	@Id
 	String id
+	
+	String name;
 
 	AtomicLong ticCount = new AtomicLong(0l);
 

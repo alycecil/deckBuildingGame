@@ -4,13 +4,15 @@ package com.wcecil.game.core
 
 import groovy.transform.Synchronized
 
+import java.text.SimpleDateFormat
+
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.stereotype.Service
 
-import com.wcecil.beans.dto.GameAudit;
-import com.wcecil.beans.dto.GameSearch;
-import com.wcecil.beans.dto.GameState;
-import com.wcecil.beans.dto.User;
+import com.wcecil.beans.dto.GameAudit
+import com.wcecil.beans.dto.GameSearch
+import com.wcecil.beans.dto.GameState
+import com.wcecil.beans.dto.User
 import com.wcecil.beans.gameobjects.Player
 import com.wcecil.common.settings.Settings
 import com.wcecil.data.repositiories.GameRepository
@@ -84,6 +86,31 @@ class GameController {
 	}
 
 	public boolean addUsersToGame(List<String> userIds, String gameId){
+		GameState game = gamesRepo.getGame(gameId, false);
+		
+		def names = []
+		userIds.each{
+			String userId ->
+			User u = usersRepo.getUser(userId)
+			names << u.name
+		}
+		
+		StringBuilder name = new StringBuilder(256);
+		boolean first = true;
+		names.each{
+			if(!first){
+				name.append ' vs. '
+			}
+			name.append '<span class=playerName>'
+			name.append it
+			name.append '</span>'
+			first = false
+		}
+		
+		game.name = "$name (${new SimpleDateFormat('EEE, MMM d, \'\'yy h:mm a').format(new Date())})"
+		
+		gamesRepo.save game
+		
 		userIds.each{ userId ->
 			addUserToGame(userId, gameId)
 		}

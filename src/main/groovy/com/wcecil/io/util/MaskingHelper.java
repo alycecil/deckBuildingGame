@@ -1,4 +1,4 @@
-package com.wcecil.webservice.util;
+package com.wcecil.io.util;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -19,7 +19,7 @@ public class MaskingHelper {
 	@Autowired
 	UsersRepository usersRepo;
 	private @Autowired AuditRepository auditRepo;
-	
+
 	public GameState maskGame(String gameId, String userId, GameState g) {
 		GameState retVal = new GameState();
 
@@ -27,8 +27,8 @@ public class MaskingHelper {
 			retVal.setId(gameId);
 			retVal.setName(g.getName());
 			// retVal.setAudit(g.getAudit());
-			retVal.setCurrentPlayer(maskPlayerDetails(
-					g.getCurrentPlayer(), userId));
+			retVal.setCurrentPlayer(maskPlayerDetails(g.getCurrentPlayer(),
+					userId));
 			retVal.setPlayers(maskPlayersDetails(g, userId));
 			retVal.setTicCount(g.getTicCount());
 			retVal.setMainDeck(maskCards(g));
@@ -66,26 +66,14 @@ public class MaskingHelper {
 	}
 
 	public Player maskPlayerDetails(Player p, String userId) {
-		Player p2 = new Player();
 
 		if (p != null) {
+			Player p2 = new Player();
+
 			p2.setUserId(p.getUserId());
 			p2.setUser(p.getUser());
-			if (p2.getUser() == null && p2.getUserId() != null) {
-				User user = usersRepo.getUser(p2.getUserId());
-				if (user != null) {
-					user.setGames(null);
-					user.setPassword(null);
-					if (user.getName() == null) {
-						if (user.getLogin() == null
-								|| user.getLogin().isEmpty()) {
-							user.setLogin("[???]");
-						}
-						user.setName(user.getLogin());
-					}
-					p2.setUser(user);
-				}
-			}
+			
+			getUserDetailsMasked(p2);
 
 			p2.setId(p.getId());
 
@@ -96,12 +84,35 @@ public class MaskingHelper {
 			p2.setInplay(p.getInplay());
 			p2.setPlayed(p.getPlayed());
 
-			if(p.getUserId() == null || (userId!=null && userId.equals(p.getUserId()))){
+			if (p.getUserId() == null
+					|| (userId != null && userId.equals(p.getUserId()))) {
 				p2.setHand(p.getHand());
-			}else{
+			} else {
 				p2.setHand(maskCards(p.getHand()));
 			}
+			
+			
+			return p2;
 		}
-		return p2;
+
+		return null;
+	}
+
+	private void getUserDetailsMasked(Player p2) {
+		if (p2.getUser() == null && p2.getUserId() != null) {
+			User user = usersRepo.getUser(p2.getUserId());
+			if (user != null) {
+				user.setGames(null);
+				user.setPassword(null);
+				if (user.getName() == null) {
+					if (user.getLogin() == null
+							|| user.getLogin().isEmpty()) {
+						user.setLogin("[???]");
+					}
+					user.setName(user.getLogin());
+				}
+				p2.setUser(user);
+			}
+		}
 	}
 }

@@ -7,6 +7,8 @@ import org.springframework.messaging.simp.SimpMessagingTemplate
 import org.springframework.scheduling.annotation.Async
 import org.springframework.stereotype.Service
 
+import com.wcecil.io.util.MaskingHelper;
+import com.wcecil.websocket.messages.ActionMessage;
 import com.wcecil.websocket.messages.CommonMessage
 import com.wcecil.websocket.messages.enums.MessageTypes
 
@@ -14,6 +16,7 @@ import com.wcecil.websocket.messages.enums.MessageTypes
 @CompileStatic
 public class MessangerService {
 	private @Autowired SimpMessagingTemplate template;
+	private @Autowired MaskingHelper maskingHelper;
 	
 	@Async
 	public void sendHeartbeat(){
@@ -35,6 +38,11 @@ public class MessangerService {
 	
 	@Async
 	public void updateGame(String gameId, String userId, Object message){
+		if(message instanceof ActionMessage){
+			ActionMessage m = (ActionMessage)message;
+			m.sourcePlayer = maskingHelper.maskPlayerDetails m.sourcePlayer, null;
+			m.targetPlayer = maskingHelper.maskPlayerDetails m.targetPlayer, null;
+		}
 		CommonMessage payload = new CommonMessage(userId, message,MessageTypes.UPDATE, gameId);
 		template.convertAndSend("/topic/game.$gameId".toString(), payload );
 	}

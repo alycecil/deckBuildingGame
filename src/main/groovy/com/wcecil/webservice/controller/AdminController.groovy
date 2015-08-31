@@ -20,8 +20,8 @@ import com.wcecil.data.repositiories.GameRepository
 import com.wcecil.data.repositiories.GameSearchRepository
 import com.wcecil.data.repositiories.UsersRepository
 import com.wcecil.game.core.GameController
+import com.wcecil.io.util.MaskingHelper;
 import com.wcecil.webservice.service.AuthenticationService
-import com.wcecil.webservice.util.MaskingHelper
 import com.wcecil.websocket.messanger.MessangerService
 
 @RestController

@@ -182,7 +182,7 @@ function playAll() {
 	}else{
 	    $.ajax({
 	        url: '/game/move?id='+gameId+'&action=PlayHand&token='+token,
-	        success: renderGame
+	        success: function(){}
 	    });
     }
 }
@@ -204,7 +204,7 @@ function playCard() {
 	}else{
 	    $.ajax({
 	        url: '/game/move?id='+gameId+'&action=PlayCard&token='+token+'&sourceCard='+$(this).attr('card'),
-	        success: renderGame
+	        success: function(){}
 	    });
     }
 }
@@ -240,9 +240,26 @@ function loadHistory(){
 function handleGameMessages(raw){
 	var msg = JSON.parse(raw.body);
 	if(msg.gameId == gameId){
-		if(msg.type="ENDTURN"){
+		if(msg.type=="ENDTURN"){
 			console.log("End Turn Recieved");
 			setTimeout(getGame,100);
+		}else if(msg.type=="UPDATE"){
+			if(msg.content!=null&&msg.content.type!=null
+					&&msg.content.sourceCard!=null&&msg.content.sourceCard.id!=null
+					&&msg.content.sourcePlayer!=null&&msg.content.sourcePlayer.id!=null
+					&&msg.content.type.endsWith('PlayCard')
+				){
+				var card = $("#card-"+msg.content.sourceCard.id);
+				if(card!=null){card.remove();}
+				
+				var playerPlayedRoot = $('.played.player-'+msg.content.sourcePlayer.id);
+				playerPlayedRoot.collapse('show');
+				
+				var newCard = Handlebars.compile("{{> blankCard}}")(msg.content.sourceCard);
+				
+				playerPlayedRoot.find('.panel-body').append(newCard);
+				
+			}
 		}
 	}else{
 		console.log("should of unsubcribed this channel")

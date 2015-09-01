@@ -15,6 +15,7 @@ class DiscardCard extends Action {
 		if(targetPlayer.hand){
 			int index = ThreadLocalRandom.current().nextInt(targetPlayer.hand.size());
 			def card = targetPlayer.hand.remove(index)
+			targetCard = card;
 			targetPlayer.discard << card
 			
 			audit = "Player ${targetPlayer.id} discarded the card '${card.name}'"

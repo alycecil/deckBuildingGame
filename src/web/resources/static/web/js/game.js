@@ -7,6 +7,9 @@ var gameStomp = null;
 var userStomp = null;
 var msgCnt = 0;
 
+var currentPlayerId = null;
+var currentUserId=null;
+
 function showLogin() {
 	gameId = null;
 	var context = {}
@@ -120,7 +123,9 @@ function scrollToAnnouncement() {
 function renderGame(context){
     console.log(context);
     getTemplateAjax('handlebar/renderGame.handlebars', function(template) {
-    	gameId=context.id
+    	gameId=context.id;
+    	currentPlayerId=context.currentPlayer.id;
+    	currentUserId=context.currentPlayer.userId;
         var html = template(context);
         
         joinGameChannel();
@@ -130,9 +135,9 @@ function renderGame(context){
         $('.playCard').click(playCard);
         $('.buyCard').click(buyCard);
         $('.playAll').click(playAll);
-        $('.showHistory').click(loadHistory)
+        $('.showHistory').click(loadHistory);
         
-		$('[data-toggle="tooltip"]').tooltip()
+		$('[data-toggle="tooltip"]').tooltip();
 
         scrollToAnnouncement();
     });
@@ -237,6 +242,41 @@ function loadHistory(){
 	}
 }
 
+function updateCounts(){
+	$('.zone-count').each(function(index, element){var _ele = $(element); _ele.html($(_ele.attr('x-counttarget')).find('.card:not([style])').length)})
+}
+
+function moveCard(zone,sourceCard, sourcePlayer){
+	var card = $("#card-"+sourceCard.id);
+	if(card==null){
+		card=$('#card-:not([style]):last');
+	}
+	if(card!=null){card.fadeOut(1000);}
+	
+	var playerPlayedRoot = $('.'+zone+'.player-'+sourcePlayer.id);
+	playerPlayedRoot.collapse('show');
+	
+	var newCard = null ;
+	
+	if(zone == 'hand'){
+		newCard = Handlebars.compile("{{> playerHandCard playerId="+sourcePlayer.id+" currentPlayerId="+currentPlayerId+" currentUserId="+currentUserId+"}}")(sourceCard);
+	}else{
+		newCard = Handlebars.compile("{{> blankCard}}")(sourceCard);
+	}
+	
+	playerPlayedRoot.find('.panel-body').append(newCard);
+	
+	updateCounts();
+}
+
+function updatePlayer(player){
+	if(player!=null&&player.id!=null){
+		if(player.money!=null){
+			$('.money-total.player-'+player.id).html(player.money);
+		}
+	}
+}
+
 function handleGameMessages(raw){
 	var msg = JSON.parse(raw.body);
 	if(msg.gameId == gameId){
@@ -244,21 +284,21 @@ function handleGameMessages(raw){
 			console.log("End Turn Recieved");
 			setTimeout(getGame,100);
 		}else if(msg.type=="UPDATE"){
-			if(msg.content!=null&&msg.content.type!=null
-					&&msg.content.sourceCard!=null&&msg.content.sourceCard.id!=null
-					&&msg.content.sourcePlayer!=null&&msg.content.sourcePlayer.id!=null
-					&&msg.content.type.endsWith('PlayCard')
-				){
-				var card = $("#card-"+msg.content.sourceCard.id);
-				if(card!=null){card.fadeOut(1000);}
-				
-				var playerPlayedRoot = $('.played.player-'+msg.content.sourcePlayer.id);
-				playerPlayedRoot.collapse('show');
-				
-				var newCard = Handlebars.compile("{{> blankCard}}")(msg.content.sourceCard);
-				
-				playerPlayedRoot.find('.panel-body').append(newCard);
-				
+			if(msg.content!=null&&msg.content.type!=null){
+				if(msg.content.type.endsWith('PlayCard')){
+					moveCard('played',msg.content.sourceCard,msg.content.sourcePlayer);
+					updatePlayer(msg.content.sourcePlayer);
+				}else if(msg.content.type.endsWith('DrawCard')){
+					//moveCard('hand',msg.content.sourceCard,msg.content.sourcePlayer);
+					//updatePlayer(msg.content.sourcePlayer);
+					setTimeout(getGame,100);
+				}else if(msg.content.type.endsWith('BuyCard')){
+					moveCard('discard',msg.content.targetCard,msg.content.sourcePlayer);
+					updatePlayer(msg.content.sourcePlayer);
+				}else if(msg.content.type.endsWith('DiscardCard')){
+					moveCard('discard',msg.content.targetCard,msg.content.targetPlayer);
+					updatePlayer(msg.content.targerPlayer);
+				}
 			}
 		}
 	}else{

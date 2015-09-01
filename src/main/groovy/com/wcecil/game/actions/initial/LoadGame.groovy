@@ -1,7 +1,9 @@
 package com.wcecil.game.actions.initial
 
+import java.util.concurrent.ThreadLocalRandom
+
 import com.fasterxml.jackson.databind.ObjectMapper
-import com.wcecil.beans.dto.GameState;
+import com.wcecil.beans.dto.GameState
 import com.wcecil.beans.gameobjects.ActualCard
 import com.wcecil.beans.gameobjects.Card
 import com.wcecil.beans.gameobjects.Player
@@ -64,7 +66,7 @@ class LoadGame extends Action{
 		}
 
 		if(Settings.debug) println "setup game state with a main deck of ${g.mainDeck.size()} and a static set of ${g.staticCards.size()}"
-		Collections.shuffle(g.mainDeck)
+		Collections.shuffle(g.mainDeck, ThreadLocalRandom.current())
 
 		(1..Settings.defaultAvailableSize).each {
 			gc.doAction(g, new MakeCardAvailable(cause:this))
@@ -85,7 +87,7 @@ class LoadGame extends Action{
 			g.players << newPlayerSetup(g,cards)
 		}
 
-		Collections.shuffle(g.players)
+		Collections.shuffle(g.players, new Random())
 
 		g.currentPlayer = g.players.get(0)
 	}

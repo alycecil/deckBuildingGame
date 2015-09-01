@@ -15,7 +15,7 @@
 </div>
 <div class="panel panel-success">
 	<div class="panel-heading">
-		<h4>Current Player <span class="playerName">{{#if currentPlayer.user}}{{currentPlayer.user.name}}{{else}}{{currentPlayer.id}}{{/if}}</span> {{#isMe currentPlayer.userId}}(You){{/isMe}} <i class="fa fa-user"></i>, {{currentPlayer.money}} <i class="fa fa-money"></i>, <span data-toggle="tooltip" title="Cards in Hand">{{currentPlayer.hand.length}} <i class="fa fa-clone"></i></span></h4>	
+		<h4>Current Player <span class="playerName">{{#if currentPlayer.user}}{{currentPlayer.user.name}}{{else}}{{currentPlayer.id}}{{/if}}</span> {{#isMe currentPlayer.userId}}(You){{/isMe}} <i class="fa fa-user"></i></h4>	
 		{{#isMe currentPlayer.userId}}
 			<div class="centered">
 				<button type="button" class="btn btn-info playAll" player="{{currentPlayer.id}}">Play All</button>

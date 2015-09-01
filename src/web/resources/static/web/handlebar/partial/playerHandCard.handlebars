@@ -1,15 +1,17 @@
+{{#isMe currentUserId}}
 <div class="col-md-4 card available" id="card-{{id}}">
 	<div class="col-md-8 name"><strong>{{name}}</strong></div>
 	<div class="col-md-4">{{cost}} <i class="fa fa-money"></i></div>
 	<div class="col-md-8">{{{description}}}</div>
 	<div class="col-md-4">{{value}} <i class="fa fa-heart"></i></div>
 	{{#eq playerId currentPlayerId}}
-		{{#isMe currentUserId}}
-			<div class="col-md-12">
-				<button type="button" class="btn btn-success playCard" card="{{id}}">Play Card</button>
-			</div>
-		{{/isMe}}
+		<div class="col-md-12">
+			<button type="button" class="btn btn-success playCard" card="{{id}}">Play Card</button>
+		</div>
 	{{/eq}}
 </div>
+{{else}}
+{{> blankCard}}
+{{/isMe}}
 <!-- x-id="card-{{id}}" -->
 		

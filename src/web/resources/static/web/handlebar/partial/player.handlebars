@@ -1,27 +1,31 @@
 <div class="panel panel-info player {{#eq id currentPlayerId}}current{{/eq}}" id="player-{{id}}">
 	<div class="panel-heading">
-		<h5>Player <span class="playerName">{{#if user}}{{user.name}}{{else}}{{id}}{{/if}}</span> <i class="fa fa-user"></i>, {{money}} <i class="fa fa-money"></i></h5>
+		<h5>Player <span class="playerName">{{#if user}}{{user.name}}{{else}}{{id}}{{/if}}</span> <i class="fa fa-user"></i>, <span class="money-total player-{{id}}">{{money}}</span> <i class="fa fa-money"></i></h5>
 		<h6>
 			<span class="zone-details zone-details-hand player-{{id}}" data-toggle="tooltip" title="Cards in Hand">
-				{{hand.length}} <i class="fa fa-clone"></i>
+				<span class="zone-count" x-counttarget=".hand.player-{{id}}">{{hand.length}}</span> 
+				<i class="fa fa-clone"></i>
 			</span>
 			
 			<span class="zone-details zone-details-played player-{{id}}" data-toggle="tooltip" title="Played this turn" onclick="$('.player-{{id}}.deck').collapse('hide');$('.player-{{id}}.played').collapse('toggle');$('.player-{{id}}.discard').collapse('hide')">
-				{{played.length}} <span class="fa-stack">
+				<span class="zone-count" x-counttarget=".played.player-{{id}}">{{played.length}}</span>
+				<span class="fa-stack">
 				  <i class="fa fa-sticky-note-o fa-stack-2x"></i>
 				  <i class="fa fa-clone fa-stack-1x"></i>
 				</span>
 			</span>
 			
 			<span class="zone-details zone-details-deck player-{{id}}" data-toggle="tooltip" title="Remaining in Deck" onclick="$('.player-{{id}}.deck').collapse('toggle');$('.player-{{id}}.played').collapse('hide');$('.player-{{id}}.discard').collapse('hide')">
-				{{deck.length}} <span class="fa-stack">
+				<span class="zone-count" x-counttarget=".deck.player-{{id}}">{{deck.length}}</span>
+				<span class="fa-stack">
 				  <i class="fa fa-square-o fa-stack-2x"></i>
 				  <i class="fa fa-clone fa-stack-1x"></i>
 				</span>
 			</span>
 			
 			<span class="zone-details zone-details-discard player-{{id}}" data-toggle="tooltip" title="Discard Pile Count" onclick="$('.player-{{id}}.deck').collapse('hide');$('.player-{{id}}.played').collapse('hide');$('.player-{{id}}.discard').collapse('toggle')">
-				{{discard.length}} <span class="fa-stack">
+				<span class="zone-count" x-counttarget=".discard.player-{{id}}">{{discard.length}}</span>
+				<span class="fa-stack">
 				  <i class="fa fa-square-o fa-stack-2x"></i>
 				  <i class="fa fa-trash fa-stack-1x"></i>
 				</span>
@@ -76,13 +80,9 @@
 			</div>
 		</div>
 	</div>
-	{{#isMe userId}}
-		<div class="panel-body hand">
-			{{#each hand}}
-				{{> playerHandCard playerId=../id currentPlayerId=../currentPlayerId currentUserId=../currentUserId }}
-			{{/each}}
-		</div>
-	{{/isMe}}
+	<div class="panel-body player-{{id}} hand">
+		{{#each hand}}
+			{{> playerHandCard playerId=../id currentPlayerId=../currentPlayerId currentUserId=../currentUserId }}
+		{{/each}}
+	</div>
 </div>
-<!--x-id="player-{{id}}"-->
-

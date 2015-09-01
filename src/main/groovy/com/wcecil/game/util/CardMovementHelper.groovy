@@ -2,6 +2,8 @@ package com.wcecil.game.util
 
 import groovy.transform.CompileStatic
 
+import java.util.concurrent.ThreadLocalRandom
+
 import com.wcecil.beans.dto.GameState
 import com.wcecil.beans.gameobjects.Card
 import com.wcecil.beans.gameobjects.Player
@@ -40,7 +42,7 @@ class CardMovementHelper {
 		if(p.discard){
 			p.deck.addAll(p.discard)
 			p.discard.clear()
-			Collections.shuffle(p.deck)
+			Collections.shuffle(p.deck, ThreadLocalRandom.current())
 			return true
 		}
 		false

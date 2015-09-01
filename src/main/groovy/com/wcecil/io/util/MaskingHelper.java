@@ -1,6 +1,7 @@
 package com.wcecil.io.util;
 
 import java.util.ArrayList;
+import java.util.Comparator;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -54,6 +55,22 @@ public class MaskingHelper {
 		}
 		return deck;
 	}
+	
+	private List<Card> maskOrderCards(List<Card> cards) {
+		List<Card> deck = new ArrayList<>();
+
+		for (Card card : cards) {
+			deck.add(card);
+		}
+		
+		deck.sort(new Comparator<Card>() {
+			@Override
+			public int compare(Card o1, Card o2) {
+				return o1.getName().compareTo(o2.getName());
+			}
+		});
+		return deck;
+	}
 
 	public List<Player> maskPlayersDetails(GameState g, String userId) {
 		List<Player> players = new ArrayList<>();
@@ -79,11 +96,12 @@ public class MaskingHelper {
 
 			p2.setMoney(p.getMoney());
 
-			p2.setDeck(maskCards(p.getDeck()));
+			p2.setDeck(maskOrderCards(p.getDeck()));
 			p2.setDiscard(p.getDiscard());
 			p2.setInplay(p.getInplay());
 			p2.setPlayed(p.getPlayed());
 
+			
 			if (p.getUserId() == null
 					|| (userId != null && userId.equals(p.getUserId()))) {
 				p2.setHand(p.getHand());

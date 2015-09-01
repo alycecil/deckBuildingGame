@@ -6,27 +6,78 @@
 				{{hand.length}} <i class="fa fa-clone"></i>
 			</span>
 			
-			<span class="zone-details zone-details-played player-{{id}}" data-toggle="tooltip" title="Played this turn">
+			<span class="zone-details zone-details-played player-{{id}}" data-toggle="tooltip" title="Played this turn" onclick="$('.player-18.deck').collapse('hide');$('.player-18.played').collapse('toggle');$('.player-18.discard').collapse('hide')">
 				{{played.length}} <span class="fa-stack">
 				  <i class="fa fa-sticky-note-o fa-stack-2x"></i>
 				  <i class="fa fa-clone fa-stack-1x"></i>
 				</span>
 			</span>
 			
-			<span class="zone-details zone-details-deck player-{{id}}" data-toggle="tooltip" title="Remaining in Deck">
+			<span class="zone-details zone-details-deck player-{{id}}" data-toggle="tooltip" title="Remaining in Deck" onclick="$('.player-18.deck').collapse('toggle');$('.player-18.played').collapse('hide');$('.player-18.discard').collapse('hide')">
 				{{deck.length}} <span class="fa-stack">
 				  <i class="fa fa-square-o fa-stack-2x"></i>
 				  <i class="fa fa-clone fa-stack-1x"></i>
 				</span>
 			</span>
 			
-			<span class="zone-details zone-details-discard player-{{id}}" data-toggle="tooltip" title="Discard Pile Count">
+			<span class="zone-details zone-details-discard player-{{id}}" data-toggle="tooltip" title="Discard Pile Count" onclick="$('.player-18.deck').collapse('hide');$('.player-18.played').collapse('hide');$('.player-18.discard').collapse('toggle')">
 				{{discard.length}} <span class="fa-stack">
 				  <i class="fa fa-square-o fa-stack-2x"></i>
 				  <i class="fa fa-trash fa-stack-1x"></i>
 				</span>
 			</span>
 		</h6>
+		<div class="panel panel-warning played player-{{id}} collapse">
+			<div class="panel-heading played">
+				<span class="zone-details zone-details-played player-{{id}}" data-toggle="tooltip" title="Played this turn">
+					<span class="fa-stack">
+					  <i class="fa fa-sticky-note-o fa-stack-2x"></i>
+					  <i class="fa fa-clone fa-stack-1x"></i>
+					</span>
+					Played
+					{{played.length}}
+				</span>
+			</div>
+			<div class="panel-body played">
+				{{#each played}}
+					{{> blankCard}}
+				{{/each}}
+			</div>
+		</div>
+		<div class="panel panel-warning deck player-{{id}} collapse">
+			<div class="panel-heading deck">
+				<span class="zone-details zone-details-deck player-{{id}}" data-toggle="tooltip" title="Remaining in Deck">
+					<span class="fa-stack">
+					  <i class="fa fa-square-o fa-stack-2x"></i>
+					  <i class="fa fa-clone fa-stack-1x"></i>
+					</span>
+					Deck
+					{{deck.length}}
+				</span>
+			</div>
+			<div class="panel-body deck">
+				{{#each deck}}
+					{{> blankCard}}
+				{{/each}}
+			</div>
+		</div>
+		<div class="panel panel-warning discard player-{{id}} collapse">
+			<div class="panel-heading discard">
+				<span class="zone-details zone-details-discard player-{{id}}" data-toggle="tooltip" title="Discard Pile Count">
+					<span class="fa-stack">
+					  <i class="fa fa-square-o fa-stack-2x"></i>
+					  <i class="fa fa-trash fa-stack-1x"></i>
+					</span>
+					Discard
+					{{discard.length}} 
+				</span>
+			</div>
+			<div class="panel-body discard">
+				{{#each discard}}
+					{{> blankCard}}
+				{{/each}}
+			</div>
+		</div>
 	</div>
 	{{#isMe userId}}
 		<div class="panel-body hand">

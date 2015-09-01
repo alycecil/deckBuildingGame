@@ -22,12 +22,12 @@ class PlayCard extends Action {
 		if(sourceCard.draw){
 			drawCards(g, sourcePlayer, sourceCard.draw, gc)
 		}
+		
+		CardMovementHelper.playCard(sourcePlayer, sourceCard)
 
 		if(sourceCard.specialActionScript){
 			sourceCard.specialAction(g, sourcePlayer, targetPlayer, gc)
 		}
-
-		CardMovementHelper.playCard(sourcePlayer, sourceCard)
 
 		audit = "Player ${sourcePlayer.id} played the card '${sourceCard.name}'"
 	}

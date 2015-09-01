@@ -250,7 +250,7 @@ function handleGameMessages(raw){
 					&&msg.content.type.endsWith('PlayCard')
 				){
 				var card = $("#card-"+msg.content.sourceCard.id);
-				if(card!=null){card.remove();}
+				if(card!=null){card.fadeOut(1000);}
 				
 				var playerPlayedRoot = $('.played.player-'+msg.content.sourcePlayer.id);
 				playerPlayedRoot.collapse('show');

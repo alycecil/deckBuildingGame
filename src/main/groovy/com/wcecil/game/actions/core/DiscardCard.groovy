@@ -2,10 +2,10 @@ package com.wcecil.game.actions.core
 
 import java.util.concurrent.ThreadLocalRandom
 
-import com.wcecil.beans.dto.GameState;
+import com.wcecil.beans.dto.GameState
 import com.wcecil.game.actions.Action
-import com.wcecil.game.core.GameController;
-import com.wcecil.websocket.messanger.MessangerService;
+import com.wcecil.game.core.GameController
+import com.wcecil.websocket.messanger.MessangerService
 
 class DiscardCard extends Action {
 

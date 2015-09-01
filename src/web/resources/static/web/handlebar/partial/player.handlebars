@@ -6,21 +6,21 @@
 				{{hand.length}} <i class="fa fa-clone"></i>
 			</span>
 			
-			<span class="zone-details zone-details-played player-{{id}}" data-toggle="tooltip" title="Played this turn" onclick="$('.player-18.deck').collapse('hide');$('.player-18.played').collapse('toggle');$('.player-18.discard').collapse('hide')">
+			<span class="zone-details zone-details-played player-{{id}}" data-toggle="tooltip" title="Played this turn" onclick="$('.player-{{id}}.deck').collapse('hide');$('.player-{{id}}.played').collapse('toggle');$('.player-{{id}}.discard').collapse('hide')">
 				{{played.length}} <span class="fa-stack">
 				  <i class="fa fa-sticky-note-o fa-stack-2x"></i>
 				  <i class="fa fa-clone fa-stack-1x"></i>
 				</span>
 			</span>
 			
-			<span class="zone-details zone-details-deck player-{{id}}" data-toggle="tooltip" title="Remaining in Deck" onclick="$('.player-18.deck').collapse('toggle');$('.player-18.played').collapse('hide');$('.player-18.discard').collapse('hide')">
+			<span class="zone-details zone-details-deck player-{{id}}" data-toggle="tooltip" title="Remaining in Deck" onclick="$('.player-{{id}}.deck').collapse('toggle');$('.player-{{id}}.played').collapse('hide');$('.player-{{id}}.discard').collapse('hide')">
 				{{deck.length}} <span class="fa-stack">
 				  <i class="fa fa-square-o fa-stack-2x"></i>
 				  <i class="fa fa-clone fa-stack-1x"></i>
 				</span>
 			</span>
 			
-			<span class="zone-details zone-details-discard player-{{id}}" data-toggle="tooltip" title="Discard Pile Count" onclick="$('.player-18.deck').collapse('hide');$('.player-18.played').collapse('hide');$('.player-18.discard').collapse('toggle')">
+			<span class="zone-details zone-details-discard player-{{id}}" data-toggle="tooltip" title="Discard Pile Count" onclick="$('.player-{{id}}.deck').collapse('hide');$('.player-{{id}}.played').collapse('hide');$('.player-{{id}}.discard').collapse('toggle')">
 				{{discard.length}} <span class="fa-stack">
 				  <i class="fa fa-square-o fa-stack-2x"></i>
 				  <i class="fa fa-trash fa-stack-1x"></i>
